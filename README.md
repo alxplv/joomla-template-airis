@@ -1,2 +1,2 @@
-# joomla-template-airis
-A simple Joomla! template for personal needs.
+# Airis Template for Joomla!
+This is a simple Joomla! template for personal needs.
