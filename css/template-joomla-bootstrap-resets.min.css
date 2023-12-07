@@ -1,0 +1,119 @@
+@charset "utf-8";
+
+/* Joomla! Bootstrap resets */
+
+/* Generic */
+address {
+	margin: 0;
+	line-height: normal;
+}
+
+body {
+	font-family: sans-serif;
+	font-size: medium;
+	line-height: normal;
+}
+
+form {
+	margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	line-height: normal;
+}
+
+button,
+label,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+	display: inline-block;
+	box-sizing: border-box;
+	font-size: 1rem;
+	line-height: normal;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+}
+
+textarea,
+select,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+	display: block;
+	box-sizing: border-box;
+	margin: 0;
+	font-size: 1rem;
+	line-height: normal;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	min-width: 0;
+}
+
+.unstyled {
+	margin: 0;
+}
+
+dl {
+	margin: 0;
+}
+
+dt,
+dd {
+	line-height: normal;
+}
+
+dt {
+	font-weight: 400;
+}
+
+li {
+	line-height: normal;
+}
+
+p {
+	margin: 0 0 .75rem;
+}
+
+.page-header {
+	border-bottom: none;
+}
+
+@media (max-width: 767.98px) {
+	body {
+		padding: 0;
+	}
+
+	nav.navbar {
+		margin-left: 1rem;
+		margin-right: 1rem;
+	}
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+	margin: 0;
+}
+
+.breadcrumb > .active:first-child {
+	display: none;
+}
