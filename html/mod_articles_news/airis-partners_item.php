@@ -114,7 +114,7 @@ if ($itemImageContainerContent && $itemPartnerUrl) {
 
     <?php if ($params->get('item_title')) : ?>
 
-        <div class="airis-module-partners__title-container airis-module-page-header">
+        <div class="airis-module-partners__title-container airis-module-header airis-header">
             <?php
                 $itemHeadingTag = $params->get('item_heading', 'h4');
 
