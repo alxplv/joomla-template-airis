@@ -200,7 +200,12 @@ if ($itemImageContainerContent && $itemPartnerUrl) {
                 ); */
             ?>
 
-            <?php echo HTMLHelper::link($item->link, $item->linkText, $readmoreLinkAttributes); ?>
+            <?php echo HTMLHelper::link(
+                $item->link,
+                htmlspecialchars(trim($item->linkText), ENT_QUOTES, 'UTF-8'),
+                $readmoreLinkAttributes,
+                );
+            ?>
         </div>
 
     <?php endif; ?>
