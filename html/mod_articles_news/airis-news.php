@@ -19,8 +19,7 @@ $moduleSublayoutFileName = ModuleHelper::getLayoutPath('mod_articles_news', path
 
         <ul class="airis-module-news-list unstyled">
             <?php
-                foreach ($list as $item)
-                {
+                foreach ($list as $item) {
                     require $moduleSublayoutFileName;
                 }
             ?>
