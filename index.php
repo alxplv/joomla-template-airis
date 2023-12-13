@@ -315,7 +315,7 @@ foreach ($modulePositionGroups as &$modulePositionGroup) {
     }
 }
 
-function RenderModulePositionGroup(array $groupSettings, Document $currentDocument)
+function renderModulePositionGroup(array $groupSettings, Document $currentDocument)
 {
     // Contains HTML for every non-empty module position of its group
     $groupHtml = '';
@@ -350,7 +350,7 @@ function RenderModulePositionGroup(array $groupSettings, Document $currentDocume
 
         <?php if ($modulePositionGroups['header']['hasModules']) : ?>
             <header>
-                <?php echo RenderModulePositionGroup($modulePositionGroups['header'], $currentDocument); ?>
+                <?php echo renderModulePositionGroup($modulePositionGroups['header'], $currentDocument); ?>
             </header>
         <?php endif; ?>
 
@@ -378,7 +378,7 @@ function RenderModulePositionGroup(array $groupSettings, Document $currentDocume
             </div>
         </div>
 
-        <?php echo RenderModulePositionGroup($modulePositionGroups['before'], $currentDocument); ?>
+        <?php echo renderModulePositionGroup($modulePositionGroups['before'], $currentDocument); ?>
 
         <?php if ($componentEnabled) : ?>
             <div class="airis-area-component">
@@ -418,16 +418,16 @@ function RenderModulePositionGroup(array $groupSettings, Document $currentDocume
             </div>
         <?php endif; ?>
 
-        <?php echo RenderModulePositionGroup($modulePositionGroups['after'], $currentDocument); ?>
+        <?php echo renderModulePositionGroup($modulePositionGroups['after'], $currentDocument); ?>
 
         <?php if ($modulePositionGroups['footer']['hasModules']) : ?>
             <footer>
-                <?php echo RenderModulePositionGroup($modulePositionGroups['footer'], $currentDocument); ?>
+                <?php echo renderModulePositionGroup($modulePositionGroups['footer'], $currentDocument); ?>
             </footer>
         <?php endif; ?>
 
         <?php if ($modulePositionGroups['off-screen']['hasModules']) : ?>
-            <?php echo RenderModulePositionGroup($modulePositionGroups['off-screen']), $currentDocument; ?>
+            <?php echo renderModulePositionGroup($modulePositionGroups['off-screen']), $currentDocument; ?>
         <?php endif; ?>
 
         <?php if ($this->countModules('debug')) : ?>
