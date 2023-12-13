@@ -5,65 +5,106 @@ defined('_JEXEC') or exit;
 
 // Joomla! imports
 use Joomla\CMS\HTML\HTMLHelper;
+// use Joomla\CMS\Filter\FilterOutput;
+use Joomla\Filter\OutputFilter;
+
+$moduleClassPrefix = 'airis-module-menu-flat';
 
 // Output only items with these menu item types
-$allowedItemTypes = array('alias', 'component', 'url');
+$allowedItemTypes = [
+    'alias',
+    'component',
+    'url',
+];
 
 // Selection of Joomla!'s menu item options to be used as HTML link tag attributes
-$usableLinkAttributes = array(
-	'class' => 'anchor_css',
-	'title' => 'anchor_title',
-	'rel' => 'anchor_rel'
-);
+$usableLinkAttributes = [
+    'class' => 'anchor_css',
+    'title' => 'anchor_title',
+    'rel' => 'anchor_rel',
+];
 
 ?>
 
-<div class="<?php echo 'airis-module-menu', $class_sfx; ?>" id="<?php echo $params->get('tag_id', 'airis-module-menu-' . $module->id); ?>">
-	<?php foreach ($list as $menu_item) : ?>
-		<?php if (in_array($menu_item->type, $allowedItemTypes)) : ?>
+<div class="<?php echo $moduleClassPrefix, $class_sfx; ?>" id="<?php echo $params->get('tag_id', "$moduleClassPrefix-$module->id"); ?>">
 
-			<?php
-				$itemContainerClasses = "item-$menu_item->id airis-module-menu-item";
+    <?php // TODO: Replace is_array() && instanceof Countable with is_countable() once we're on PHP 7.3+ for good ?>
+    <?php if (isset($list) && is_array($list) && $list instanceof Countable) : ?>
+        <?php
+            $menuItemsTotal = count($list);
 
-				$itemAnchorCSS = htmlspecialchars(trim($menu_item->anchor_css));
+            // Remove menu items types not suitable for a flat link list output
+            if ($menuItemsTotal) {
+                for ($i = 0; $i < $menuItemsTotal; $i++) {
+                    if (!in_array($list[$i]->type, $allowedItemTypes)) {
+                        unset($list[$i]);
+                    }
+                }
 
-				// Prefix all defined menu item classes for their use by item container
-				if (!empty($itemAnchorCSS))
-				{
-					$itemAnchorCSSChunks = explode(' ', $itemAnchorCSS);
+                // Just in case
+                $list = array_values($list);
+                $menuItemsTotal = count($list);
+            }
 
-					foreach ($itemAnchorCSSChunks as $itemAnchorCSSChunk)
-					{
-						$itemContainerClasses .= ' ' . $itemAnchorCSSChunk;
-					}
-				}
-			?>
+            $menuHasItems = (bool) $menuItemsTotal;
+        ?>
 
-			<div class="<?php echo $itemContainerClasses; ?>">
-				<?php
-					$menuItemLinkAttributes = array('class' => 'airis-module-menu-item-link ');
+        <?php if ($menuHasItems) : ?>
+            <ul class="<?php echo $moduleClassPrefix; ?>__list unstyled">
 
-					// Process menu item options into array of applicable link attributes
-					foreach ($usableLinkAttributes as $linkAttributeName => $linkAttributeValueRaw)
-					{
-						// Joomla! doesn't care about whitespace or special characters but we do
-						$linkAttributeValue = htmlspecialchars(trim($menu_item->$linkAttributeValueRaw));
+                <?php foreach ($list as $menuItem) : ?>
+                    <?php
+                        $itemContainerClasses = "{$moduleClassPrefix}__item module-menu-item-$menuItem->id item-$menuItem->id";
+                        $itemAnchorCSS = htmlspecialchars(trim($menuItem->anchor_css));
 
-						if (!empty($linkAttributeValue))
-						{
-							$menuItemLinkAttributes[$linkAttributeName] .= $linkAttributeValue;
-						}
-					}
+                        // Prefix all defined menu item classes for their use by item container
+                        if ($itemAnchorCSS !== '') {
+                            $itemAnchorCSSChunks = explode(' ', $itemAnchorCSS);
 
-					$menuItemLinkAttributes['class'] = trim($menuItemLinkAttributes['class']);
+                            foreach ($itemAnchorCSSChunks as $itemAnchorCSSChunk) {
+                                $itemContainerClasses .= " $itemAnchorCSSChunk";
+                            }
+                        }
+                    ?>
 
-					// Express both positive Target Window option values as target="_blank" attribute
-					if ($menu_item->browserNav) $menuItemLinkAttributes['target'] = '_blank';
+                    <li class="<?php echo $itemContainerClasses; ?>">
+                        <?php
+                            $menuItemLinkAttributes = [
+                                'class' => "{$moduleClassPrefix}__link module-menu-link-$menuItem->id",
+                            ];
 
-					echo HTMLHelper::link($menu_item->flink, htmlspecialchars(trim($menu_item->title)), $menuItemLinkAttributes);
-				?>
-			</div>
+                            // Process menu item options into array of applicable link attributes
+                            foreach ($usableLinkAttributes as $linkAttributeName => $linkAttributeValueRaw) {
+                                // Joomla! doesn't care about whitespace or special characters but we do
+                                $linkAttributeValue = htmlspecialchars(trim($menuItem->$linkAttributeValueRaw));
 
-		<?php endif; ?>
-	<?php endforeach; ?>
+                                if ($linkAttributeValue !== '') {
+                                    $menuItemLinkAttributes[$linkAttributeName] .= $linkAttributeValue;
+                                }
+                            }
+
+                            $menuItemLinkAttributes['class'] = trim($menuItemLinkAttributes['class']);
+
+                            // Express both positive Target Window option values as target="_blank" attribute
+                            if ($menuItem->browserNav) {
+                                $menuItemLinkAttributes['target'] = '_blank';
+                            }
+
+                            // TODO: Not sure if we need ampReplace filter at all
+                            echo HTMLHelper::link(
+                                // FilterOutput::ampReplace($menuItem->flink),
+                                OutputFilter::ampReplace($menuItem->flink),
+                                htmlspecialchars(trim($menuItem->title)),
+                                $menuItemLinkAttributes,
+                            );
+                        ?>
+                    </li>
+
+                <?php endforeach; ?>
+
+            </ul>
+        <?php endif; ?>
+
+    <?php endif; ?>
+
 </div>
