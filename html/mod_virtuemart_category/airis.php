@@ -5,6 +5,7 @@ defined('_JEXEC') or exit;
 
 // Joomla! imports
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 // Process module data and options
 $menuClassSuffix = airisPrepareHTMLClassSuffix($params->get('class_sfx', ''));
