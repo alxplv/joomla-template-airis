@@ -6,126 +6,191 @@ defined('_JEXEC') or exit;
 // Joomla! imports
 use Joomla\CMS\HTML\HTMLHelper;
 
-// Base category link href string for Joomla! Router
-$categoryHrefBase = 'index.php?option=com_virtuemart&view=category&virtuemart_category_id=';
+// Process module data and options
+$menuClassSuffix = airisPrepareHTMLClassSuffix($params->get('class_sfx', ''));
+$moduleClassSuffix = airisPrepareHTMLClassSuffix($params->get('moduleclass_sfx', ''));
+// TODO: Replace is_array() && instancof Countable with is_countable() once we're on PHP 7.3+ for good
+$moduleHasCategories = isset($categories) && is_array($categories) && $categories instanceof Countable && count($categories);
 
-// Marker used to skip unnecessary checks
-$isActiveCategoryNotFound = true;
+function airisPrepareHTMLClassSuffix(string $classSuffix)
+{
+    // Not using trim() here to keep possible and perfectly acceptable leading whitespace
+    $classSuffix = htmlspecialchars(rtrim($classSuffix), ENT_QUOTES, 'UTF-8');
+
+    // Remove non-singular whitespaces
+    $classSuffix = preg_replace('/\s{2,}/', ' ', $classSuffix);
+
+    return $classSuffix;
+}
 
 ?>
 
-<div class="airis-module-menu virtuemart-module-category<?php echo $class_sfx; ?>">
+<div class="airis-module-virtuemart-category<?php echo $moduleClassSuffix; ?>">
 
-	<?php foreach ($categories as $category) : ?>
+    <?php if ($moduleHasCategories) : ?>
 
-		<?php
-			// Apply additional classes for all elements related to active category link
-			$categoryMenuItemClasses = 'airis-module-menu-item virtuemart-module-category-item';
+        <?php
+            // Base category link href string for Joomla! Router
+            $categoryHrefBase = 'index.php?option=com_virtuemart&view=category&virtuemart_category_id=';
 
-			if ($isActiveCategoryNotFound)
-			{
-				if ($category->virtuemart_category_id == $active_category_id)
-				{
-					$isActiveCategoryNotFound = false;
-					$isActiveCategory = true;
-					$categoryMenuItemClasses .= ' airis-module-menu-item-active virtuemart-module-category-item-active';
-				}
-			}
-		?>
+            // Marker used to skip unnecessary checks
+            $isActiveLevel0CategoryFound = false;
+        ?>
 
-		<div class="<?php echo $categoryMenuItemClasses; ?>">
+        <ul class="airis-module-virtuemart-category__list_level_0 airis-module-virtuemart-category__list<?php echo $menuClassSuffix; ?> unstyled">
+            <?php foreach ($categories as $level0Category) : ?>
 
-			<?php
-				$categoryLinkClasses = 'airis-module-menu-item-link virtuemart-module-category-item-link';
-				if ($isActiveCategory) $categoryLinkClasses .= ' airis-module-menu-item-link-active virtuemart-module-category-item-link-active';
-				$categoryLink = HTMLHelper::link($categoryHrefBase . $category->virtuemart_category_id, htmlspecialchars(trim(vmText::_($category->category_name))), array('class' => $categoryLinkClasses));
-			?>
+                <?php
+                    $level0CategoryItemClasses = 'airis-module-virtuemart-category__item_level_0 airis-module-virtuemart-category__item';
 
-			<?php if ($level >= 1 && !empty($category->childs)) : ?>
+                    // Apply additional classes to active category link and its containing list item
+                    if (!$isActiveLevel0CategoryFound) {
+                        if ($level0Category->virtuemart_category_id === $active_category_id) {
+                            $isActiveLevel0CategoryFound = true;
+                            $isActiveLevel0Category = true;
+                            // $level0CategoryItemClasses .= ' airis-module-virtuemart-category__item_active';
+                            // Insert additonal class at the middle of existing class list than just appending it
+                            $level0CategoryItemClasses = substr_replace(
+                                $level0CategoryItemClasses,
+                                ' airis-module-virtuemart-category__item_active',
+                                strpos($level0CategoryItemClasses, '0'), // The $needle here represents menu item level here so it can be easily leveraged in case if we ever rewrite this layout to support any number of nested categories
+                                0,
+                            );
+                        }
+                    }
+                ?>
 
-				<?php
-					$categoryLinkContainerClasses = 'airis-module-menu-item-link-container virtuemart-module-category-item-link-container';
-					if ($isActiveCategory) $categoryLinkContainerClasses .= ' airis-module-menu-item-link-container-active virtuemart-module-category-item-link-container-active';
-				?>
+                <li class="<?php echo $level0CategoryItemClasses; ?>">
 
-				<div class="<?php echo $categoryLinkContainerClasses; ?>">
-					<?php echo $categoryLink; ?>
-				</div>
+                    <?php
+                        if ($isActiveLevel0Category) {
+                            $level0CategoryLinkClasses = 'airis-module-virtuemart-category__link_level_0 airis-module-virtuemart-category__link_active airis-module-virtuemart-category__link';
+                        } else {
+                            $level0CategoryLinkClasses = 'airis-module-virtuemart-category__link_level_0 airis-module-virtuemart-category__link';
+                        }
 
-				<div class="airis-module-menu-item-items virtuemart-module-category-item-items">
+                        $level0CategoryLink = HTMLHelper::link(
+                            $categoryHrefBase . $level0Category->virtuemart_category_id,
+                            htmlspecialchars(trim(vmText::_($level0Category->category_name)), ENT_QUOTES, 'UTF-8'),
+                           ['class' => $level0CategoryLinkClasses],
+                        );
+                    ?>
 
-					<?php foreach ($category->childs as $childCategory) : ?>
+                    <?php // TODO: Replace is_array() with is_countable once we are on PHP 7.3+ for good ?>
+                    <?php if ($level >= 1 && isset($level0Category->childs) && is_array($level0Category->childs) && count($level0Category->childs)) : ?>
 
-						<?php
-							$childCategoryMenuItemClasses = 'airis-module-menu-item-items-item virtuemart-module-category-item-items-item';
+                        <?php // Additional container element for simplier CSS styling in presense of child categories list element ?>
+                        <?php if ($isActiveLevel0Category) : ?>
+                            <div class="airis-module-virtuemart-category__link-container_level_0 airis-module-virtuemart-category__link-container_active airis-module-virtuemart-category__link-container">
+                        <?php else : ?>
+                            <div class="airis-module-virtuemart-category__link-container_level_0 airis-module-virtuemart-category__link-container">
+                        <?php endif; ?>
+                            <?php echo $level0CategoryLink; ?>
+                        </div>
 
-							if ($isActiveCategoryNotFound)
-							{
-								if (in_array($childCategory->virtuemart_category_id, $parentCategories))
-								{
-									$isActiveChildCategory = true;
-									$childCategoryMenuItemClasses .= ' airis-module-menu-item-items-item-active virtuemart-module-category-item-items-item-active';
-								}
-							}
-						?>
+                        <ul class="airis-module-virtuemart-category__list_level_1 airis-module-virtuemart-category__list<?php echo $menuClassSuffix; ?> unstyled">
 
-						<div class="<?php echo $childCategoryMenuItemClasses; ?>">
+                            <?php foreach ($level0Category->childs as $level1Category) : ?>
 
-							<?php
-								$childCategoryLinkClasses = 'airis-module-menu-item-link airis-module-menu-item-items-item-link virtuemart-module-category-item-link virtuemart-module-category-item-items-item-link';
-								if ($isActiveChildCategory) $childCategoryLinkClasses .= ' airis-module-menu-item-link-active airis-module-menu-item-items-item-link-active virtuemart-module-category-item-link-active virtuemart-module-category-item-items-item-link-active';
-								$childCategoryLink = HTMLHelper::link($categoryHrefBase . $childCategory->virtuemart_category_id, htmlspecialchars(trim(vmText::_($childCategory->category_name))), array('class' => $childCategoryLinkClasses));
-							?>
+                                <?php
+                                    $level1CategoryItemClasses = 'airis-module-virtuemart-category__item_level_1 airis-module-virtuemart-category__item';
 
-							<?php if ($level >= 2 && !empty($childCategory->childs)) : ?>
+                                    if (!$isActiveLevel0CategoryFound) {
+                                        if (in_array($level1Category->virtuemart_category_id, $parentCategories)) {
+                                            $isActiveLevel1Category = true;
+                                            $level1CategoryItemClasses = substr_replace(
+                                                $level1CategoryItemClasses,
+                                                ' airis-module-virtuemart-category__item_active',
+                                                strpos($level1CategoryItemClasses, '1'),
+                                                0,
+                                            );
+                                        }
+                                    }
+                                ?>
 
-								<?php
-									$childCategoryLinkContainerClasses = 'airis-module-menu-item-items-item-link-container virtuemart-module-category-item-items-item';
-									if ($isActiveChildCategory) $childCategoryLinkContainerClasses .= 'airis-module-menu-item-items-item-link-container-active virtuemart-module-category-item-items-item-active';
-								?>
+                                <li class="<?php echo $level1CategoryItemClasses; ?>">
 
-								<div class="<?php echo $childCategoryLinkContainerClasses; ?>">
-									<?php echo $childCategoryLink; ?>
-								</div>
+                                    <?php
+                                        if ($isActiveLevel1Category) {
+                                            $level1CategoryLinkClasses = 'airis-module-virtuemart-category__link_level_1 airis-module-virtuemart-category__link_active airis-module-virtuemart-category__link';
+                                        } else {
+                                            $level1CategoryLinkClasses = 'airis-module-virtuemart-category__link_level_1 airis-module-virtuemart-category__link';
+                                        }
 
-								<div class="airis-module-menu-item-items-item-items virtuemart-module-category-item-items">
+                                        $level1CategoryLink = HTMLHelper::link(
+                                            $categoryHrefBase . $level1Category->virtuemart_category_id,
+                                            htmlspecialchars(trim(vmText::_($level1Category->category_name)), ENT_QUOTES, 'UTF-8'),
+                                            ['class' => $level1CategoryLinkClasses],
+                                        );
+                                    ?>
 
-									<?php foreach ($childCategory->childs as $childChildCategory) : ?>
+                                    <?php if ($level >= 2 && !empty($level1Category->childs)) : ?>
 
-										<?php
-											$isActiveChildChildCategory = in_array($childChildCategory->virtuemart_category_id, $parentCategories);
-											
-											$childChildCategoryMenuItemClasses = 'airis-module-menu-item-items-item-items-item virtuemart-module-category-item-items-item';
-											$childChildCategoryLinkClasses = 'airis-module-menu-item-link airis-module-menu-item-items-item-items-item-link virtuemart-module-category-item-items-item-link';
-											
-											if ($isActiveChildChildCategory)
-											{
-												$childChildCategoryMenuItemClasses .= ' airis-module-menu-item-items-item-items-item-active virtuemart-module-category-item-items-item-active';
-												$childChildCategoryLinkClasses .= ' airis-module-menu-item-link-active airis-module-menu-item-items-item-items-item-link-active virtuemart-module-category-item-items-item-link-active';
-											}
-										?>
+                                        <?php if ($isActiveLevel1Category) : ?>
+                                            <div class="airis-module-virtuemart-category__link-container_level_1 airis-module-virtuemart-category__link-container_active airis-module-virtuemart-category__link-container">
+                                        <?php else : ?>
+                                            <div class="airis-module-virtuemart-category__link-container_level_1 airis-module-virtuemart-category__link-container">
+                                        <?php endif; ?>
+                                            <?php echo $level1CategoryLink; ?>
+                                        </div>
 
-										<div class="<?php echo $childChildCategoryMenuItemClasses; ?>">
-											<?php echo HTMLHelper::link($categoryHrefBase . $childChildCategory->virtuemart_category_id, htmlspecialchars(trim(vmText::_($childChildCategory->category_name))), array('class' => $childChildCategoryLinkClasses)); ?>
-										</div>
-									<?php endforeach; ?>
+                                        <ul class="airis-module-virtuemart-category__list_level_2 airis-module-virtuemart-category__list<?php echo $menuClassSuffix; ?> unstyled">
 
-								</div>
+                                            <?php foreach ($level1Category->childs as $level2Category) : ?>
 
-							<?php else : ?>
-								<?php echo $childCategoryLink; ?>
-							<?php endif; ?>
+                                                <?php
+                                                    // If this category is currently being browsed
+                                                    if (in_array($level2Category->virtuemart_category_id, $parentCategories))
+                                                    {
+                                                        $level2CategoryItemClasses = 'airis-module-virtuemart-category__item_level_2 airis-module-virtuemart-category__link_active airis-module-virtuemart-category__item';
+                                                        $level2CategoryLinkClasses = 'airis-module-virtuemart-category__link_level_2 airis-module-virtuemart-category__link_active airis-module-virtuemart-category__link';
+                                                    } else {
+                                                        $level2CategoryItemClasses = 'airis-module-virtuemart-category__item_level_2 airis-module-virtuemart-category__item';
+                                                        $level2CategoryLinkClasses = 'airis-module-virtuemart-category__link_level_2 airis-module-virtuemart-category__link';
+                                                    }
 
-						</div>
-					<?php endforeach; ?>
+                                                    $level2CategoryLink = HTMLHelper::link(
+                                                        $categoryHrefBase . $level2Category->virtuemart_category_id,
+                                                        htmlspecialchars(trim(vmText::_($level2Category->category_name)), ENT_QUOTES, 'UTF-8'),
+                                                        ['class' => $level2CategoryLinkClasses],
+                                                    );
+                                                ?>
 
-				</div>
+                                                <li class="<?php echo $level2CategoryItemClasses; ?>">
+                                                    <?php echo $level2CategoryLink; ?>
+                                                </li>
 
-			<?php else : ?>
-				<?php echo $categoryLink; ?>
-			<?php endif; ?>
+                                            <?php endforeach; ?>
 
-		</div>
-	<?php endforeach; ?>
+                                        </div>
+
+                                    <?php else : ?>
+                                        <?php echo $level1CategoryLink; ?>
+                                    <?php endif; ?>
+
+                                </li>
+
+                            <?php endforeach; ?>
+
+                        </ul>
+
+                    <?php else : ?>
+                        <?php echo $level0CategoryLink; ?>
+                    <?php endif; ?>
+
+                </li>
+
+            <?php endforeach; ?>
+        </ul>
+
+    <?php else : ?>
+
+        <div class="airis-module-virtuemart-category-empty airis-module-empty" data-nosnippet>
+            <p class="airis-module-virtuemart-category-empty__message airis-module-empty__message">
+                <?php echo Text::_('TPL_AIRIS_MOD_VIRTUEMART_CATEGORY_NO_CATEGORIES'); ?>
+            </p>
+        </div>
+
+    <?php endif; ?>
 
 </div>
