@@ -6,20 +6,18 @@
 	<!-- <author>TPL_AIRIS_XML_AUTHOR</author> -->
 	<authorEmail>polishchuk-alexander@mail.ru</authorEmail>
 	<authorUrl>https://t.me/alxplv</authorUrl>
+	<copyright>Copyright (C) 2016 - 2023 alxplv. All rights reserved.</copyright>
 	<creationDate>2021-04-19</creationDate>
-	<copyright>Copyright (C) 2016 - 2022 AIRIS. All rights reserved.</copyright>
 	<description>TPL_AIRIS_XML_DESCRIPTION</description>
+	<inheritable>1</inheritable>
 	<license>GNU GPLv3; follow http://www.gnu.org/licenses/gpl-3.0.html</license>
-	<version>3.0.0</version>
+	<version>4.0.0</version>
 	<updateservers>
 		<server type="extension" name="TPL_AIRIS_XML_UPDATE_SERVER_NAME">https://alxplv.github.io/cms/joomla/templates/tpl_airis.xml</server>
 	</updateservers>
 	<files>
-		<folder>css</folder>
 		<folder>custom</folder>
 		<folder>html</folder>
-		<folder>images</folder>
-		<folder>js</folder>
 		<folder>language</folder>
 		<folder>vendor</folder>
 		<filename>component.php</filename>
@@ -27,10 +25,19 @@
 		<filename>index.html</filename>
 		<filename>index.php</filename>
 		<filename>offline.php</filename>
-		<filename>template_preview.png</filename>
-		<filename>template_thumbnail.png</filename>
 		<filename>templateDetails.xml</filename>
 	</files>
+	<media folder="media" destination="templates/site/airis">
+		<folder>css</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+	</media>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/tpl_airis.ini</language>
+		<language tag="en-GB">en-GB/tpl_airis.sys.ini</language>
+		<language tag="ru-RU">ru-RU/tpl_airis.ini</language>
+		<language tag="ru-RU">ru-RU/tpl_airis.sys.ini</language>
+	</languages>
 	<positions>
 		<position>debug</position>
 		<position>off-screen-1</position>
@@ -73,6 +80,9 @@
 		<position>footer-4</position>
 		<position>footer-5</position>
 		<position>footer-6</position>
+		<!-- Error positions used only in error.php -->
+		<position>error-403</position>
+		<position>error-404</position>
 	</positions>
 	<config>
 		<fields name="params">
