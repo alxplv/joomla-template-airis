@@ -1,0 +1,301 @@
+{
+    "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+    "name": "tpl_airis",
+    "version": "4.0.0",
+    "description": "Airis template Web Assets",
+    "license": "GPL-3.0-or-later",
+    "assets": [
+        {
+            "name": "template.airis.template",
+            "type": "style",
+            "uri": "template.min.css"
+        },
+        {
+            "name": "template.airis.template",
+            "type": "script",
+            "uri": "template.min.js",
+            "attributes": {
+                "defer": true
+            },
+            "dependencies": [
+                "jquery"
+            ]
+        },
+        {
+            "name": "template.airis.template",
+            "type": "preset",
+            "uri": "",
+            "dependencies": [
+                "template.airis.template#style",
+                "template.airis.template#script"
+            ]
+        },
+        {
+            "name": "template.airis.boostrap.resets",
+            "type": "style",
+            "uri": "template-joomla-bootstrap-resets.min.css",
+            "dependencies": [
+                "bootstrap.css"
+            ]
+        },
+        {
+            "name": "template.airis.virtuemart",
+            "type": "style",
+            "uri": "template-virtuemart.min.css"
+        },
+        {
+            "name": "template.airis.virtuemart",
+            "type": "script",
+            "uri": "template-virtuemart.min.js",
+            "attributes": {
+                "defer": true
+            }
+        },
+        {
+            "name": "template.airis.virtuemart",
+            "type": "preset",
+            "uri": "",
+            "dependencies": [
+                "template.airis.virtuemart#style",
+                "template.airis.virtuemart#script"
+            ]
+        },
+        {
+            "name": "template.airis.virtuemart.cart",
+            "type": "style",
+            "uri": "template-virtuemart-cart.min.css"
+        },
+        {
+            "name": "template.airis.virtuemart.cart",
+            "type": "script",
+            "uri": "template-virtuemart-cart.min.js",
+            "attributes": {
+                "defer": true
+            }
+        },
+        {
+            "name": "template.airis.virtuemart.cart",
+            "type": "preset",
+            "uri": "",
+            "dependencies": [
+                "template.airis.virtuemart.cart#style",
+                "template.airis.virtuemart.cart#script"
+            ]
+        },
+        {
+            "name": "template.airis.fancybox",
+            "type": "style",
+            "uri": "templates/site/airis/vendor/jquery.fancybox.min.css"
+        },
+        {
+            "name": "template.airis.fancybox",
+            "type": "script",
+            "uri": "templates/site/airis/vendor/jquery.fancybox.min.js",
+            "attributes": {
+                "defer": true
+            },
+            "dependencies": [
+                "jquery"
+            ]
+        },
+        {
+            "name": "template.airis.fancybox",
+            "type": "preset",
+            "uri": "",
+            "dependencies": [
+                "template.airis.fancybox#style",
+                "template.airis.fancybox#script"
+            ]
+        },
+        {
+            "name": "template.airis.flickity",
+            "type": "style",
+            "uri": "templates/site/airis/vendor/flickity.min.css"
+        },
+        {
+            "name": "template.airis.flickity",
+            "type": "script",
+            "uri": "templates/site/airis/vendor/flickity.pkgd.min.js",
+            "attributes": {
+                "defer": true
+            }
+        },
+        {
+            "name": "template.airis.flickity",
+            "type": "preset",
+            "uri": "",
+            "dependencies": [
+                "template.airis.flickity#style",
+                "template.airis.flickity#script"
+            ]
+        },
+        {
+            "name": "template.airis.fontawesome",
+            "type": "style",
+            "uri": "templates/site/airis/vendor/fontawesome.min.css",
+            "attributes": {
+                "rel": "lazy-stylesheet"
+            }
+        },
+        {
+            "name": "template.airis.fontawesome.solid",
+            "type": "style",
+            "uri": "templates/site/airis/vendor/solid.min.css",
+            "attributes": {
+                "rel": "lazy-stylesheet"
+            }
+        },
+        {
+            "name": "template.airis.fontawesome.regular",
+            "type": "style",
+            "uri": "templates/site/airis/vendor/regular.min.css",
+            "attributes": {
+                "rel": "lazy-stylesheet"
+            }
+        },
+        {
+            "name": "template.airis.fontawesome",
+            "type": "preset",
+            "uri": "",
+            "dependencies": [
+                "template.airis.fontawesome#style",
+                "template.airis.fontawesome.solid#style",
+                "template.airis.fontawesome.regular#style"
+            ]
+        },
+        {
+            "name": "template.airis.fontawesome.brands",
+            "type": "style",
+            "uri": "templates/site/airis/vendor/brands.min.css",
+            "attributes": {
+                "rel": "lazy-stylesheet"
+            }
+        },
+        {
+            "name": "template.airis.glightbox",
+            "type": "style",
+            "uri": "templates/site/airis/vendor/glightbox.min.css"
+        },
+        {
+            "name": "template.airis.glightbox",
+            "type": "script",
+            "uri": "templates/site/airis/vendor/glightbox.min.js",
+            "attributes": {
+                "defer": true
+            }
+        },
+        {
+            "name": "template.airis.glightbox",
+            "type": "preset",
+            "uri": "",
+            "dependencies": [
+                "template.airis.glightbox#style",
+                "template.airis.glightbox#script"
+            ]
+        },
+        {
+            "name": "template.airis.inputmask",
+            "type": "script",
+            "uri": "templates/site/airis/vendor/inputmask.min.js",
+            "attributes": {
+                "defer": true
+            }
+        },
+        {
+            "name": "template.airis.inputmask.jquery",
+            "type": "script",
+            "uri": "templates/site/airis/vendor/jquery.inputmask.min.js",
+            "attributes": {
+                "defer": true
+            },
+            "dependencies": [
+                "jquery"
+            ]
+        },
+        {
+            "name": "template.airis.inputmask.binding",
+            "type": "script",
+            "uri": "templates/site/airis/vendor/inputmask.binding.js",
+            "attributes": {
+                "defer": true
+            },
+            "dependencies": [
+                "template.airis.inputmask.jquery"
+            ]
+        },
+        {
+            "name": "template.airis.scrollreveal",
+            "type": "script",
+            "uri": "templates/site/airis/vendor/scrollreveal.min.js",
+            "attributes": {
+                "defer": true
+            }
+        },
+        {
+            "name": "template.airis.select2",
+            "type": "style",
+            "uri": "templates/site/airis/vendor/select2.min.css"
+        },
+        {
+            "name": "template.airis.select2",
+            "type": "script",
+            "uri": "templates/site/airis/vendor/select2.min.js",
+            "attributes": {
+                "defer": true
+            },
+            "dependencies": [
+                "jquery"
+            ]
+        },
+        {
+            "name": "template.airis.select2",
+            "type": "preset",
+            "uri": "",
+            "dependencies": [
+                "template.airis.select2#style",
+                "template.airis.select2#script"
+            ]
+        },
+        {
+            "name": "template.airis.select2.i18n.ru",
+            "type": "script",
+            "uri": "templates/site/airis/vendor/select2/i18n/ru.js",
+            "attributes": {
+                "defer": true
+            },
+            "dependencies": [
+                "template.airis.select2#preset"
+            ]
+        },
+        {
+            "name": "template.airis.tiny-slider",
+            "type": "style",
+            "uri": "templates/site/airis/vendor/tiny-slider.css"
+        },
+        {
+            "name": "template.airis.tiny-slider",
+            "type": "script",
+            "uri": "templates/site/airis/vendor/tiny-slider.js",
+            "attributes": {
+                "defer": true
+            }
+        },
+        {
+            "name": "template.airis.tiny-slider",
+            "type": "preset",
+            "uri": "",
+            "dependencies": [
+                "template.airis.tiny-slider#style",
+                "template.airis.tiny-slider#script"
+            ]
+        },
+        {
+            "name": "template.airis.doublegis.widget.firmsonmap",
+            "type": "script",
+            "uri": "https://widgets.2gis.com/js/DGWidgetLoader.js",
+            "attributes": {
+                "defer": true
+            }
+        } 
+    ]
+}

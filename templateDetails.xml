@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="template" method="upgrade">
-	<name>AIRIS</name>
+	<name>Airis</name>
 	<!-- <name>TPL_AIRIS_XML_NAME</name> --><!-- Localization constants for NAME and AUTHOR still aren't recognized by certain administrator components as of Joomla! 3.10 -->
 	<author>alxplv</author>
 	<!-- <author>TPL_AIRIS_XML_AUTHOR</author> -->
@@ -16,9 +16,9 @@
 		<server type="extension" name="TPL_AIRIS_XML_UPDATE_SERVER_NAME">https://alxplv.github.io/cms/joomla/templates/tpl_airis.xml</server>
 	</updateservers>
 	<files>
-		<folder>custom</folder>
 		<folder>html</folder>
 		<folder>language</folder>
+		<!-- <folder>user</folder> --><!-- User CSS and JS libraries directory -->
 		<filename>component.php</filename>
 		<filename>error.php</filename>
 		<filename>index.html</filename>
@@ -100,36 +100,10 @@
 					<option value="0">JNO</option>
 				</field>
 				<field
-					name="loadJoomlaJqueryNoconflict"
-					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_JOOMLA_JQUERY_NOCONFLICT"
-					description="TPL_AIRIS_CONFIG_LOAD_JOOMLA_JQUERY_NOCONFLICT_DESCRIPTION"
-					class="btn-group btn-group-yesno"
-					default="1"
-					showon="loadJoomlaJquery:1"
-					readonly="true"
-				>
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-				<field
 					name="loadJoomlaJqueryMigrate"
 					type="radio"
 					label="TPL_AIRIS_CONFIG_LOAD_JOOMLA_JQUERY_MIGRATE"
 					description="TPL_AIRIS_CONFIG_LOAD_JOOMLA_JQUERY_MIGRATE_DESCRIPTION"
-					class="btn-group btn-group-yesno"
-					default="1"
-					showon="loadJoomlaJquery:1"
-					readonly="true"
-				>
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-				<field
-					name="loadJoomlaJqueryJcaption"
-					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_JOOMLA_JQUERY_JCAPTION"
-					description="TPL_AIRIS_CONFIG_LOAD_JOOMLA_JQUERY_JCAPTION_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="1"
 					showon="loadJoomlaJquery:1"
@@ -162,21 +136,10 @@
 					<option value="0">JNO</option>
 				</field>
 				<field
-					name="loadJoomlaSqueezebox"
+					name="loadUserCssFile"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_JOOMLA_SQUEEZEBOX_MODAL"
-					description="TPL_AIRIS_CONFIG_LOAD_JOOMLA_SQUEEZEBOX_MODAL_DESCRIPTION"
-					class="btn-group btn-group-yesno"
-					default="0"
-				>
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-				<field
-					name="loadCustomCssFile"
-					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_CUSTOM_CSS_FILE"
-					description="TPL_AIRIS_CONFIG_LOAD_CUSTOM_CSS_FILE_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_LOAD_USER_CSS_FILE"
+					description="TPL_AIRIS_CONFIG_LOAD_USER_CSS_FILE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="1"
 				>
@@ -184,23 +147,23 @@
 					<option value="0">JNO</option>
 				</field>
 				<field
-					name="customCssFileVersioningMode"
+					name="userCssFileVersioningMode"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_CUSTOM_CSS_FILE_VERSIONING_MODE"
-					description="TPL_AIRIS_CONFIG_CUSTOM_FILE_VERSIONING_MODE_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USER_CSS_FILE_VERSIONING_MODE"
+					description="TPL_AIRIS_CONFIG_USER_FILE_VERSIONING_MODE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="default"
-					showon="loadCustomCssFile:1"
+					showon="loadUserCssFile:1"
 				>
 					<option value="none">JNO</option>
 					<option value="default">JDEFAULT</option>
-					<option value="datetime">TPL_AIRIS_CONFIG_CUSTOM_FILE_VERSIONING_MODE_OPTION_CUSTOM_DATETIME</option>
+					<option value="datetime">TPL_AIRIS_CONFIG_USER_FILE_VERSIONING_MODE_OPTION_CUSTOM_DATETIME</option>
 				</field>
 				<field
-					name="loadCustomJsFile"
+					name="loadUserJsFile"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_CUSTOM_JS_FILE"
-					description="TPL_AIRIS_CONFIG_LOAD_CUSTOM_JS_FILE_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_LOAD_USER_JS_FILE"
+					description="TPL_AIRIS_CONFIG_LOAD_USER_JS_FILE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="1"
 				>
@@ -208,39 +171,39 @@
 					<option value="0">JNO</option>
 				</field>
 				<field
-					name="customJsFileVersioningMode"
+					name="userJsFileVersioningMode"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_CUSTOM_JS_FILE_VERSIONING_MODE"
-					description="TPL_AIRIS_CONFIG_CUSTOM_FILE_VERSIONING_MODE_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USER_JS_FILE_VERSIONING_MODE"
+					description="TPL_AIRIS_CONFIG_USER_FILE_VERSIONING_MODE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="default"
-					showon="loadCustomJsFile:1"
+					showon="loadUserJsFile:1"
 				>
 					<option value="none">JNO</option>
 					<option value="default">JDEFAULT</option>
-					<option value="datetime">TPL_AIRIS_CONFIG_CUSTOM_FILE_VERSIONING_MODE_OPTION_CUSTOM_DATETIME</option>
+					<option value="datetime">TPL_AIRIS_CONFIG_USER_FILE_VERSIONING_MODE_OPTION_CUSTOM_DATETIME</option>
 				</field>
 				<field
-					name="customHeadHtml"
+					name="userHeadHtml"
 					type="textarea"
-					label="TPL_AIRIS_CONFIG_CUSTOM_HEAD_HTML"
-					description="TPL_AIRIS_CONFIG_CUSTOM_HEAD_HTML_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USER_HEAD_HTML"
+					description="TPL_AIRIS_CONFIG_USER_HEAD_HTML_DESCRIPTION"
 					rows="4"
 					filter="raw"
 				/>
 				<field
-					name="customHeadCss"
+					name="userHeadCss"
 					type="textarea"
-					label="TPL_AIRIS_CONFIG_CUSTOM_HEAD_CSS"
-					description="TPL_AIRIS_CONFIG_CUSTOM_HEAD_CSS_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USER_HEAD_CSS"
+					description="TPL_AIRIS_CONFIG_USER_HEAD_CSS_DESCRIPTION"
 					rows="4"
 					filter="raw"
 				/>
 				<field
-					name="customHeadJs"
+					name="userHeadJs"
 					type="textarea"
-					label="TPL_AIRIS_CONFIG_CUSTOM_HEAD_JS"
-					description="TPL_AIRIS_CONFIG_CUSTOM_HEAD_JS_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USER_HEAD_JS"
+					description="TPL_AIRIS_CONFIG_USER_HEAD_JS_DESCRIPTION"
 					rows="4"
 					filter="raw"
 				/>

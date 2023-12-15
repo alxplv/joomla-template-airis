@@ -12,12 +12,10 @@ use Joomla\CMS\Uri\Uri;
 // Basic handles
 $currentUri = Uri::getInstance();
 $templatePath = 'templates/' . $this->template;
+$webAssets = $currentDocument->getWebAssetManager();
 
-// Use Joomla!'s default CSS and JS versioning mode
-$autoVersion = ['version' => 'auto'];
-
-// Used for a non-blocking loading mode of 3rd-party JavaScript libraries
-$deferScript = ['defer' => true];
+// Document metadata included at all times
+$this->setMetaData('viewport', 'width=device-width, initial-scale=1.0');
 
 //
 // Template parameters
@@ -25,17 +23,12 @@ $deferScript = ['defer' => true];
 
 // Joomla! jQuery
 if (!$this->params->get('loadJoomlaJquery')) {
-    unset($currentDocument->_scripts['/media/jui/js/jquery.min.js']);
-}
-
-// Joomla! jQuery.noConflict()
-if (!$this->params->get('loadJoomlaJquery') || !$this->params->get('loadJoomlaJqueryNoconflict')) {
-    unset($currentDocument->_scripts['/media/jui/js/jquery-noconflict.js']);
+    $webAssets->disableScript('jquery');
 }
 
 // Joomla! jQuery Migrate
 if (!$this->params->get('loadJoomlaJquery') || !$this->params->get('loadJoomlaJqueryMigrate')) {
-    unset($currentDocument->_scripts['/media/jui/js/jquery-migrate.min.js']);
+    $webAssets->disableScript('jquery-migrate');
 }
 
 // Joomla! Bootstrap
@@ -44,38 +37,57 @@ if ($this->params->get('loadJoomlaBootstrap')) {
     HTMLHelper::_('bootstrap.framework');
 }
 
-// Custom <head> contents
-if (!empty(trim($this->params->get('customHeadHtml')))) {
-    $this->addCustomTag($this->params->get('customHeadHtml'));
+// User <head> contents
+if ($this->params->get('userHeadHtml', '')) {
+    $this->addCustomTag($this->params->get('userHeadHtml'));
 }
 
-// Custom inline CSS in <head>
-if (!empty(trim($this->params->get('customHeadCss')))) {
-    $this->addStyleDeclaration($this->params->get('customHeadCss'));
+// User inline CSS in <head>
+if ($this->params->get('userHeadCss', '')) {
+    // $this->addStyleDeclaration($this->params->get('userHeadCss'));
+    $webAssets->addInlineStyle(
+        $this->params->get('userHeadCss'),
+        [
+            'name' => 'template.airis.user.head',
+        ],
+    );
 }
 
 // Custom inline JS in <head>
-if (!empty(trim($this->params->get('customHeadJs')))) {
-    $this->addScriptDeclaration($this->params->get('customHeadJs'));
+if ($this->params->get('userHeadJs', '')) {
+    // $this->addScriptDeclaration($this->params->get('userHeadJs'));
+    $webAssets->addInlineScript(
+        $this->params->get('userHeadJs'),
+        [
+            'name' => 'template.airis.user.head',
+        ],
+    );
+    // $userHeadJs = trim($this->params->get('userHeadJs'));
 }
+
+/* if ($this->params->get('userBodyEndJs', '')) {
+    $webAssets->addInlineScript(
+        $this->params->get('userBodyEndJs'),
+        [
+            'name' => 'template.airis.user.head',
+        ],
+    );
+} */
 
 // The Open Graph protocol basic support
 if ($this->params->get('useOpenGraph')) {
-    // TODO: Replace with a simple EOD declaration
-    $openGraphMetaHtml = '<meta property="og:url" content="' . $currentUri->toString() /* $this->base */ . '" />' . PHP_EOL . "\t";
-    $openGraphMetaHtml .= '<meta property="og:type" content="website" />' . PHP_EOL . "\t";
-    $openGraphMetaHtml .= '<meta property="og:title" content="' . htmlspecialchars(trim($this->title)) . '" />' . PHP_EOL . "\t";
-    $openGraphMetaHtml .= '<meta property="og:description" content="' . htmlspecialchars(trim($this->description)) . '" />' . PHP_EOL . "\t";
-
-    if (!empty($this->params->get('openGraphImagePath'))) {
-        $openGraphMetaHtml .= '<meta property="og:image" content="' . $currentUri->toString() . htmlspecialchars($this->params->get('open_graph_image_path'), ENT_QUOTES) . '" />' . PHP_EOL . "\t";
+    $this->setMetaData('og:url', $currentUri->toString()); /* $this->base */
+    $this->setMetaData('og:type', 'website');
+    $this->setMetaData('og:title', htmlspecialchars(trim($this->title), ENT_COMPAT, 'UTF-8'));
+    $this->setMetaData('og:description', htmlspecialchars(trim($this->description), ENT_COMPAT, 'UTF-8'));
+    $this->setMetaData('og:locale', $this->language);
+    // TODO: Validate image path using Joomla utilities
+    if ($this->params->get('openGraphImagePath', '')) {
+        
+        $this->setMetaData('og:image', $currentUri->toString() . htmlspecialchars($this->params->get('open_graph_image_path'), ENT_QUOTES, 'UTF-8'));
     } /* elseif ($articleImageSrc = !empty(json_decode($this->get('images')))) {
-        $openGraphMetaHtml .= '<meta property="og:image" content="' . $currentUri->toString() . $articleImageSrc . '" />' . PHP_EOL . "\t";
+        $this->setMetaData('og:image', $currentUri->toString() . $articleImageSrc);
     } */
-
-    $openGraphMetaHtml .= '<meta property="og:locale" content="' . $this->language . '" />';
-
-    $this->addCustomTag($openGraphMetaHtml);
 }
 
 // SVG favicon support
@@ -85,28 +97,29 @@ if (file_exists($templatePath . '/favicon.svg')) {
 
 // Add Font Awesome
 if ($this->params->get('loadFontAwesome')) {
-    $this->addStyleSheet($templatePath . '/libraries/fontawesome/css/fontawesome.min.css', $autoVersion);
-    $this->addStyleSheet($templatePath . '/libraries/fontawesome/css/solid.min.css', $autoVersion);
-    $this->addStyleSheet($templatePath . '/libraries/fontawesome/css/regular.min.css', $autoVersion);
+    $webAssets->usePreset('template.airis.fontawesome');
     $this->addScriptOptions('tpl_airis', ['loadFontAwesome' => true]);
 
     if ($this->params->get('loadFontAwesomeBrands')) {
-        $this->addStyleSheet($templatePath . '/libraries/fontawesome/css/brands.min.css', $autoVersion);
+        $webAssets->useStyle('template.airis.fontawesome.brands');
         $this->addScriptOptions('tpl_airis', ['loadFontAwesomeBrands' => true]);
     }
+
+    // Enable lazy loading of Joomla!'s Font Awesome
+    // $webAssets->getAsset('style', 'fontawesome')->setAttribute('rel', 'lazy-stylesheet');
 }
 
 // Add Inputmask
 if ($this->params->get('loadInputmask')) {
     switch ($this->params->get('loadInputmaskFlavor')) {
         case 'native':
-            $this->addScript($templatePath . '/libraries/inputmask/inputmask.min.js', $autoVersion, $deferScript);
+            $webAssets->useScript('template.airis.inputmask');
             break;
         case 'jquery':
-            if (($this->params->get('useJoomlaJquery') || $this->params->get('loadJquery'))) {
-                $this->addScript($templatePath . '/libraries/inputmask/jquery.inputmask.min.js', $autoVersion, $deferScript);
+            if ($this->params->get('loadJoomlaJquery')) {
+                $webAssets->useScript('template.airis.inputmask.jquery');
                 if ($this->params->get('loadInputmaskBinding')) {
-                    $this->addScript($templatePath . '/libraries/inputmask/inputmask.binding.js', $autoVersion, $deferScript);
+                    $webAssets->useScript('template.airis.inputmask.binding');
                 }
             }
             break;
@@ -114,76 +127,109 @@ if ($this->params->get('loadInputmask')) {
 }
 
 // Template CSS and JS
-$this->addStyleSheet($templatePath . '/css/template.min.css', $autoVersion);
-$this->addScript($templatePath . '/js/template.min.js', $autoVersion);
+$webAssets->usePreset('template.airis.template');
 
 // Joomla! Bootstrap CSS resets
 if ($this->params->get('loadJoomlaBootstrap') && $this->params->get('loadJoomlaBootstrapCssResetsFile')) {
-    $this->addStyleSheet($templatePath . '/css/template-joomla-bootstrap-resets.min.css', $autoVersion);
+    $webAssets->useStyle('template.airis.boostrap.resets');
 }
 
 // VirtueMart CSS and JS
 if ($this->params->get('loadVirtuemartCssAndJsFiles')) {
-    $this->addStyleSheet($templatePath . '/css/template-virtuemart.min.css', $autoVersion);
-    $this->addScript($templatePath . '/js/template-virtuemart.min.js', $autoVersion);
+    $webAssets->usePreset('template.airis.virtuemart');
+
+    // TODO: This 'loadVirtuemartCssAndJsFiles' option could also disable VirtueMart's own assets instead of relying on administrator disabling them in VM's configuration manually
+    // $webAssets->disableStyle('');
+    // $webAssets->disableScript('');
+    // $webAssets->disablePreset('');
+
+    // TODO: Not sure if we still need the ability to load cart files independently and not just load a preset
+/*     if ($this->params->get('loadVirtuemartCartCssAndJsFiles')) {
+        $webAssets->usePreset('template.airis.virtuemart.cart');
+    } */
 
     // Optional CSS and JS for non-catalog only VirtueMart installations
     if ($this->params->get('loadVirtuemartCartCssFile')) {
-        $this->addStyleSheet($templatePath . '/css/template-virtuemart-cart.min.css', $autoVersion);
+        $webAssets->useStyle('template.airis.virtuemart.cart');
     }
 
     if ($this->params->get('loadVirtuemartCartJsFile')) {
-        $this->addScript($templatePath . '/js/template-virtuemart-cart.min.js', $autoVersion);
+        $webAssets->useScript('template.airis.virtuemart.cart');
 
-        // Additional language strings for this file
+        // Additional language strings used by this script file
         Text::script('TPL_AIRIS_COM_VIRTUEMART_ALERT_PRODUCT_ADD_ERROR');
         Text::script('TPL_AIRIS_COM_VIRTUEMART_CONFIRM_SHOW_CART');
     }
 }
 
-// custom.css file support
-if ($this->params->get('loadCustomCssFile')) {
-    $customCssFilePath = $templatePath . '/css/custom.css';
+// user.css file support
+if ($this->params->get('loadUserCssFile')) {
+    $userCssFileAttributes = [];
+    $userCssFileName = 'user.css';
+    $userCssFilePath = "$templatePath/css/$userCssFileName";
 
-    // No versioning scheme used in case if option is set to none
-    $versioningScheme = null;
+    if (file_exists($userCssFilePath)) {
+        switch ($this->params->get('userCssFileVersioningMode', 'default')) {
+            case 'datetime':
+                $userCssFileAttributes['version'] = md5(filemtime($userCssFilePath));
+                break;
+            case 'default':
+                $userCssFileAttributes['version'] = 'auto';
+                break;
+            case 'none':
+                // Do nothing
+                break;
+        }
 
-    switch ($this->params->get('customCssFileVersioningMode')) {
-        case 'datetime':
-            $versioningScheme = ['version' => md5(filemtime($customCssFilePath))];
-            break;
-        case 'default':
-            $versioningScheme = $autoVersion;
-            break;
+        $webAssets->registerAndUseStyle(
+            'template.airis.user',
+            $userCssFileName,
+            [],
+            $userCssFileAttributes,
+            [],
+        );
     }
-
-    $this->addStyleSheet($customCssFilePath, $versioningScheme);
 }
 
-// custom.js file support
-if ($this->params->get('loadCustomJsFile')) {
-    $customJsFilePath = $templatePath . '/js/custom.js';
+// user.js file support
+if ($this->params->get('loadUserJsFile')) {
+    $userJsFileAttributes = [
+        'defer' => true
+    ];
+    $userJsFileName = 'user.js';
+    $userJsFilePath = "$templatePath/js/$userJsFileName";
 
-    // No versioning scheme used in case if option is set to none
-    $versioningScheme = null;
+    if (file_exists($userJsFilePath)) {
+        switch ($this->params->get('userJsFileVersioningMode', 'default')) {
+            case 'datetime':
+                $userJsFileAttributes['version'] = md5(filemtime($userJsFilePath));
+                break;
+            case 'default':
+                $userJsFileAttributes['version'] = 'auto';
+                break;
+            case 'none';
+                // Do nothing
+                break;
+        }
 
-    switch ($this->params->get('customJsFileVersioningMode')) {
-        case 'datetime':
-            $versioningScheme = ['version' => md5(filemtime($customJsFilePath))];
-            break;
-        case 'default':
-            $versioningScheme = $autoVersion;
-            break;
+        $webAssets->registerAndUseScript(
+            'template.airis.user',
+            $userJsFileName,
+            [],
+            $userJsFileAttributes,
+            [],
+        );
     }
-
-    $this->addScript($customJsFilePath, $versioningScheme);
 }
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $this->language; ?>">
+<html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
     <head>
-        <jdoc:include type="head" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <jdoc:include type="metas" />
+        <jdoc:include type="styles" />
+        <?php if (isset($userHeadJs) && $userHeadJs !== '') : ?>
+            <?php echo $userHeadJs; ?>
+        <?php endif; ?>
     </head>
     <body class="airis-page-template-component airis-asides-none">
         <div class="airis-area-message">
@@ -194,5 +240,13 @@ if ($this->params->get('loadCustomJsFile')) {
         <main class="airis-main">
             <jdoc:include type="component" />
         </main>
+        <?php if ($this->countModules('debug')) : ?>
+            <div class="airis-module-position-debug">
+                <div class="airis-module-container airis-container container airis-asides-none">
+                    <jdoc:include type="modules" name="debug" />
+                </div>
+            </div>
+        <?php endif; ?>
+        <jdoc:include type="scripts" />
     </body>
 </html>
