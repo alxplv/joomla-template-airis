@@ -94,10 +94,12 @@
 					description="TPL_AIRIS_CONFIG_LOAD_JOOMLA_JQUERY_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="1"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 					readonly="true"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="loadJoomlaJqueryMigrate"
@@ -106,11 +108,13 @@
 					description="TPL_AIRIS_CONFIG_LOAD_JOOMLA_JQUERY_MIGRATE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="1"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 					showon="loadJoomlaJquery:1"
 					readonly="true"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="loadJoomlaBootstrap"
@@ -119,9 +123,11 @@
 					description="TPL_AIRIS_CONFIG_LOAD_JOOMLA_BOOTSTRAP_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="1"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="loadJoomlaBootstrapCssResetsFile"
@@ -130,10 +136,12 @@
 					description="TPL_AIRIS_CONFIG_LOAD_JOOMLA_BOOTSTRAP_CSS_RESETS_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 					showon="loadJoomlaBootstrap:1"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="loadUserCssFile"
@@ -142,9 +150,11 @@
 					description="TPL_AIRIS_CONFIG_LOAD_USER_CSS_FILE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="1"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="userCssFileVersioningMode"
@@ -166,9 +176,11 @@
 					description="TPL_AIRIS_CONFIG_LOAD_USER_JS_FILE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="1"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="userJsFileVersioningMode"
@@ -214,9 +226,11 @@
 					description="TPL_AIRIS_CONFIG_DISABLE_COMPONENT_ON_DEFAULT_PAGE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="useOpenGraph"
@@ -225,9 +239,11 @@
 					description="TPL_AIRIS_CONFIG_USE_OPEN_GRAPH_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="openGraphImagePath"
@@ -244,9 +260,11 @@
 					description="TPL_AIRIS_CONFIG_LOAD_VIRTUEMART_CSS_AND_JS_FILES_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="loadVirtuemartCartCssFile"
@@ -255,10 +273,12 @@
 					description="TPL_AIRIS_CONFIG_LOAD_VIRTUEMART_CART_CSS_FILE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 					showon="loadVirtuemartCssAndJsFiles:1"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="loadVirtuemartCartJsFile"
@@ -267,10 +287,12 @@
 					description="TPL_AIRIS_CONFIG_LOAD_VIRTUEMART_CART_JS_FILE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 					showon="loadVirtuemartCssAndJsFiles:1"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="showVirtuemartProductLinkContactUs"
@@ -279,9 +301,11 @@
 					description="TPL_AIRIS_CONFIG_VIRTUEMART_SHOW_PRODUCT_LINK_CONTACT_US_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="replaceVirtuemartProductLinkNotifyWithContactUs"
@@ -290,10 +314,12 @@
 					description="TPL_AIRIS_CONFIG_VIRTUEMART_REPLACE_PRODUCT_LINK_NOTIFY_WITH_CONTACT_US_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 					showon="showVirtuemartProductLinkContactUs:1"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="virtuemartProductDescriptionShortStringLimit"
@@ -304,8 +330,6 @@
 					default="60"
 					filter="integer"
 				>
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
 				</field>
 				<field
 					name="virtuemartDisplayModeDisclaimerNotAPublicOffer"
@@ -326,10 +350,12 @@
 					description="TPL_AIRIS_CONFIG_LOAD_FANCYBOX_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 					showon="loadJoomlaJquery:1"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="loadFlickity"
@@ -338,10 +364,12 @@
 					description="TPL_AIRIS_CONFIG_LOAD_FLICKITY_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 					showon="loadJoomlaJquery:1"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="loadFontAwesome"
@@ -350,9 +378,11 @@
 					description="TPL_AIRIS_CONFIG_LOAD_FONTAWESOME_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="1"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="loadFontAwesomeBrands"
@@ -361,10 +391,12 @@
 					description="TPL_AIRIS_CONFIG_LOAD_FONTAWESOME_BRANDS_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 					showon="loadFontAwesome:1"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="loadInputmask"
@@ -373,9 +405,11 @@
 					description="TPL_AIRIS_CONFIG_LOAD_INPUTMASK_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="loadInputmaskFlavor"
@@ -396,10 +430,12 @@
 					description="TPL_AIRIS_CONFIG_LOAD_INPUTMASK_BINDING_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 					showon="loadInputmask:1[AND]loadInputmaskFlavor:jquery"
 				>
-					<option value="1">JENABLED</option>
 					<option value="0">JDISABLED</option>
+					<option value="1">JENABLED</option>
 				</field>
 				<field
 					name="loadScrollreveal"
@@ -408,9 +444,11 @@
 					description="TPL_AIRIS_CONFIG_LOAD_SCROLLREVEAL_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="loadSelect2"
@@ -419,10 +457,12 @@
 					description="TPL_AIRIS_CONFIG_LOAD_SELECT2_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 					showon="loadJoomlaJquery:1"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="loadTiny-slider"
@@ -431,9 +471,11 @@
 					description="TPL_AIRIS_CONFIG_LOAD_TINY_SLIDER_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="loadDoubleGisMapWidget"
@@ -442,9 +484,11 @@
 					description="TPL_AIRIS_CONFIG_LOAD_DOUBLEGIS_MAP_WIDGET_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
 				>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 			</fieldset>
 		</fields>
