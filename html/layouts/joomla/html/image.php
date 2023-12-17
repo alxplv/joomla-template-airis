@@ -4,10 +4,9 @@
 defined('_JEXEC') or exit;
 
 // Joomla! imports
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Image\Image;
 use Joomla\Utilities\ArrayHelper;
-
-echo '<p>Image sublayout override is active.</p>';
 
 // TODO: Include additonal sources from found modern image format files of the same name as the passed one
 // TODO: Test compatibility of used JS carousel libraries with <picture> tag
@@ -78,6 +77,6 @@ foreach ($supportedPictureElementSourceTypeExtensions as $supportedPictureElemen
 $pictureSources = '';
 
 // Implode image attributes into a final string
-$imageAttributes = ArrayHelper::toString();
+$imageAttributes = ArrayHelper::toString($displayData);
 
 echo "<picture>$pictureSources<img $imageAttributes></picture>";
