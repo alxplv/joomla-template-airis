@@ -21,8 +21,8 @@
 		<!-- <folder>user</folder> --><!-- User CSS and JS libraries directory -->
 		<filename>component.php</filename>
 		<filename>error.php</filename>
-		<filename>index.html</filename>
 		<filename>index.php</filename>
+		<filename>joomla.asset.json</filename>
 		<filename>offline.php</filename>
 		<filename>templateDetails.xml</filename>
 	</files>
@@ -88,39 +88,10 @@
 		<fields name="params">
 			<fieldset name="advanced">
 				<field
-					name="loadJoomlaJquery"
+					name="useJquery"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_JOOMLA_JQUERY"
-					description="TPL_AIRIS_CONFIG_LOAD_JOOMLA_JQUERY_DESCRIPTION"
-					class="btn-group btn-group-yesno"
-					default="1"
-					filter="boolean"
-					layout="joomla.form.field.radio.switcher"
-					readonly="true"
-				>
-					<option value="0">JNO</option>
-					<option value="1">JYES</option>
-				</field>
-				<field
-					name="loadJoomlaJqueryMigrate"
-					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_JOOMLA_JQUERY_MIGRATE"
-					description="TPL_AIRIS_CONFIG_LOAD_JOOMLA_JQUERY_MIGRATE_DESCRIPTION"
-					class="btn-group btn-group-yesno"
-					default="1"
-					filter="boolean"
-					layout="joomla.form.field.radio.switcher"
-					showon="loadJoomlaJquery:1"
-					readonly="true"
-				>
-					<option value="0">JNO</option>
-					<option value="1">JYES</option>
-				</field>
-				<field
-					name="loadJoomlaBootstrap"
-					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_JOOMLA_BOOTSTRAP"
-					description="TPL_AIRIS_CONFIG_LOAD_JOOMLA_BOOTSTRAP_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_JQUERY"
+					description="TPL_AIRIS_CONFIG_USE_JQUERY_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="1"
 					filter="boolean"
@@ -130,24 +101,51 @@
 					<option value="1">JYES</option>
 				</field>
 				<field
-					name="loadJoomlaBootstrapCssResetsFile"
+					name="useJqueryMigrate"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_JOOMLA_BOOTSTRAP_CSS_RESETS_FILE"
-					description="TPL_AIRIS_CONFIG_LOAD_JOOMLA_BOOTSTRAP_CSS_RESETS_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_JQUERY_MIGRATE"
+					description="TPL_AIRIS_CONFIG_USE_JQUERY_MIGRATE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
 					filter="boolean"
 					layout="joomla.form.field.radio.switcher"
-					showon="loadJoomlaBootstrap:1"
+					showon="useJquery:1"
 				>
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
 				<field
-					name="loadUserCssFile"
+					name="useBootstrap"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_USER_CSS_FILE"
-					description="TPL_AIRIS_CONFIG_LOAD_USER_CSS_FILE_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_BOOTSTRAP"
+					description="TPL_AIRIS_CONFIG_USE_BOOTSTRAP_DESCRIPTION"
+					class="btn-group btn-group-yesno"
+					default="1"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field
+					name="useBootstrapCssResetsFile"
+					type="radio"
+					label="TPL_AIRIS_CONFIG_USE_BOOTSTRAP_CSS_RESETS_FILE"
+					description="TPL_AIRIS_CONFIG_USE_BOOTSTRAP_CSS_RESETS_DESCRIPTION"
+					class="btn-group btn-group-yesno"
+					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
+					showon="useBootstrap:1"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field
+					name="useUserCssFile"
+					type="radio"
+					label="TPL_AIRIS_CONFIG_USE_USER_CSS_FILE"
+					description="TPL_AIRIS_CONFIG_USE_USER_CSS_FILE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="1"
 					filter="boolean"
@@ -163,17 +161,16 @@
 					description="TPL_AIRIS_CONFIG_USER_FILE_VERSIONING_MODE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="default"
-					showon="loadUserCssFile:1"
+					showon="useUserCssFile:1"
 				>
-					<option value="none">JNO</option>
 					<option value="default">JDEFAULT</option>
 					<option value="datetime">TPL_AIRIS_CONFIG_USER_FILE_VERSIONING_MODE_OPTION_CUSTOM_DATETIME</option>
 				</field>
 				<field
-					name="loadUserJsFile"
+					name="useUserJsFile"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_USER_JS_FILE"
-					description="TPL_AIRIS_CONFIG_LOAD_USER_JS_FILE_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_USER_JS_FILE"
+					description="TPL_AIRIS_CONFIG_USE_USER_JS_FILE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="1"
 					filter="boolean"
@@ -189,9 +186,8 @@
 					description="TPL_AIRIS_CONFIG_USER_FILE_VERSIONING_MODE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="default"
-					showon="loadUserJsFile:1"
+					showon="useUserJsFile:1"
 				>
-					<option value="none">JNO</option>
 					<option value="default">JDEFAULT</option>
 					<option value="datetime">TPL_AIRIS_CONFIG_USER_FILE_VERSIONING_MODE_OPTION_CUSTOM_DATETIME</option>
 				</field>
@@ -204,18 +200,18 @@
 					filter="raw"
 				/>
 				<field
-					name="userHeadCss"
+					name="userInlineCss"
 					type="textarea"
-					label="TPL_AIRIS_CONFIG_USER_HEAD_CSS"
-					description="TPL_AIRIS_CONFIG_USER_HEAD_CSS_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USER_INLINE_CSS"
+					description="TPL_AIRIS_CONFIG_USER_INLINE_CSS_DESCRIPTION"
 					rows="4"
 					filter="raw"
 				/>
 				<field
-					name="userHeadJs"
+					name="userInlineJs"
 					type="textarea"
-					label="TPL_AIRIS_CONFIG_USER_HEAD_JS"
-					description="TPL_AIRIS_CONFIG_USER_HEAD_JS_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USER_INLINE_JS"
+					description="TPL_AIRIS_CONFIG_USER_INLINE_JS_DESCRIPTION"
 					rows="4"
 					filter="raw"
 				/>
@@ -254,10 +250,10 @@
 					showon="useOpenGraph:1"
 				/>
 				<field
-					name="loadVirtuemartCssAndJsFiles"
+					name="useVirtuemartCssAndJsFiles"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_VIRTUEMART_CSS_AND_JS_FILES"
-					description="TPL_AIRIS_CONFIG_LOAD_VIRTUEMART_CSS_AND_JS_FILES_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_VIRTUEMART_CSS_AND_JS_FILES"
+					description="TPL_AIRIS_CONFIG_USE_VIRTUEMART_CSS_AND_JS_FILES_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
 					filter="boolean"
@@ -267,29 +263,29 @@
 					<option value="1">JYES</option>
 				</field>
 				<field
-					name="loadVirtuemartCartCssFile"
+					name="useVirtuemartCartCssFile"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_VIRTUEMART_CART_CSS_FILE"
-					description="TPL_AIRIS_CONFIG_LOAD_VIRTUEMART_CART_CSS_FILE_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_VIRTUEMART_CART_CSS_FILE"
+					description="TPL_AIRIS_CONFIG_USE_VIRTUEMART_CART_CSS_FILE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
 					filter="boolean"
 					layout="joomla.form.field.radio.switcher"
-					showon="loadVirtuemartCssAndJsFiles:1"
+					showon="useVirtuemartCssAndJsFiles:1"
 				>
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
 				<field
-					name="loadVirtuemartCartJsFile"
+					name="useVirtuemartCartJsFile"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_VIRTUEMART_CART_JS_FILE"
-					description="TPL_AIRIS_CONFIG_LOAD_VIRTUEMART_CART_JS_FILE_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_VIRTUEMART_CART_JS_FILE"
+					description="TPL_AIRIS_CONFIG_USE_VIRTUEMART_CART_JS_FILE_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
 					filter="boolean"
 					layout="joomla.form.field.radio.switcher"
-					showon="loadVirtuemartCssAndJsFiles:1"
+					showon="useVirtuemartCssAndJsFiles:1"
 				>
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
@@ -344,38 +340,38 @@
 					<option value="always">TPL_AIRIS_CONFIG_VIRTUEMART_DISPLAY_DISCLAIMER_NOT_A_PUBLIC_OFFER_MODE_ALWAYS</option>
 				</field>
 				<field
-					name="loadFancybox"
+					name="useFancybox"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_FANCYBOX"
-					description="TPL_AIRIS_CONFIG_LOAD_FANCYBOX_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_FANCYBOX"
+					description="TPL_AIRIS_CONFIG_USE_FANCYBOX_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
 					filter="boolean"
 					layout="joomla.form.field.radio.switcher"
-					showon="loadJoomlaJquery:1"
+					showon="useJquery:1"
 				>
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
 				<field
-					name="loadFlickity"
+					name="useFlickity"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_FLICKITY"
-					description="TPL_AIRIS_CONFIG_LOAD_FLICKITY_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_FLICKITY"
+					description="TPL_AIRIS_CONFIG_USE_FLICKITY_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
 					filter="boolean"
 					layout="joomla.form.field.radio.switcher"
-					showon="loadJoomlaJquery:1"
+					showon="useJquery:1"
 				>
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
 				<field
-					name="loadFontAwesome"
+					name="useFontAwesome"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_FONTAWESOME"
-					description="TPL_AIRIS_CONFIG_LOAD_FONTAWESOME_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_FONTAWESOME"
+					description="TPL_AIRIS_CONFIG_USE_FONTAWESOME_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="1"
 					filter="boolean"
@@ -385,24 +381,24 @@
 					<option value="1">JYES</option>
 				</field>
 				<field
-					name="loadFontAwesomeBrands"
+					name="useFontAwesomeBrands"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_FONTAWESOME_BRANDS"
-					description="TPL_AIRIS_CONFIG_LOAD_FONTAWESOME_BRANDS_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_FONTAWESOME_BRANDS"
+					description="TPL_AIRIS_CONFIG_USE_FONTAWESOME_BRANDS_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
 					filter="boolean"
 					layout="joomla.form.field.radio.switcher"
-					showon="loadFontAwesome:1"
+					showon="useFontAwesome:1"
 				>
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
 				<field
-					name="loadInputmask"
+					name="useInputmask"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_INPUTMASK"
-					description="TPL_AIRIS_CONFIG_LOAD_INPUTMASK_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_INPUTMASK"
+					description="TPL_AIRIS_CONFIG_USE_INPUTMASK_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
 					filter="boolean"
@@ -412,36 +408,36 @@
 					<option value="1">JYES</option>
 				</field>
 				<field
-					name="loadInputmaskFlavor"
+					name="useInputmaskFlavor"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_INPUTMASK_FLAVOR"
-					description="TPL_AIRIS_CONFIG_LOAD_INPUTMASK_FLAVOR_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_INPUTMASK_FLAVOR"
+					description="TPL_AIRIS_CONFIG_USE_INPUTMASK_FLAVOR_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="jquery"
-					showon="loadInputmask:1"
+					showon="useInputmask:1"
 				>
-					<option value="jquery">TPL_AIRIS_CONFIG_LOAD_INPUTMASK_OPTION_FLAVOR_JQUERY</option>
-					<option value="native">TPL_AIRIS_CONFIG_LOAD_INPUTMASK_OPTION_FLAVOR_NATIVE</option>
+					<option value="jquery">TPL_AIRIS_CONFIG_USE_INPUTMASK_OPTION_FLAVOR_JQUERY</option>
+					<option value="native">TPL_AIRIS_CONFIG_USE_INPUTMASK_OPTION_FLAVOR_NATIVE</option>
 				</field>
 				<field
-					name="loadInputmaskBinding"
+					name="useInputmaskBinding"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_INPUTMASK_BINDING"
-					description="TPL_AIRIS_CONFIG_LOAD_INPUTMASK_BINDING_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_INPUTMASK_BINDING"
+					description="TPL_AIRIS_CONFIG_USE_INPUTMASK_BINDING_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
 					filter="boolean"
 					layout="joomla.form.field.radio.switcher"
-					showon="loadInputmask:1[AND]loadInputmaskFlavor:jquery"
+					showon="useInputmask:1[AND]useInputmaskFlavor:jquery"
 				>
 					<option value="0">JDISABLED</option>
 					<option value="1">JENABLED</option>
 				</field>
 				<field
-					name="loadScrollreveal"
+					name="useScrollreveal"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_SCROLLREVEAL"
-					description="TPL_AIRIS_CONFIG_LOAD_SCROLLREVEAL_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_SCROLLREVEAL"
+					description="TPL_AIRIS_CONFIG_USE_SCROLLREVEAL_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
 					filter="boolean"
@@ -451,24 +447,24 @@
 					<option value="1">JYES</option>
 				</field>
 				<field
-					name="loadSelect2"
+					name="useSelect2"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_SELECT2"
-					description="TPL_AIRIS_CONFIG_LOAD_SELECT2_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_SELECT2"
+					description="TPL_AIRIS_CONFIG_USE_SELECT2_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
 					filter="boolean"
 					layout="joomla.form.field.radio.switcher"
-					showon="loadJoomlaJquery:1"
+					showon="useJquery:1"
 				>
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
 				<field
-					name="loadTiny-slider"
+					name="useTiny-slider"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_TINY_SLIDER"
-					description="TPL_AIRIS_CONFIG_LOAD_TINY_SLIDER_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_TINY_SLIDER"
+					description="TPL_AIRIS_CONFIG_USE_TINY_SLIDER_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
 					filter="boolean"
@@ -478,10 +474,10 @@
 					<option value="1">JYES</option>
 				</field>
 				<field
-					name="loadDoubleGisMapWidget"
+					name="useDoubleGisMapWidget"
 					type="radio"
-					label="TPL_AIRIS_CONFIG_LOAD_DOUBLEGIS_MAP_WIDGET"
-					description="TPL_AIRIS_CONFIG_LOAD_DOUBLEGIS_MAP_WIDGET_DESCRIPTION"
+					label="TPL_AIRIS_CONFIG_USE_DOUBLEGIS_MAP_WIDGET"
+					description="TPL_AIRIS_CONFIG_USE_DOUBLEGIS_MAP_WIDGET_DESCRIPTION"
 					class="btn-group btn-group-yesno"
 					default="0"
 					filter="boolean"

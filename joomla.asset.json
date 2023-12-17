@@ -1,6 +1,6 @@
 {
     "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
-    "name": "tpl_airis",
+    "name": "airis",
     "version": "4.0.0",
     "description": "Airis template Web Assets",
     "license": "GPL-3.0-or-later",
@@ -8,18 +8,15 @@
         {
             "name": "template.airis.template",
             "type": "style",
-            "uri": "template.min.css"
+            "uri": "media/templates/site/airis/css/template.min.css"
         },
         {
             "name": "template.airis.template",
             "type": "script",
-            "uri": "template.min.js",
+            "uri": "media/templates/site/airis/js/template.min.js",
             "attributes": {
                 "defer": true
-            },
-            "dependencies": [
-                "jquery"
-            ]
+            }
         },
         {
             "name": "template.airis.template",
@@ -33,7 +30,7 @@
         {
             "name": "template.airis.boostrap.resets",
             "type": "style",
-            "uri": "template-joomla-bootstrap-resets.min.css",
+            "uri": "media/templates/site/airis/css/template-bootstrap-resets.min.css",
             "dependencies": [
                 "bootstrap.css"
             ]
@@ -41,12 +38,12 @@
         {
             "name": "template.airis.virtuemart",
             "type": "style",
-            "uri": "template-virtuemart.min.css"
+            "uri": "media/templates/site/airis/css/template-virtuemart.min.css"
         },
         {
             "name": "template.airis.virtuemart",
             "type": "script",
-            "uri": "template-virtuemart.min.js",
+            "uri": "media/templates/site/airis/js/template-virtuemart.min.js",
             "attributes": {
                 "defer": true
             }
@@ -63,7 +60,7 @@
         {
             "name": "template.airis.virtuemart.cart",
             "type": "style",
-            "uri": "template-virtuemart-cart.min.css"
+            "uri": "media/templates/site/airis/css/template-virtuemart-cart.min.css"
         },
         {
             "name": "template.airis.virtuemart.cart",
@@ -85,12 +82,12 @@
         {
             "name": "template.airis.fancybox",
             "type": "style",
-            "uri": "templates/site/airis/vendor/jquery.fancybox.min.css"
+            "uri": "media/templates/site/airis/vendor/fancybox/css/jquery.fancybox.min.css"
         },
         {
             "name": "template.airis.fancybox",
             "type": "script",
-            "uri": "templates/site/airis/vendor/jquery.fancybox.min.js",
+            "uri": "media/templates/site/airis/vendor/fancybox/js/jquery.fancybox.min.js",
             "attributes": {
                 "defer": true
             },
@@ -110,12 +107,12 @@
         {
             "name": "template.airis.flickity",
             "type": "style",
-            "uri": "templates/site/airis/vendor/flickity.min.css"
+            "uri": "media/templates/site/airis/vendor/flickity/css/flickity.min.css"
         },
         {
             "name": "template.airis.flickity",
             "type": "script",
-            "uri": "templates/site/airis/vendor/flickity.pkgd.min.js",
+            "uri": "media/templates/site/airis/vendor/flickity/js/flickity.pkgd.min.js",
             "attributes": {
                 "defer": true
             }
@@ -132,7 +129,7 @@
         {
             "name": "template.airis.fontawesome",
             "type": "style",
-            "uri": "templates/site/airis/vendor/fontawesome.min.css",
+            "uri": "media/templates/site/airis/vendor/fontawesome/css/fontawesome.min.css",
             "attributes": {
                 "rel": "lazy-stylesheet"
             }
@@ -140,7 +137,7 @@
         {
             "name": "template.airis.fontawesome.solid",
             "type": "style",
-            "uri": "templates/site/airis/vendor/solid.min.css",
+            "uri": "media/templates/site/airis/vendor/fontawesome/css/solid.min.css",
             "attributes": {
                 "rel": "lazy-stylesheet"
             }
@@ -148,7 +145,7 @@
         {
             "name": "template.airis.fontawesome.regular",
             "type": "style",
-            "uri": "templates/site/airis/vendor/regular.min.css",
+            "uri": "media/templates/site/airis/vendor/fontawesome/css/regular.min.css",
             "attributes": {
                 "rel": "lazy-stylesheet"
             }
@@ -166,7 +163,7 @@
         {
             "name": "template.airis.fontawesome.brands",
             "type": "style",
-            "uri": "templates/site/airis/vendor/brands.min.css",
+            "uri": "media/templates/site/airis/vendor/fontawesome/css/brands.min.css",
             "attributes": {
                 "rel": "lazy-stylesheet"
             }
@@ -174,12 +171,12 @@
         {
             "name": "template.airis.glightbox",
             "type": "style",
-            "uri": "templates/site/airis/vendor/glightbox.min.css"
+            "uri": "media/templates/site/airis/vendor/glightbox/css/glightbox.min.css"
         },
         {
             "name": "template.airis.glightbox",
             "type": "script",
-            "uri": "templates/site/airis/vendor/glightbox.min.js",
+            "uri": "media/templates/site/airis/vendor/glightbox/js/glightbox.min.js",
             "attributes": {
                 "defer": true
             }
@@ -196,7 +193,7 @@
         {
             "name": "template.airis.inputmask",
             "type": "script",
-            "uri": "templates/site/airis/vendor/inputmask.min.js",
+            "uri": "media/templates/site/airis/vendor/inputmask/js/inputmask.min.js",
             "attributes": {
                 "defer": true
             }
@@ -204,7 +201,7 @@
         {
             "name": "template.airis.inputmask.jquery",
             "type": "script",
-            "uri": "templates/site/airis/vendor/jquery.inputmask.min.js",
+            "uri": "media/templates/site/airis/vendor/inputmask/js/jquery.inputmask.min.js",
             "attributes": {
                 "defer": true
             },
@@ -215,7 +212,7 @@
         {
             "name": "template.airis.inputmask.binding",
             "type": "script",
-            "uri": "templates/site/airis/vendor/inputmask.binding.js",
+            "uri": "media/templates/site/airis/vendor/inputmask/js/inputmask.binding.js",
             "attributes": {
                 "defer": true
             },
@@ -226,7 +223,7 @@
         {
             "name": "template.airis.scrollreveal",
             "type": "script",
-            "uri": "templates/site/airis/vendor/scrollreveal.min.js",
+            "uri": "media/templates/site/airis/vendor/scrollreveal/js/scrollreveal.min.js",
             "attributes": {
                 "defer": true
             }
@@ -234,12 +231,12 @@
         {
             "name": "template.airis.select2",
             "type": "style",
-            "uri": "templates/site/airis/vendor/select2.min.css"
+            "uri": "media/templates/site/airis/vendor/select2/css/select2.min.css"
         },
         {
             "name": "template.airis.select2",
             "type": "script",
-            "uri": "templates/site/airis/vendor/select2.min.js",
+            "uri": "media/templates/site/airis/vendor/select2/js/select2.min.js",
             "attributes": {
                 "defer": true
             },
@@ -259,7 +256,7 @@
         {
             "name": "template.airis.select2.i18n.ru",
             "type": "script",
-            "uri": "templates/site/airis/vendor/select2/i18n/ru.js",
+            "uri": "media/templates/site/airis/vendor/select2/js/i18n/ru.js",
             "attributes": {
                 "defer": true
             },
@@ -270,12 +267,12 @@
         {
             "name": "template.airis.tiny-slider",
             "type": "style",
-            "uri": "templates/site/airis/vendor/tiny-slider.css"
+            "uri": "media/templates/site/airis/vendor/tiny-slider/css/tiny-slider.css"
         },
         {
             "name": "template.airis.tiny-slider",
             "type": "script",
-            "uri": "templates/site/airis/vendor/tiny-slider.js",
+            "uri": "media/templates/site/airis/vendor/tiny-slider/js/tiny-slider.js",
             "attributes": {
                 "defer": true
             }
@@ -296,6 +293,6 @@
             "attributes": {
                 "defer": true
             }
-        } 
+        }
     ]
 }

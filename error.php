@@ -8,6 +8,10 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
+// Simply use the default Joomla! error.php file because we don't want to remove our own
+require JPATH_THEMES . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'error.php';
+return;
+
 $currentUri = Uri::getInstance();
 
 // 301 redirect to the main page
