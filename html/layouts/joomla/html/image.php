@@ -14,8 +14,8 @@ use Joomla\Utilities\ArrayHelper;
 // Src
 if (isset($displayData['src'])) {
 	// Remove extra substring Joomla's media manager which can be harmful to SEO
-	$itemPathClean = HTMLHelper::_('cleanImageURL', $displayData['src']);
-	$displayData['src'] = $this->escape($itemPathClean);
+	$itemImageDataCleaned = HTMLHelper::cleanImageURL($displayData['src']);
+	$displayData['src'] = $this->escape($itemImageDataCleaned->url);
 }
 
 // Class
