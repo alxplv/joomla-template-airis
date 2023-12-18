@@ -28,6 +28,11 @@ td {
     vertical-align: middle;
 }
 
+.airis-image {
+    height: auto;
+    max-width: 100%;
+}
+
 .airis-item-content > *:first-child {
     margin-top: 0 !important; /* Prevent collapsing margins (and the margins themselves) on outermost elements of item content. Used by AIRIS templates of com_content, mod_articles_news, com_virtuemart among others. */
 }
