@@ -37,4 +37,6 @@ if ($moduleClassSuffix && strpos($moduleClassSuffix, $airisModuleClassSuffixPara
     }
 }
 
-// https://getbootstrap.com/2.3.2/javascript.html#collapse
+// TODO: Use either 'bootstrap.es5' (bundle) or 'bootstrap.collapse' web assets if none have been included yet
+
+// https://getbootstrap.com/docs/5.3/components/collapse/

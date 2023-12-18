@@ -77,6 +77,8 @@ $carouselId = 'airis-module-articles-news-carousel-' . $module->id;
     <?php // TODO: Replace is_array() && instanceof Countable with is_countable() once were on PHP 7.3+ and Joomla! 5+ for good ?>
     <?php if (isset($list) && is_array($list) && count($list)) : ?>
 
+        <?php // TODO: Use either 'bootstrap.es5' (bundle) or 'bootstrap.carousel' web assets if none have been included yet ?>
+
         <?php $slidesTotal = count($list); ?>
 
         <div class="airis-module-articles-news-carousel__container carousel slide" id="<?php echo $carouselId; ?>">
