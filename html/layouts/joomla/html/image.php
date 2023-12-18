@@ -20,9 +20,9 @@ if (isset($displayData['src'])) {
 
 // Class
 if (isset($displayData['class'])) {
-	$displayData['class'] = 'airis-image ' . $displayData['class'];
+	$displayData['class'] = 'img-fluid ' . $displayData['class'];
 } else {
-	$displayData['class'] = 'airis-image';
+	$displayData['class'] = 'img-fluid';
 }
 
 // Alt
