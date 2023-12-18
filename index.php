@@ -16,11 +16,11 @@ $applicationMenu = Factory::getApplication()->getMenu();
 $currentDocument = Factory::getApplication()->getDocument();
 $currentMenuItem = $applicationMenu->getActive();
 $currentUri = Uri::getInstance();
-$templateMediaUriPrefix = 'media/templates/site/' . $this->template; // FIXME: Only using this because WebAsset mechanism doesn't pick up relative URIs for some reason
+$templateMediaUriPrefix = 'media/templates/site/' . $this->template; // FIXME: Only using this extra variable because WebAsset mechanism doesn't pick up relative URIs for some reason
 $templateUriPrefix = 'templates/' . $this->template;
 $webAssets = $currentDocument->getWebAssetManager();
 
-// Document metadata included at all times
+// Document metadata that should be included at all times
 $this->setMetaData('viewport', 'width=device-width, initial-scale=1.0');
 
 //
@@ -41,14 +41,36 @@ if ($this->params->get('useJquery') && $this->params->get('useJqueryMigrate')) {
     $webAssets->useScript('jquery-migrate');
 }
 
+// Joomla! jQuery.noConflict()
+if (!$this->params->get('useJquery') || !$this->params->get('useJqueryNoconflict')) {
+    $webAssets->disableScript('jquery-noconflict'); // FIXME: Doesn't prevent it from inclusion
+}
+
 // Joomla! Bootstrap
 if ($this->params->get('useBootstrap')) {
-    HTMLHelper::_('bootstrap.loadCss');
-    /* TODO: 'bootstrap.framework' here loads a whole set of BS modules. Add individual options for
-    each BS module if possible (all should default to enabled). Should most likely switch to
-    include BS through WebAssets->UseX() instead of HTMLHelper(). */
-    HTMLHelper::_('bootstrap.framework');
+    $webAssets->useStyle('bootstrap.css');
 }
+
+// Joomla! Bootstrap JavaScript for BS Components
+if ($this->params->get('useBootstrap') && $this->params->get('useBootstrapJs')) {
+    $webAssets->useScript('bootstrap.es5');
+
+}
+
+/* TODO: Add options to use load BS component JS web asset individually and don't forget
+to hide options for individual component JS libraries in templateDetails.xml if 'useBootstrapJs' option
+that bundles all of them is already enabled. */
+/* For some reason, currently all individual Bootstrap JS component web assets list 'bootstrap.es5' as their
+dependency which is wrong since both the whole bundle and the individual .js file will be
+included at the same time. So pointless for us to implement individual template options for each BS JS complonent
+until Joomla! gets its media/vendor/joomla.asset.json file fixed. */
+/* if ($this->params->get('useBootstrap') && !$this->params->get('useBootstrapJs') && $this->params->get('useBootstrapJsAlert')) {
+    $webAssets->useScript('bootstrap.button');
+} */
+
+/* if ($this->params->get('useBootstrap') && !$this->params->get('useBootstrapJs') && $this->params->get('useBootstrapJsButton')) {
+    $webAssets->useScript('bootstrap.button');
+} */
 
 /* TODO: Add template options for these parameters. setLineEnd() and setTab() seem to affect <head> contents only.
 Ask the Joomla! Community what's up with that. Do not active the last two options if Joomla! debug option is enabled. */
@@ -280,7 +302,7 @@ if ($this->params->get('useUserCssFile')) {
                 'weight' => PHP_INT_MAX, // TODO: Find a proper way (calculate the highest weight of active asset and use it + 10 points) to ensure the last position among included styles
             ]
         );
-        
+
         /* For some reason (probably planned a setVersion() method that is complimentary
         to the current getVersion(), the setOption() method doesn't update the version property
         for existing WebAssetItem instances, so we cannot create one before the versioning

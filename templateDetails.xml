@@ -101,6 +101,20 @@
 					<option value="1">JYES</option>
 				</field>
 				<field
+					name="useJqueryNoconflict"
+					type="radio"
+					label="TPL_AIRIS_CONFIG_USE_JQUERY_NOCONFLICT"
+					description="TPL_AIRIS_CONFIG_USE_JQUERY_NOCONFLICT_DESCRIPTION"
+					class="btn-group btn-group-yesno"
+					default="1"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
+					showon="useJquery:1"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field
 					name="useJqueryMigrate"
 					type="radio"
 					label="TPL_AIRIS_CONFIG_USE_JQUERY_MIGRATE"
@@ -123,6 +137,20 @@
 					default="1"
 					filter="boolean"
 					layout="joomla.form.field.radio.switcher"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field
+					name="useBootstrapJs"
+					type="radio"
+					label="TPL_AIRIS_CONFIG_USE_BOOTSTRAP_JS"
+					description="TPL_AIRIS_CONFIG_USE_BOOTSTRAP_JS_DESCRIPTION"
+					class="btn-group btn-group-yesno"
+					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
+					showon="useBootstrap:1"
 				>
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
