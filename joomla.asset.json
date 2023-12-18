@@ -261,7 +261,7 @@
                 "defer": true
             },
             "dependencies": [
-                "template.airis.select2#preset"
+                "template.airis.select2"
             ]
         },
         {
