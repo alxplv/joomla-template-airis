@@ -8,7 +8,8 @@
         {
             "name": "template.airis.template",
             "type": "style",
-            "uri": "media/templates/site/airis/css/template.min.css"
+            "uri": "templates/site/airis/css/template.min.css",
+            "description": "A collection of CSS utility classes available to the template user and widely employed by the supplied component and module layouts."
         },
         {
             "name": "template.airis.template",
@@ -16,7 +17,8 @@
             "uri": "media/templates/site/airis/js/template.min.js",
             "attributes": {
                 "defer": true
-            }
+            },
+            "description": "A collection of functions available to the template user and employed the supplied component and module layouts."
         },
         {
             "name": "template.airis.template",
@@ -33,12 +35,14 @@
             "uri": "media/templates/site/airis/css/template-bootstrap-resets.min.css",
             "dependencies": [
                 "bootstrap.css"
-            ]
+            ],
+            "description": "Additional Bootstrap resets for certain Bootstrap Reboot rules."
         },
         {
             "name": "template.airis.virtuemart",
             "type": "style",
-            "uri": "media/templates/site/airis/css/template-virtuemart.min.css"
+            "uri": "media/templates/site/airis/css/template-virtuemart.min.css",
+            "description": "Custom rules for the template's custom VirtueMart views and module layouts accessible in catalog-only mode. The VM's own CSS should be disabled."
         },
         {
             "name": "template.airis.virtuemart",
@@ -46,7 +50,8 @@
             "uri": "media/templates/site/airis/js/template-virtuemart.min.js",
             "attributes": {
                 "defer": true
-            }
+            },
+            "description": "Additional JavaScript functions to be used alongside or instead of the stock VM's JS. Used in the template's VirtueMart views, modules and sublayouts."
         },
         {
             "name": "template.airis.virtuemart",
@@ -60,7 +65,8 @@
         {
             "name": "template.airis.virtuemart.cart",
             "type": "style",
-            "uri": "media/templates/site/airis/css/template-virtuemart-cart.min.css"
+            "uri": "media/templates/site/airis/css/template-virtuemart-cart.min.css",
+            "description": "CSS rules used in the template's VirtueMart views, modules and sublyouts related to VM operating in its full mode (as opposed to catalog-only mode)."
         },
         {
             "name": "template.airis.virtuemart.cart",
@@ -68,7 +74,8 @@
             "uri": "template-virtuemart-cart.min.js",
             "attributes": {
                 "defer": true
-            }
+            },
+            "description": "Additional JavaScript functions to be used alongside or instead of the stock VM's JS. Used in the template's VirtueMart views, modules and sublayouts related to VM operating in its full mode (as opposed to catalog-only mode)."
         },
         {
             "name": "template.airis.virtuemart.cart",
@@ -292,7 +299,8 @@
             "uri": "https://widgets.2gis.com/js/DGWidgetLoader.js",
             "attributes": {
                 "defer": true
-            }
+            },
+            "description": "2GIS firmsonmap widget that can be used with the CreateDoubleGisWidgetMap() function provided by the template.airis.template#script asset."
         }
     ]
 }
