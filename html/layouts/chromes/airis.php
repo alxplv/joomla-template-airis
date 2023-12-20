@@ -12,9 +12,12 @@ if ($displayData['module']->content === '') {
 $module = $displayData['module'];
 $moduleParams = $displayData['params'];
 
+$patternNonSingularWhitespace = '/\s{2,}/';
+
 // Prepare module options
 $moduleBootstrapGridSize = $moduleParams->get('bootstrap_size', '0');
 $moduleClass = htmlspecialchars(rtrim($moduleParams->get('moduleclass_sfx', '')), ENT_QUOTES, 'UTF-8'); // Leftside whitespace is perfectly acceptable
+$moduleClass = preg_replace($patternNonSingularWhitespace, ' ', $moduleClass); // Also remove any non-singular whitespaces just in case
 $moduleClassFullTrim = ltrim($moduleClass);
 $moduleContainerElement = $moduleParams->get('module_tag', 'div');
 
@@ -40,6 +43,7 @@ if ($moduleBootstrapGridSize !== '0') {
 if ($module->showtitle) {
     // Prepare module options
     $moduleHeadingClass = htmlspecialchars(trim($moduleParams->get('header_class', '')), ENT_QUOTES, 'UTF-8');
+    $moduleHeadingClass = preg_replace($patternNonSingularWhitespace, ' ', $moduleHeadingClass); // Also remove any non-singular whitespaces just in case
     $moduleHeadingElement = $moduleParams->get('header_tag', 'h3');
     $moduleHeadingElementCharacters = str_split($moduleHeadingElement);
     $moduleTitle = htmlspecialchars(trim($module->title), ENT_QUOTES, 'UTF-8');
