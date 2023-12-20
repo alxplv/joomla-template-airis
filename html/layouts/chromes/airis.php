@@ -36,7 +36,7 @@ if (isset($displayData['airisModuleChromeUseDataNoSnippetAttribute']) && $displa
     $moduleContainerAttributes['data-nosnippet'] = true;
 }
 
-// "Module Class Suffix" option. If the suffix value has leading whitespace then output it as a separate class instead of a BEM modifier-name_modifier-value pair
+// "Module Class Suffix" option. If the suffix value has leading whitespace then output it as a separate class instead of a BEM modifier-name_modifier token pair
 if ($moduleClassSuffix !== '') {
     if (strlen($moduleClassSuffix) !== strlen($moduleClassSuffixFullTrim)) {
         $moduleContainerClasses .= " $moduleClassSuffixFullTrim";
