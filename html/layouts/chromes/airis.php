@@ -22,11 +22,6 @@ $moduleContainerElement = $moduleParams->get('module_tag', 'div');
 $moduleContainerAttributes = ''; // Could use Joomla\Utilities\ArrayHelper::toString() here instead of plain strings but it doesn't support value-less attributes properly
 $moduleContainerClasses = "airis-module airis-module_container-type_$moduleContainerElement";
 
-// This flag is set when this chrome is invoked by the airis-nosnippet proxy chrome
-if (isset($displayData['airisModuleChromeUseDataNoSnippetAttribute']) && $displayData['airisModuleChromeUseDataNoSnippetAttribute'] === true) {
-    $moduleContainerAttributes .= ' data-nosnippet'; // Normally data-nosnippet doesn't require to have any value but array
-}
-
 // "Module Class" option. If the suffix value has leading whitespace then output it as a separate class instead of a BEM modifier-name_modifier token pair
 if ($moduleClass !== '') {
     if (strlen($moduleClass) !== strlen($moduleClassFullTrim)) {
@@ -72,6 +67,11 @@ if ($module->showtitle) {
     if ($moduleHeadingClass !== '') {
         $moduleHeadingClasses .= " $moduleHeadingClass";
     }
+}
+
+// This option is only set when this chrome is invoked by the airis-nosnippet proxy chrome
+if ($displayData['params']->get('airisChromeUseNoSnippetAttribute', false)) {
+    $moduleContainerAttributes .= ' data-nosnippet';
 }
 
 ?>
