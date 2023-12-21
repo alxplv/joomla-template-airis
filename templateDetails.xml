@@ -228,6 +228,14 @@
 					filter="raw"
 				/>
 				<field
+					name="userBodyEndHtml"
+					type="textarea"
+					label="TPL_AIRIS_CONFIG_USER_BODY_END_HTML"
+					description="TPL_AIRIS_CONFIG_USER_BODY_END_HTML_DESCRIPTION"
+					rows="4"
+					filter="raw"
+				/>
+				<field
 					name="userInlineCss"
 					type="textarea"
 					label="TPL_AIRIS_CONFIG_USER_INLINE_CSS"

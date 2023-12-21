@@ -16,8 +16,8 @@ $applicationMenu = Factory::getApplication()->getMenu();
 $currentDocument = Factory::getApplication()->getDocument();
 $currentMenuItem = $applicationMenu->getActive();
 $currentUri = Uri::getInstance();
-$templateMediaUriPrefix = 'media/templates/site/' . $this->template; // FIXME: Only using this extra variable because WebAsset mechanism doesn't pick up relative URIs for some reason
-$templateUriPrefix = 'templates/' . $this->template;
+$templateMediaUriPrefix = "media/templates/site/$this->template"; // FIXME: Only using this extra variable because WebAsset mechanism doesn't pick up relative URIs for some reason
+$templateUriPrefix = "templates/$this->template";
 $webAssets = $currentDocument->getWebAssetManager();
 
 // Document metadata that should be included at all times
@@ -74,15 +74,27 @@ until Joomla! gets its media/vendor/joomla.asset.json file fixed. */
 
 /* TODO: Add template options for these parameters. setLineEnd() and setTab() seem to affect <head> contents only.
 Ask the Joomla! Community what's up with that. Do not active the last two options if Joomla! debug option is enabled. */
-// $this->setGenerator(null);
-// $this->setLineEnd(null);
-// $this->setTab(null);
+// $this->setGenerator('');
+// $this->setLineEnd('');
+// $this->setTab('');
 
 // User <head> contents
 if ($this->params->get('userHeadHtml', '')) {
-    // addCustomTag() contents are normally output with <jdoc:include type="scripts" /> so it goes before </body> in our case which is not right
-    // $this->addCustomTag($this->params->get('userHeadHtml'));
+    /* addCustomTag() contents are normally output with <jdoc:include type="scripts" />
+    so it goes before </body> in our case which is not right here */
+    /* TODO: See if we should validate the raw HTML here in some way using either Joomla!'s
+    filtering methods here or by defining the filter attribute in templateDetails.xml */
     $userHeadHtml = $this->params->get('userHeadHtml');
+}
+
+// User <body> end contents
+if ($this->params->get('userBodyEndHtml', '')) {
+    /* TODO: See if we should validate the raw HTML here in some way using either Joomla!'s
+    filtering methods here or by defining the filter attribute in templateDetails.xml */
+    /* addCustomTag() contents are output after Web Assets and we can't allow users to have their own
+    <script src=""></script> tags to go after user.js inclusion. */
+    // $this->addCustomTag($this->params->get('userBodyEndHtml'));
+    $userBodyEndHtml = $this->params->get('userBodyEndHtml');
 }
 
 // User inline CSS
@@ -170,7 +182,7 @@ if (file_exists(JPATH_THEMES . '/favicon.svg')) {
 
 /* if (file_exists(JPATH_THEMES . '/favicon.svg')) {
     // FIXME: Outputs an empty type attribute so keeping a custom tag instead for now
-    $this->addFavicon($templateUriPrefix . '/favicon.svg', '', 'icon');
+    $this->addFavicon("$templateUriPrefix/favicon.svg", '', 'icon');
 } */
 
 // Add fancyBox
@@ -523,6 +535,10 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
                     <jdoc:include type="modules" name="debug" />
                 </div>
             </div>
+        <?php endif; ?>
+
+        <?php if (isset($userBodyEndHtml) && $userBodyEndHtml !== '') : ?>
+            <?php echo $userBodyEndHtml; ?>
         <?php endif; ?>
 
         <jdoc:include type="scripts" />
