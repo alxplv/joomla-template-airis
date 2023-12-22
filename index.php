@@ -453,24 +453,6 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
             </header>
         <?php endif; ?>
 
-        <?php if ($this->countModules('nav')) : ?>
-            <nav class="navbar container">
-                <div class="navbar-inner">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse" title="<?php echo Text::_('TPL_AIRIS_MAIN_MENU_BTN_TITLE'); ?>">
-                        <span class="icon-bar" aria-hidden="true"></span>
-                        <span class="icon-bar" aria-hidden="true"></span>
-                        <span class="icon-bar" aria-hidden="true"></span>
-                      </a>
-                    <?php if ($this->params->get('bootsrap_brand')) : ?>
-                        <a class="brand" href="/"><?php echo $this->params->get('bootsrap_brand'); ?></a>
-                    <?php endif; ?>
-                    <div class="nav-collapse collapse">
-                        <jdoc:include type="modules" name="nav" />
-                    </div>
-                </div>
-            </nav>
-        <?php endif; ?>
-
         <div class="airis-area-message" data-nosnippet>
             <div class="airis-area-container airis-container container">
                 <jdoc:include type="message" />
