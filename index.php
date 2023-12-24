@@ -166,12 +166,12 @@ if ($this->params->get('useOpenGraph')) {
 
 // TODO: Check if we need this in J!4
 // Favicon
-/* if (file_exists(JPATH_THEMES . '/favicon.ico')) {
+/* if (file_exists(join(DIRECTORY_SEPARATOR, [JPATH_THEMES, 'favicon.ico']))) {
     $this->addHeadLink(HTMLHelper::_('image', 'favicon.ico', '', [], true, 1), 'alternate icon', 'rel', ['type' => 'image/vnd.microsoft.icon']);
 } */
 
 // SVG favicon support
-if (file_exists(JPATH_THEMES . '/favicon.svg')) {
+if (file_exists(join(DIRECTORY_SEPARATOR, [JPATH_THEMES, $this->template, 'favicon.svg']))) {
     // <jdoc:include type="scripts" /> outputs everything that's been added with addCustomTag() so we cannot use it
     // $this->addCustomTag("<link href=\"$templateUriPrefix/favicon.svg\" rel=\"icon\">");
     $svgFavicon = "<link href=\"$templateUriPrefix/favicon.svg\" rel=\"icon\">";
@@ -180,7 +180,7 @@ if (file_exists(JPATH_THEMES . '/favicon.svg')) {
 
 }
 
-/* if (file_exists(JPATH_THEMES . '/favicon.svg')) {
+/* if (file_exists(join(DIRECTORY_SEPARATOR, [JPATH_THEMES, 'favicon.svg']))) {
     // FIXME: Outputs an empty type attribute so keeping a custom tag instead for now
     $this->addFavicon("$templateUriPrefix/favicon.svg", '', 'icon');
 } */
@@ -295,7 +295,18 @@ if ($this->params->get('useVirtuemartCssAndJsFiles')) {
 if ($this->params->get('useUserCssFile')) {
     $userCssFileName = 'user.css';
     $userCssFileUri = "$templateMediaUriPrefix/css/$userCssFileName";
-    $userCssFilePath = JPATH_ROOT . "/$templateMediaUriPrefix/css/$userCssFileName";
+    $userCssFilePath = join(
+        DIRECTORY_SEPARATOR,
+        [
+            JPATH_ROOT,
+            'media',
+            'templates',
+            'site',
+            $this->template,
+            'css',
+            $userCssFileName,
+        ],
+    );
 
     if (file_exists($userCssFilePath)) {
         // Respect chosen versioning mode
@@ -334,7 +345,18 @@ if ($this->params->get('useUserCssFile')) {
 if ($this->params->get('useUserJsFile')) {
     $userJsFileName = 'user.js';
     $userJsFileUri = "$templateMediaUriPrefix/js/$userJsFileName";
-    $userJsFilePath = JPATH_ROOT . "/$templateMediaUriPrefix/js/$userJsFileName";
+    $userJsFilePath = join(
+        DIRECTORY_SEPARATOR,
+        [
+            JPATH_ROOT,
+            'media',
+            'templates',
+            'site',
+            $this->template,
+            'js',
+            $userJsFileName,
+        ],
+    );
 
     if (file_exists($userJsFilePath)) {
         if ($this->params->get('userJsFileVersioningMode', 'default') === 'datetime') {
