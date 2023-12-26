@@ -240,7 +240,7 @@ if ($this->params->get('useScrollreveal')) {
 // Add Select2
 if ($this->params->get('useJquery') && $this->params->get('useSelect2')) {
     $webAssets->usePreset('template.airis.select2');
-    if ($this->language == 'ru-ru') {
+    if ($this->language === 'ru-ru') {
         $webAssets->useScript('template.airis.select2.i18n.ru');
     }
 }
