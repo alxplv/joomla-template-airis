@@ -36,14 +36,16 @@ if ($this->params->get('useJquery')) {
 /* Although dependent template options are hidden upon the dependee going to a disabled state
 (the "showon" attribute in templateDetails.xml) the dependent param retains its last value unless
 toggled explicitly, so we should always check the parent param value first, because we don't want to
-trigger the inclusion of it through Web Assets dependency mechanism */
+trigger the inclusion of it through Web Assets dependency mechanism. */
 if ($this->params->get('useJquery') && $this->params->get('useJqueryMigrate')) {
     $webAssets->useScript('jquery-migrate');
 }
 
 // Joomla! jQuery.noConflict()
 if (!$this->params->get('useJquery') || !$this->params->get('useJqueryNoconflict')) {
-    $webAssets->disableScript('jquery-noconflict'); // FIXME: Doesn't prevent it from inclusion
+    // The disableScript() call doesn't prevent it from inclusion for some reason. Create an empty override instead.
+    // $webAssets->disableScript('jquery-noconflict');
+    $webAssets->registerScript('jquery-noconflict', '', [], [], []);
 }
 
 // Joomla! Bootstrap
