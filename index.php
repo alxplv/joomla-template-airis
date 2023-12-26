@@ -28,7 +28,7 @@ $this->setMetaData('viewport', 'width=device-width, initial-scale=1.0');
 //
 
 // Joomla! jQuery
-if ($this->params->get('useJquery')) {
+if ($this->params->get('useJquery') && $webAssets->assetExists('script', 'jquery')) {
     $webAssets->useScript('jquery');
 }
 
@@ -37,26 +37,25 @@ if ($this->params->get('useJquery')) {
 (the "showon" attribute in templateDetails.xml) the dependent param retains its last value unless
 toggled explicitly, so we should always check the parent param value first, because we don't want to
 trigger the inclusion of it through Web Assets dependency mechanism. */
-if ($this->params->get('useJquery') && $this->params->get('useJqueryMigrate')) {
+if ($this->params->get('useJquery') && $this->params->get('useJqueryMigrate') && $webAssets->assetExists('script', 'jquery-migrate')) {
     $webAssets->useScript('jquery-migrate');
 }
 
 // Joomla! jQuery.noConflict()
-if (!$this->params->get('useJquery') || !$this->params->get('useJqueryNoconflict')) {
+if ((!$this->params->get('useJquery') || !$this->params->get('useJqueryNoconflict')) && $webAssets->assetExists('script', 'jquery-noconflict')) {
     // The disableScript() call doesn't prevent it from inclusion for some reason. Create an empty override instead.
     // $webAssets->disableScript('jquery-noconflict');
     $webAssets->registerScript('jquery-noconflict', '', [], [], []);
 }
 
 // Joomla! Bootstrap
-if ($this->params->get('useBootstrap')) {
+if ($this->params->get('useBootstrap') && $webAssets->assetExists('style', 'bootstrap.css')) {
     $webAssets->useStyle('bootstrap.css');
 }
 
 // Joomla! Bootstrap JavaScript for BS Components
-if ($this->params->get('useBootstrap') && $this->params->get('useBootstrapJs')) {
+if ($this->params->get('useBootstrap') && $this->params->get('useBootstrapJs') && $webAssets->assetExists('script', 'bootstrap.es5')) {
     $webAssets->useScript('bootstrap.es5');
-
 }
 
 /* TODO: Add options to use load BS component JS web asset individually and don't forget
@@ -65,12 +64,11 @@ that bundles all of them is already enabled. */
 /* For some reason, currently all individual Bootstrap JS component web assets list 'bootstrap.es5' as their
 dependency which is wrong since both the whole bundle and the individual .js file will be
 included at the same time. So pointless for us to implement individual template options for each BS JS complonent
-until Joomla! gets its media/vendor/joomla.asset.json file fixed. */
-/* if ($this->params->get('useBootstrap') && !$this->params->get('useBootstrapJs') && $this->params->get('useBootstrapJsAlert')) {
-    $webAssets->useScript('bootstrap.button');
-} */
+until Joomla! gets its media/vendor/joomla.asset.json file fixed. Another way is to override the 'bootstrap.es5' Web Asset with 
+something like this $webAssets->registerScript('bootstrap.es5', '', [], [], []); so an empty item is used as a dependency. Make the override a template param
+which in turn allows (via the showon templateDetails.xml attribute) to enable the individual BS component script Web Assets when the whole bundle is disabled. */
 
-/* if ($this->params->get('useBootstrap') && !$this->params->get('useBootstrapJs') && $this->params->get('useBootstrapJsButton')) {
+/* if ($this->params->get('useBootstrap') && !$this->params->get('useBootstrapJs') && $this->params->get('useBootstrapJsAlert') && $webAssets->assetExists('script', 'bootstrap.button')) {
     $webAssets->useScript('bootstrap.button');
 } */
 
