@@ -38,7 +38,7 @@ function airisPrepareHTMLClassSuffix(string $classSuffix)
             $isActiveLevel0CategoryFound = false;
         ?>
 
-        <ul class="airis-module-virtuemart-category__list_level_0 airis-module-virtuemart-category__list<?php echo $menuClassSuffix; ?> unstyled">
+        <ul class="airis-module-virtuemart-category__list_level_0 airis-module-virtuemart-category__list<?php echo $menuClassSuffix; ?> list-unstyled">
             <?php foreach ($categories as $level0Category) : ?>
 
                 <?php
@@ -89,7 +89,7 @@ function airisPrepareHTMLClassSuffix(string $classSuffix)
                             <?php echo $level0CategoryLink; ?>
                         </div>
 
-                        <ul class="airis-module-virtuemart-category__list_level_1 airis-module-virtuemart-category__list<?php echo $menuClassSuffix; ?> unstyled">
+                        <ul class="airis-module-virtuemart-category__list_level_1 airis-module-virtuemart-category__list<?php echo $menuClassSuffix; ?> list-unstyled">
 
                             <?php foreach ($level0Category->childs as $level1Category) : ?>
 
@@ -135,7 +135,7 @@ function airisPrepareHTMLClassSuffix(string $classSuffix)
                                             <?php echo $level1CategoryLink; ?>
                                         </div>
 
-                                        <ul class="airis-module-virtuemart-category__list_level_2 airis-module-virtuemart-category__list<?php echo $menuClassSuffix; ?> unstyled">
+                                        <ul class="airis-module-virtuemart-category__list_level_2 airis-module-virtuemart-category__list<?php echo $menuClassSuffix; ?> list-unstyled">
 
                                             <?php foreach ($level1Category->childs as $level2Category) : ?>
 

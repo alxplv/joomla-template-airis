@@ -30,7 +30,7 @@ function airisPrepareHTMLClassSuffix(string $classSuffix)
 
     <?php if ($moduleHasCategories) : ?>
 
-        <ul class="airis-module-virtuemart-category-flat__list<?php echo $menuClassSuffix; ?> unstyled">
+        <ul class="airis-module-virtuemart-category-flat__list<?php echo $menuClassSuffix; ?> list-unstyled">
             <?php foreach ($categories as $category) : ?>
                 <li class="airis-module-virtuemart-category-flat__item">
                     <?php

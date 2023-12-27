@@ -294,7 +294,7 @@ if (vRequest::getInt('dynamic', 0) && vRequest::getInt('virtuemart_product_id', 
 				<?php endif; ?>
 
 				<?php if ($haveDisclaimers) : ?>
-					<ul class="virtuemart-disclaimers browse-view-disclaimers unstyled" data-nosnippet>
+					<ul class="virtuemart-disclaimers browse-view-disclaimers list-unstyled" data-nosnippet>
 
 						<?php if ($displayNotAPublicOfferDisclaimer) : ?>
 							<li class="virtuemart-disclaimer virtuemart-disclaimer-not-a-public-offer browse-view-disclaimer browse-view-disclaimer-not-a-public-offer">

@@ -16,7 +16,7 @@ $moduleSublayoutFileName = ModuleHelper::getLayoutPath('mod_articles_news', path
 
 	<?php if (count($list)) : ?>
 
-		<ul class="airis-testimonials unstyled">
+		<ul class="airis-testimonials list-unstyled">
 			<?php
 				foreach ($list as $item)
 				{

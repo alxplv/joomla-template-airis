@@ -17,7 +17,7 @@ $moduleSublayoutFileName = ModuleHelper::getLayoutPath('mod_articles_news', path
     <?php // TODO: Replace is_array() && instanceof Countable by is_countable() once we're on Joomla! 5+ ?>
     <?php if (isset($list) && is_array($list) && $list instanceof Countable && count($list)) : ?>
 
-        <ul class="airis-module-partners__list unstyled">
+        <ul class="airis-module-partners__list list-unstyled">
             <?php
                 foreach ($list as $item) {
                     require $moduleSublayoutFileName;

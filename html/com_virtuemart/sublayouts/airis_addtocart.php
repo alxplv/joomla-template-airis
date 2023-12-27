@@ -114,7 +114,7 @@ if (!is_array($positions)) $positions = array($positions);
 	<?php if (isset($viewData['airis-virtuemart-view']) && $viewData['airis-virtuemart-view'] === 'productdetails') : ?>
 
 		<?php if ($haveDisclaimers) : ?>
-			<ul class="virtuemart-disclaimers productdetails-disclaimers unstyled" data-nosnippet>
+			<ul class="virtuemart-disclaimers productdetails-disclaimers list-unstyled" data-nosnippet>
 
 				<?php if ($notAPublicOfferDisclaimerDisplayMode === 'always' || ($notAPublicOfferDisclaimerDisplayMode === 'catalog' && VmConfig::get('use_as_catalog', 0))) : ?>
 					<li class="virtuemart-disclaimer virtuemart-disclaimer-not-a-public-offer productdetails-disclaimer productdetails-disclaimer-not-a-public-offer">

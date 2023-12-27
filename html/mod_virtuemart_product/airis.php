@@ -194,7 +194,7 @@ else {
         <?php if ($moduleDisplayStyleUseDivs) : ?>
             <div class="<?php echo $productsContainerClasses; ?>">
         <?php else : ?>
-            <ul class="<?php echo $productsContainerClasses; ?> unstyled">
+            <ul class="<?php echo $productsContainerClasses; ?> list-unstyled">
         <?php endif; ?>
 
             <?php foreach ($products as $product) : ?>

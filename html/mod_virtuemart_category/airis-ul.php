@@ -19,7 +19,7 @@ $categoryHrefBase = 'index.php?option=com_virtuemart&view=category&virtuemart_ca
 			<?php echo HTMLHelper::link($categoryHrefBase . $category->virtuemart_category_id, htmlspecialchars(trim(vmText::_($category->category_name))), array('class' => 'virtuemart-module-category-list-item-link')); ?>
 
 			<?php if ($level >= 1 && !empty($category->childs)) : ?>
-				<ul class="virtuemart-module-category-list-item-items-list">
+				<ul class="virtuemart-module-category-list-item-items-list list-unstyled">
 
 					<?php foreach ($category->childs as $childCategory) : ?>
 						<li class="virtuemart-module-category-list-item-items-list-item">

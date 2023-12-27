@@ -28,7 +28,7 @@ $categoriesPerRow = str_replace($categoriesPerRowAllowedDigits, $categoriesPerRo
 
 ?>
 
-<ul class="virtuemart-categories category-view-categories unstyled airis-flex-item-rows">
+<ul class="virtuemart-categories category-view-categories airis-flex-item-rows list-unstyled">
 
 	<?php foreach ($viewData['categories'] as $category) : ?>
 

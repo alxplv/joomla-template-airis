@@ -46,7 +46,7 @@ if ($useMainImagePosition)
 
 ?>
 
-<ul class="productdetails-images-additional airis-flex unstyled airis-flex-wrap">
+<ul class="productdetails-images-additional airis-flex airis-flex-wrap list-unstyled">
 	<?php for ($i = $productImagesStartingIndex; $i < $productImagesTotal; $i++) : ?>
 		<li class="productdetails-image productdetails-image-additional">
 			<?php

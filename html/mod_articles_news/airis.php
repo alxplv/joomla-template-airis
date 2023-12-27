@@ -64,7 +64,7 @@ if ($itemsTotal) {
 
     <?php if ($itemsTotal) : ?>
 
-        <ul class="airis-module-articles-news__list <?php echo $itemsContainerDisplayModeClass; ?> unstyled">
+        <ul class="airis-module-articles-news__list <?php echo $itemsContainerDisplayModeClass; ?> list-unstyled">
             <?php
                 foreach ($list as $item) {
                     require $moduleSublayoutFileName;
