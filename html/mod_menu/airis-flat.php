@@ -50,7 +50,7 @@ $usableLinkAttributes = [
         ?>
 
         <?php if ($menuHasItems) : ?>
-            <ul class="<?php echo $moduleClassPrefix; ?>__list unstyled">
+            <ul class="<?php echo $moduleClassPrefix; ?>__list list-unstyled">
 
                 <?php foreach ($list as $menuItem) : ?>
                     <?php
