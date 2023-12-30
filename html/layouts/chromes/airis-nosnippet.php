@@ -28,4 +28,4 @@ if (in_array($moduleContainerElement, $noSnippetAllowedTags)) {
 
 // FIXME: This wouldn't work so we had to revert to a simple include
 // LayoutHelper::render('chromes.airis', $displayData, JPATH_THEMES . DIRECTORY_SEPARATOR . Factory::getApplication()->getTemplate() . '/html/layouts');
-include __DIR__ . '/airis.php';
+include join(DIRECTORY_SEPARATOR, [__DIR__, 'airis.php']);
