@@ -6,6 +6,7 @@ defined('_JEXEC') or exit;
 // Joomla! imports
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Image\Image;
+use Joomla\CMS\Log\Log;
 use Joomla\Utilities\ArrayHelper;
 
 // TODO: Include additonal sources from found modern image format files of the same name as the passed one
@@ -41,16 +42,27 @@ if (!empty($displayData['title'])) {
 
 // Width & Height
 if (empty($displayData['width']) || empty($displayData['height'])) {
-	$joomlaImageClassInstance = new Image($displayData['src']);
+	try {
+		// Throws various exceptions if it is unable to create an image instance
+		$joomlaImageClassInstance = new Image($displayData['src']);
+		
+		// In case if path string points to a non-existing file
+		if ($joomlaImageClassInstance->isLoaded()) {
+			if (empty($displayData['width'])) {
+				$displayData['width'] = $joomlaImageClassInstance->getWidth();
+			}
 
-	// In case if path string points to a non-existing file
-	if ($joomlaImageClassInstance->isLoaded()) {
-		if (empty($displayData['width'])) {
-			$displayData['width'] = $joomlaImageClassInstance->getWidth();
+			if (empty($displayData['height'])) {
+				$displayData['height'] = $joomlaImageClassInstance->getHeight();
+			}
 		}
-
-		if (empty($displayData['height'])) {
-			$displayData['height'] = $joomlaImageClassInstance->getHeight();
+	} catch (Exception $joomlaImageClassInstanceCreationException) {
+		if (JDEBUG) {
+			Log::add(
+				"Unable to acquire image dimensions of file \"{$displayData['src']}\". " . $joomlaImageClassInstanceCreationException->getMessage(),
+				Log::DEBUG,
+				'templates-airis-html-layouts-joomla-html-image',
+			);
 		}
 	}
 }
