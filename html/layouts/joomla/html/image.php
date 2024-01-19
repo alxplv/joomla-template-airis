@@ -45,7 +45,7 @@ if (empty($displayData['width']) || empty($displayData['height'])) {
 	try {
 		// Throws various exceptions if it is unable to create an image instance
 		$joomlaImageClassInstance = new Image($displayData['src']);
-		
+
 		// In case if path string points to a non-existing file
 		if ($joomlaImageClassInstance->isLoaded()) {
 			if (empty($displayData['width'])) {
