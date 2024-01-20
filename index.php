@@ -260,7 +260,7 @@ $webAssets->usePreset('template.airis.template');
 
 // Joomla! Bootstrap CSS resets
 if ($this->params->get('useBootstrap') && $this->params->get('useBootstrapCssResetsFile')) {
-    $webAssets->useStyle('template.airis.boostrap.resets');
+    $webAssets->useStyle('template.airis.bootstrap.resets');
 }
 
 // VirtueMart CSS and JS
@@ -382,6 +382,7 @@ if ($this->params->get('useUserJsFile')) {
     }
 }
 
+// TODO: Remove since it along with the corresponding template.js code since it won't be used in our new mod_menu airis layout
 // Language strings for template.js
 Text::script('TPL_AIRIS_MAIN_MENU_CHILD_MENU_TOGGLE_BTN_TITLE');
 
