@@ -89,6 +89,7 @@ $personPositionWithCompanyName = trim("$personPosition $companyName");
 			<?php endif; ?>
 
 			<?php // TODO: Only include Font Awesome icons if it's enabled in Joomla or template ?>
+			<?php // if ($webAssets->assetExists('style', 'fontawesome') && $webAssets->isAssetActive('style', 'fontawesome')) ?>
 			<blockquote class="airis-testimonial-text-quote">
 				<span class="fas fa-angle-double-left airis-testimonial-text-quote-icon airis-testimonial-text-quote-icon-before" aria-hidden="true"></span>
 					<?php echo $item->introtext; ?>

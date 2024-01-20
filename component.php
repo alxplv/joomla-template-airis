@@ -96,14 +96,9 @@ if (file_exists($templatePath . '/favicon.svg')) {
 }
 
 // Add Font Awesome
-if ($this->params->get('loadFontAwesome')) {
-    $webAssets->usePreset('template.airis.fontawesome');
-    $this->addScriptOptions('tpl_airis', ['loadFontAwesome' => true]);
-
-    if ($this->params->get('loadFontAwesomeBrands')) {
-        $webAssets->useStyle('template.airis.fontawesome.brands');
-        $this->addScriptOptions('tpl_airis', ['loadFontAwesomeBrands' => true]);
-    }
+if ($this->params->get('useFontAwesome') && $webAssets->assetExists('style', 'fontawesome')) {
+    $webAssets->useStyle('fontawesome');
+    $this->addScriptOptions('tpl_airis', ['useFontAwesome' => true]);
 
     // Enable lazy loading of Joomla!'s Font Awesome
     // $webAssets->getAsset('style', 'fontawesome')->setAttribute('rel', 'lazy-stylesheet');

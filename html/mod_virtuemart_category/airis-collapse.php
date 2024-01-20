@@ -10,14 +10,23 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-// Get the current Joomla! template along with its options
-$joomlaCurrentTemplate = Factory::getApplication()->getTemplate(true);
+// Basic handles
+$joomlaCurrentTemplate = Factory::getApplication()->getTemplate();
+$webAssets = Factory::getApplication()->getDocument()->getWebAssetManager();
 
-// Get template options for Font Awesome
-$fontAwesomeLoaded = $joomlaCurrentTemplate->params->get('loadFontAwesome');
+$accordionToggleLinkContent = ''; 
 
 // Use Font Awesome for accordion toggle links if available
-$accordionToggleLinkContent = $fontAwesomeLoaded ? '<span class="fas fa-chevron-down virtuemart-module-category-accordion-heading-toggle-link-icon" aria-hidden="true"></span>' : HTMLHelper::image("templates/$joomlaCurrentTemplate/images/icons/airis-chevron-down.svg", array('class' => 'airis-svg airis-svg-chevron-down virtuemart-module-category-accordion-heading-toggle-link-icon'));
+if ($webAssets->assetExists('style', 'fontawesome') && $webAssets->isAssetActive('style', 'fontawesome')) {
+    $accordionToggleLinkContent = '<span class="fas fa-chevron-down virtuemart-module-category-accordion-heading-toggle-link-icon" aria-hidden="true"></span>';
+} else {
+    $accordionToggleLinkContent = HTMLHelper::image(
+        "templates/$joomlaCurrentTemplate/images/icons/airis-chevron-down.svg",
+        [
+            'class' => 'airis-svg airis-svg-chevron-down virtuemart-module-category-accordion-heading-toggle-link-icon',
+        ]
+    );
+}
 
 // Making sure to have a unique Bootstrap accordion id for each module
 $accordionId = 'virtuemart-module-category-accordion-' . md5(hrtime(true));
