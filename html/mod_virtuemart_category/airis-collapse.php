@@ -16,8 +16,19 @@ $joomlaCurrentTemplate = Factory::getApplication()->getTemplate(true);
 // Get template options for Font Awesome
 $fontAwesomeLoaded = $joomlaCurrentTemplate->params->get('loadFontAwesome');
 
+$accordionToggleLinkContent = '';
+
 // Use Font Awesome for accordion toggle links if available
-$accordionToggleLinkContent = $fontAwesomeLoaded ? '<span class="fas fa-chevron-down virtuemart-module-category-accordion-heading-toggle-link-icon" aria-hidden="true"></span>' : HTMLHelper::image("templates/$joomlaCurrentTemplate/images/icons/airis-chevron-down.svg", array('class' => 'airis-svg airis-svg-chevron-down virtuemart-module-category-accordion-heading-toggle-link-icon'));
+if ($fontAwesomeLoaded) {
+    $accordionToggleLinkContent = '<span class="fas fa-chevron-down virtuemart-module-category-accordion-heading-toggle-link-icon" aria-hidden="true"></span>';
+} else {
+    $accordionToggleLinkContent = HTMLHelper::image(
+        "templates/$joomlaCurrentTemplate/images/icons/airis-chevron-down.svg",
+        [
+            'class' => 'airis-svg airis-svg-chevron-down virtuemart-module-category-accordion-heading-toggle-link-icon',
+        ]
+    );
+}
 
 // Making sure to have a unique Bootstrap accordion id for each module
 $accordionId = 'virtuemart-module-category-accordion-' . md5(hrtime(true));
