@@ -119,10 +119,10 @@ $allowedMenuItemTypes = [
                         $menuItemParams = $menuItem->getParams();
                         $menuItemText = htmlspecialchars(trim($menuItem->title), ENT_QUOTES, 'UTF-8');
                         $menuItemTitle = $menuItemText;
-                        $menuListItemClasses = "nav-item {$moduleClassPrefix}__item {$moduleClassPrefix}__item_type_$menuItem->type {$moduleClassPrefix}__item_id_$menuItem->id {$moduleClassPrefix}__item_level_$menuItemLevelValue";
+                        $menuListItemClasses = "nav-item {$moduleClassPrefix}__item {$moduleClassPrefix}__item_type_$menuItem->type {$moduleClassPrefix}__item_id_$menuItem->id {$moduleClassPrefix}__item_level_$menuItemLevelValue {$moduleClassPrefix}__item$BemModificatorMenuType";
 
                         $menuItemAttributes = [
-                            'class' => "{$moduleClassPrefix}__link {$moduleClassPrefix}__link_type_$menuItem->type {$moduleClassPrefix}__link_id_$menuItem->id {$moduleClassPrefix}__link_level_$menuItemLevelValue",
+                            'class' => "{$moduleClassPrefix}__link {$moduleClassPrefix}__link_type_$menuItem->type {$moduleClassPrefix}__link_id_$menuItem->id {$moduleClassPrefix}__link_level_$menuItemLevelValue {$moduleClassPrefix}__link$BemModificatorMenuType",
                         ];
 
                         // Hide menu item text if required
@@ -133,7 +133,7 @@ $allowedMenuItemTypes = [
 
                         // Icon takes priorty over image as hinted in the Joomla!'s com_menus item edit layout
                         if ($menuItemIconClass) {
-                            $menuItemIconClasses = "{$moduleClassPrefix}__icon {$moduleClassPrefix}__icon_level_$menuItemLevelValue";
+                            $menuItemIconClasses = "{$moduleClassPrefix}__icon {$moduleClassPrefix}__icon_level_$menuItemLevelValue {$moduleClassPrefix}__icon$BemModificatorMenuType";
 
                             if ($menuItem->level > $menuLevelStart) {
                                 $menuItemIconClasses .= " {$moduleClassPrefix}__icon_dropdown";
@@ -146,7 +146,7 @@ $allowedMenuItemTypes = [
                             $menuItemText = "<span class=\"$menuItemIconClasses $menuItemIconClass\" aria-hidden=\"true\"></span>$menuItemText";
                         } elseif ($menuItemImageSrc) {
                             $menuItemImageAttributes = [
-                                'class' => "{$moduleClassPrefix}__image {$moduleClassPrefix}__image_level_$menuItemLevelValue",
+                                'class' => "{$moduleClassPrefix}__image {$moduleClassPrefix}__image_level_$menuItemLevelValue {$moduleClassPrefix}__image$BemModificatorMenuType",
                             ];
 
                             if ($menuItem->level > $menuLevelStart) {
