@@ -134,6 +134,48 @@
             ]
         },
         {
+            "name": "template.airis.fontawesome",
+            "type": "style",
+            "uri": "media/templates/site/airis/vendor/fontawesome/css/fontawesome.min.css",
+            "attributes": {
+                "rel": "lazy-stylesheet"
+            }
+        },
+        {
+            "name": "template.airis.fontawesome.solid",
+            "type": "style",
+            "uri": "media/templates/site/airis/vendor/fontawesome/css/solid.min.css",
+            "attributes": {
+                "rel": "lazy-stylesheet"
+            }
+        },
+        {
+            "name": "template.airis.fontawesome.regular",
+            "type": "style",
+            "uri": "media/templates/site/airis/vendor/fontawesome/css/regular.min.css",
+            "attributes": {
+                "rel": "lazy-stylesheet"
+            }
+        },
+        {
+            "name": "template.airis.fontawesome",
+            "type": "preset",
+            "uri": "",
+            "dependencies": [
+                "template.airis.fontawesome#style",
+                "template.airis.fontawesome.solid#style",
+                "template.airis.fontawesome.regular#style"
+            ]
+        },
+        {
+            "name": "template.airis.fontawesome.brands",
+            "type": "style",
+            "uri": "media/templates/site/airis/vendor/fontawesome/css/brands.min.css",
+            "attributes": {
+                "rel": "lazy-stylesheet"
+            }
+        },
+        {
             "name": "template.airis.glightbox",
             "type": "style",
             "uri": "media/templates/site/airis/vendor/glightbox/css/glightbox.min.css"

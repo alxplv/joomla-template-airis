@@ -9,20 +9,18 @@ use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-// Basic handles
-$webAssets = Factory::getApplication()->getDocument()->getWebAssetManager();
+// Acquire template parameters
+$templateParameters = Factory::getApplication()->getTemplate(true)->params;
 
 // Module sublayout file for each Joomla! item
 $moduleSublayoutFileName = ModuleHelper::getLayoutPath('mod_articles_news', pathinfo(__FILE__, PATHINFO_FILENAME) . '_item');
 
+// Process module data and options
+$moduleClassSuffix = htmlspecialchars(rtrim($params->get('moduleclass_sfx', '')), ENT_QUOTES, 'UTF-8'); // Not using trim() here to keep possible and perfectly acceptable leading whitespace
+$moduleClassSuffix = preg_replace('/\s{2,}/', ' ', $moduleClassSuffix); // Also remove non-singular whitespaces just in case
+
 // Custom options prefix
 $airisModuleClassSuffixParamPrefix = ' airis-module-param-';
-
-/* TODO: Add support of item links of various type (Article ID, Menu Item ID and url (both absolute or relative)) and use the Router::_(); for the
-first two types. All values go to two seprate custom fields the first of which is with the filter type of 'integer' which are displayed through showon attribute
-based on the currently selected option of the main custom field of type list (<select>) which allows to select the type of a link to be used with
-the current content item. Here in option we read both values airis-item-link-type (article-id, menu-item-id, and uri). Also don't forget a custom field (checkbox) for 
-including the target="_blank" attribute (airis-item-link-use-target-blank). */
 
 // Supported custom options of this view
 $airisModuleClassSuffixParams = [
@@ -70,11 +68,11 @@ if ($moduleClassSuffix && strpos($moduleClassSuffix, $airisModuleClassSuffixPara
 }
 
 // Unique HTML id attribute value used for each Bootstrap carousel on current page
-$carouselId = 'airis-module-articles-news-carousel_id_' . md5($module->id . hrtime(true));
+$carouselId = 'airis-module-articles-news-carousel-' . $module->id;
 
 ?>
 
-<div class="airis-module-articles-news-carousel">
+<div class="airis-module-articles-news-carousel<?php echo $moduleClassSuffix; ?>">
 
     <?php // TODO: Replace is_array() && instanceof Countable with is_countable() once were on PHP 7.3+ and Joomla! 5+ for good ?>
     <?php if (isset($list) && is_array($list) && count($list)) : ?>
@@ -87,7 +85,7 @@ $carouselId = 'airis-module-articles-news-carousel_id_' . md5($module->id . hrti
 
             <?php if (!$airisModuleClassSuffixParams['carousel-disable-indicators']) : ?>
 
-                <ol class="airis-module-articles-news-carousel__indicators carousel-indicators list-unstyled">
+                <ol class="airis-module-articles-news-carousel__indicators carousel-indicators unstyled">
 
                     <?php for($currentSlide = 0; $currentSlide < $slidesTotal; $currentSlide++) : ?>
 
@@ -130,7 +128,7 @@ $carouselId = 'airis-module-articles-news-carousel_id_' . md5($module->id . hrti
                     $controlNextContent = "<span class=\"$controlIconClassesBase-next $controlIconClassesBase\" aria-hidden=\"true\">&rsaquo;</span>";
 
                     // Use Font Awesome icons if the font is loaded
-                    if ($webAssets->assetExists('style', 'fontawesome') && $webAssets->isAssetActive('style', 'fontawesome')) {
+                    if ($templateParameters->get('loadFontAwesome')) {
                         $controlPreviousContent = "<span class=\"$controlIconClassesBase-previous $controlIconClassesBase fas fa-chevron-left\" aria-hidden=\"true\"></span>";
                         $controlNextContent = "<span class=\"$controlIconClassesBase-next $controlIconClassesBase fas fa-chevron-right\" aria-hidden=\"true\"></span>";
                     }

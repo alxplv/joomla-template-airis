@@ -196,9 +196,15 @@ if ($this->params->get('useFlickity')) {
 }
 
 // Add Font Awesome
-if ($this->params->get('useFontAwesome') && $webAssets->assetExists('style', 'fontawesome')) {
-    $webAssets->useStyle('fontawesome');
+// TODO: Decide if we really need to bring our own Font Awesome
+if ($this->params->get('useFontAwesome')) {
+    $webAssets->usePreset('template.airis.fontawesome');
     $this->addScriptOptions('tpl_airis', ['useFontAwesome' => true]);
+
+    if ($this->params->get('useFontAwesomeBrands')) {
+        $webAssets->useStyle('template.airis.fontawesome.brands');
+        $this->addScriptOptions('tpl_airis', ['useFontAwesomeBrands' => true]);
+    }
 
     // Enable lazy loading of Joomla!'s Font Awesome
     // $webAssets->getAsset('style', 'fontawesome')->setAttribute('rel', 'lazy-stylesheet');
