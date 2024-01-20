@@ -15,10 +15,6 @@ $templateParameters = Factory::getApplication()->getTemplate(true)->params;
 // Module sublayout file for each Joomla! item
 $moduleSublayoutFileName = ModuleHelper::getLayoutPath('mod_articles_news', pathinfo(__FILE__, PATHINFO_FILENAME) . '_item');
 
-// Process module data and options
-$moduleClassSuffix = htmlspecialchars(rtrim($params->get('moduleclass_sfx', '')), ENT_QUOTES, 'UTF-8'); // Not using trim() here to keep possible and perfectly acceptable leading whitespace
-$moduleClassSuffix = preg_replace('/\s{2,}/', ' ', $moduleClassSuffix); // Also remove non-singular whitespaces just in case
-
 // Custom options prefix
 $airisModuleClassSuffixParamPrefix = ' airis-module-param-';
 
@@ -68,11 +64,11 @@ if ($moduleClassSuffix && strpos($moduleClassSuffix, $airisModuleClassSuffixPara
 }
 
 // Unique HTML id attribute value used for each Bootstrap carousel on current page
-$carouselId = 'airis-module-articles-news-carousel-' . $module->id;
+$carouselId = 'airis-module-articles-news-carousel_id_' . md5($module->id . hrtime(true));
 
 ?>
 
-<div class="airis-module-articles-news-carousel<?php echo $moduleClassSuffix; ?>">
+<div class="airis-module-articles-news-carousel">
 
     <?php // TODO: Replace is_array() && instanceof Countable with is_countable() once were on PHP 7.3+ and Joomla! 5+ for good ?>
     <?php if (isset($list) && is_array($list) && count($list)) : ?>
@@ -85,7 +81,7 @@ $carouselId = 'airis-module-articles-news-carousel-' . $module->id;
 
             <?php if (!$airisModuleClassSuffixParams['carousel-disable-indicators']) : ?>
 
-                <ol class="airis-module-articles-news-carousel__indicators carousel-indicators unstyled">
+                <ol class="airis-module-articles-news-carousel__indicators carousel-indicators list-unstyled">
 
                     <?php for($currentSlide = 0; $currentSlide < $slidesTotal; $currentSlide++) : ?>
 
