@@ -30,7 +30,7 @@
             ]
         },
         {
-            "name": "template.airis.boostrap.resets",
+            "name": "template.airis.bootstrap.resets",
             "type": "style",
             "uri": "media/templates/site/airis/css/template-bootstrap-resets.min.css",
             "dependencies": [
