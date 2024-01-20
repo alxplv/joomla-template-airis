@@ -10,6 +10,7 @@ use Joomla\CMS\Language\Text;
 $sublayoutPrefix = basename(__FILE__, 'addtocartbar.php');
 
 // Get template options
+// TODO: Replace the use of template options with Web Assets here and in the calling code
 $fontAwesomeLoaded = $viewData['airis-template-options']->get('loadFontAwesome');
 
 $product = $viewData['product'];
