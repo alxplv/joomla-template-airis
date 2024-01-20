@@ -8,6 +8,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 // use Joomla\CMS\Filter\FilterOutput;
 use Joomla\Filter\OutputFilter;
 
+$menuType = htmlspecialchars(trim($params->get('menutype', '')), ENT_QUOTES, 'UTF-8');
 $moduleClassPrefix = 'airis-module-menu-flat';
 
 // Output only items with these menu item types
@@ -26,7 +27,8 @@ $usableLinkAttributes = [
 
 ?>
 
-<div class="<?php echo $moduleClassPrefix, $class_sfx; ?>" id="<?php echo $params->get('tag_id', "$moduleClassPrefix-$module->id"); ?>">
+<?php // FIXME: Fix outputing empty id attribute; Fix non-empty class_sfx untrimmed disabling default module class ?>
+<div class="<?php echo $moduleClassPrefix, $class_sfx, "$moduleClassPrefix-$menuType"; ?>" id="<?php echo $params->get('tag_id', "$moduleClassPrefix-$module->id"); ?>">
 
     <?php // TODO: Replace is_array() && instanceof Countable with is_countable() once we're on PHP 7.3+ for good ?>
     <?php if (isset($list) && is_array($list) && $list instanceof Countable) : ?>
@@ -54,7 +56,7 @@ $usableLinkAttributes = [
 
                 <?php foreach ($list as $menuItem) : ?>
                     <?php
-                        $itemContainerClasses = "{$moduleClassPrefix}__item module-menu-item-$menuItem->id item-$menuItem->id";
+                        $itemContainerClasses = "{$moduleClassPrefix}__item {$moduleClassPrefix}__item_id_$menuItem->id item-$menuItem->id";
                         $itemAnchorCSS = htmlspecialchars(trim($menuItem->anchor_css));
 
                         // Prefix all defined menu item classes for their use by item container
@@ -69,8 +71,9 @@ $usableLinkAttributes = [
 
                     <li class="<?php echo $itemContainerClasses; ?>">
                         <?php
+                            // TODO: Add support of 'default' and 'current' classes as seen in default.php
                             $menuItemLinkAttributes = [
-                                'class' => "{$moduleClassPrefix}__link module-menu-link-$menuItem->id",
+                                'class' => "{$moduleClassPrefix}__link {$moduleClassPrefix}__link_id_$menuItem->id",
                             ];
 
                             // Process menu item options into array of applicable link attributes
@@ -94,7 +97,7 @@ $usableLinkAttributes = [
                             echo HTMLHelper::link(
                                 // FilterOutput::ampReplace($menuItem->flink),
                                 OutputFilter::ampReplace($menuItem->flink),
-                                htmlspecialchars(trim($menuItem->title)),
+                                htmlspecialchars(trim($menuItem->title), ENT_QUOTES, 'UTF-8'),
                                 $menuItemLinkAttributes,
                             );
                         ?>
