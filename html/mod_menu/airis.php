@@ -28,7 +28,7 @@ $moduleClassPrefix = 'airis-module-menu';
 $BemModificatorMenuType = "_menu-type_$menuType";
 
 $menuAttributes = [
-    'class' => "{$moduleClassPrefix}__list {$moduleClassPrefix}__list_level_start navbar-nav",
+    'class' => "{$moduleClassPrefix}__list {$moduleClassPrefix}__list$BemModificatorMenuType {$moduleClassPrefix}__list_level_start navbar-nav",
 ];
 
 // Process module options
