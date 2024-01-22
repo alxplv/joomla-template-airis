@@ -8,7 +8,7 @@
         {
             "name": "template.airis.template",
             "type": "style",
-            "uri": "templates/site/airis/css/template.min.css",
+            "uri": "media/templates/site/airis/css/template.min.css",
             "description": "A collection of CSS utility classes available to the template user and widely employed by the supplied component and module layouts."
         },
         {
