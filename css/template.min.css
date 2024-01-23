@@ -665,10 +665,6 @@ td {
 }
 
 /* Nav */
-.navbar a {
-    font-size: .875rem;
-}
-
 .nav-child {
     position: absolute;
     display: none;
