@@ -85,7 +85,7 @@ td {
     overflow-x: auto;
 }
 
-@media (min-width: 980px) {
+@media (min-width: 992px) {
     .airis-asides-both .airis-aside {
         width: 12rem;
         min-width: 12rem;
@@ -99,7 +99,7 @@ td {
     }
 }
 
-@media (max-width: 979.98px) {
+@media (max-width: 991.98px) {
     .airis-asides-both {
         display: block;
     }
@@ -447,7 +447,7 @@ td {
 }
 
 /* Three flex blocks per row (single aside) */
-@media (min-width: 980px) {
+@media (min-width: 992px) {
     .airis-asides-single .airis-flex-item-per-row-three {
         width: -webkit-calc((100% / 3) - (1rem - (1rem / 3)));
         width: -moz-calc((100% / 3) - (1rem - (1rem / 3)));
@@ -463,7 +463,7 @@ td {
     }
 }
 
-@media (min-width: 480px) and (max-width: 979.98px) {
+@media (min-width: 480px) and (max-width: 991.98px) {
     .airis-asides-single .airis-flex-item-per-row-three {
         width: -webkit-calc((100% / 2) - (1rem - (1rem / 2)));
         width: -moz-calc((100% / 2) - (1rem - (1rem / 2)));
@@ -483,7 +483,7 @@ td {
 
 
 /* Four flex blocks per row (no asides) */
-@media (min-width: 980px) {
+@media (min-width: 992px) {
     .airis-asides-none .airis-flex-item-per-row-four {
         width: -webkit-calc((100% / 4) - (1rem - (1rem / 4)));
         width: -moz-calc((100% / 4) - (1rem - (1rem / 4)));
@@ -499,7 +499,7 @@ td {
     }
 }
 
-@media (min-width: 768px) and (max-width: 979.98px) {
+@media (min-width: 768px) and (max-width: 991.98px) {
     .airis-asides-none .airis-flex-item-per-row-four {
         width: -webkit-calc((100% / 3) - (1rem - (1rem / 3)));
         width: -moz-calc((100% / 3) - (1rem - (1rem / 3)));
@@ -532,7 +532,7 @@ td {
 }
 
 /* Four flex blocks per row (single asides) */
-@media (min-width: 980px) {
+@media (min-width: 992px) {
     .airis-asides-single .airis-flex-item-per-row-four {
         width: -webkit-calc((100% / 4) - (1rem - (1rem / 4)));
         width: -moz-calc((100% / 4) - (1rem - (1rem / 4)));
@@ -548,7 +548,7 @@ td {
     }
 }
 
-@media (min-width: 768px) and (max-width: 979.98px) {
+@media (min-width: 768px) and (max-width: 991.98px) {
     .airis-asides-single .airis-flex-item-per-row-four {
         width: -webkit-calc((100% / 3) - (1rem - (1rem / 3)));
         width: -moz-calc((100% / 3) - (1rem - (1rem / 3)));
@@ -600,7 +600,7 @@ td {
     }
 }
 
-@media (min-width: 980px) and (max-width: 1199.98px) {
+@media (min-width: 992px) and (max-width: 1199.98px) {
     .airis-asides-none .airis-flex-item-per-row-six {
         width: -webkit-calc((100% / 4) - (1rem - (1rem / 4)));
         width: -moz-calc((100% / 4) - (1rem - (1rem / 4)));
@@ -616,7 +616,7 @@ td {
     }
 }
 
-@media (min-width: 768px) and (max-width: 979.98px) {
+@media (min-width: 768px) and (max-width: 991.98px) {
     .airis-asides-none .airis-flex-item-per-row-six {
         width: -webkit-calc((100% / 3) - (1rem - (1rem / 3)));
         width: -moz-calc((100% / 3) - (1rem - (1rem / 3)));
@@ -697,7 +697,7 @@ td {
 
 }
 
-@media (min-width: 980px) {
+@media (min-width: 992px) {
     .nav-child-toggle {
         display: none;
     }
@@ -708,7 +708,7 @@ td {
     }
 }
 
-@media (max-width: 979.98px) {
+@media (max-width: 991.98px) {
     .navbar .parent {
         position: relative;
     }
@@ -1034,7 +1034,7 @@ td {
 }
 
 /* Five items per row are optimal for 250 x 250 px thumbnails. */
-@media (min-width: 980px) {
+@media (min-width: 992px) {
     .airis-asides-none .sigplus-flex-five li {
         width: -webkit-calc((100% / 5) - (1rem - (1rem / 5)));
         width: -moz-calc((100% / 5) - (1rem - (1rem / 5)));
@@ -1054,7 +1054,7 @@ td {
     }
 }
 
-@media (min-width: 768px) and (max-width: 979.98px) {
+@media (min-width: 768px) and (max-width: 991.98px) {
     .airis-asides-none .sigplus-flex-five li {
         width: -webkit-calc((100% / 4) - (1rem - (1rem / 4)));
         width: -moz-calc((100% / 4) - (1rem - (1rem / 4)));
@@ -1095,7 +1095,7 @@ td {
     }
 }
 
-@media (min-width: 980px) and (max-width: 1199.98px) {
+@media (min-width: 992px) and (max-width: 1199.98px) {
     .airis-asides-single .sigplus-flex-five li {
         width: -webkit-calc((100% / 4) - (1rem - (1rem / 4)));
         width: -moz-calc((100% / 4) - (1rem - (1rem / 4)));
@@ -1115,7 +1115,7 @@ td {
     }
 }
 
-@media (min-width: 768px) and (max-width: 979.98px) {
+@media (min-width: 768px) and (max-width: 991.98px) {
     .airis-asides-single .sigplus-flex-five li {
         width: -webkit-calc((100% / 3) - (1rem - (1rem / 3)));
         width: -moz-calc((100% / 3) - (1rem - (1rem / 3)));
@@ -1199,7 +1199,7 @@ td {
 }
 
 /* Single aside */
-@media (min-width: 980px) {
+@media (min-width: 992px) {
     .airis-asides-single .sigplus-flex-four li {
         width: -webkit-calc((100% / 4) - (1rem - (1rem / 4)));
         width: -moz-calc((100% / 4) - (1rem - (1rem / 4)));
@@ -1219,7 +1219,7 @@ td {
     }
 }
 
-@media (min-width: 768px) and (max-width: 979.98px) {
+@media (min-width: 768px) and (max-width: 991.98px) {
     .airis-asides-single .sigplus-flex-four li {
         width: -webkit-calc((100% / 3) - (1rem - (1rem / 3)));
         width: -moz-calc((100% / 3) - (1rem - (1rem / 3)));
