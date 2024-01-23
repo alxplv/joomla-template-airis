@@ -98,17 +98,6 @@ p {
     border-bottom: none;
 }
 
-@media (max-width: 767.98px) {
-    body {
-        padding: 0;
-    }
-
-    nav.navbar {
-        margin-left: 1rem;
-        margin-right: 1rem;
-    }
-}
-
 /* Breadcrumbs */
 .breadcrumb {
     margin: 0;
