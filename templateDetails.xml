@@ -6,12 +6,12 @@
 	<!-- <author>TPL_AIRIS_XML_AUTHOR</author> -->
 	<authorEmail>polishchuk-alexander@mail.ru</authorEmail>
 	<authorUrl>https://t.me/alxplv</authorUrl>
-	<copyright>Copyright (C) 2016 - 2023 alxplv. All rights reserved.</copyright>
+	<copyright>Copyright (C) 2016 - 2024 alxplv. All rights reserved.</copyright>
 	<creationDate>2021-04-19</creationDate>
 	<description>TPL_AIRIS_XML_DESCRIPTION</description>
 	<inheritable>1</inheritable>
 	<license>GNU GPLv3; follow http://www.gnu.org/licenses/gpl-3.0.html</license>
-	<version>4.0.0</version>
+	<version>5.0.0</version>
 	<updateservers>
 		<server type="extension" name="TPL_AIRIS_XML_UPDATE_SERVER_NAME">https://alxplv.github.io/cms/joomla/templates/tpl_airis.xml</server>
 	</updateservers>
