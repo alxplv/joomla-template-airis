@@ -9,6 +9,7 @@ if (empty($viewData['products'])) return;
 // Joomla! imports
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Image\Image;
+use Joomla\CMS\Log\Log;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
 
@@ -118,11 +119,30 @@ $productShortDescriptionStringLimit = $viewData['airis-template-options']->get('
 						// TODO: While getFileUrlThumb() provides correct path to a possible "NO IMAGE" image for this item, the Image class instance above cannot be successfully contructed for such images for some reason, so we can only fallback to configured thumbnail dimensions in such cases because getUrl() returns no valid image path to extract full image dimensions from there since proper aspect ratio is what browsers care about anyway
 						if (!empty($product->images[0]->virtuemart_media_id))
 						{
+							// TODO: Check if we need a try-catch here at all even in situations when VM thumbmails were set to regenerate
 							// Construct an Image instance from product thumbnail URI first since VM's VmMediaHandler class currently doesn't provide any properties or methods to get thumbnail width and height
-							$productImage = new Image($product->images[0]->getFileUrlThumb());
+							try {
+								$productImage = new Image($product->images[0]->getFileUrlThumb());
 
-							$productImageAttributes['width'] = $productImage->getWidth();
-							$productImageAttributes['height'] = $productImage->getHeight();
+								if ($productImage->isLoaded()) {
+									$productImageAttributes['width'] = $productImage->getWidth();
+									$productImageAttributes['height'] = $productImage->getHeight();
+								} else {
+									$productImageAttributes['width'] = VmConfig::get('img_width', 0); 
+									$productImageAttributes['height'] = VmConfig::get('img_height', 0);
+								}
+							} catch (Exception $joomlaImageClassInstanceCreationException) {
+								if (JDEBUG) {
+									$productImageThumbUrl = $product->images[0]->getFileUrlThumb();
+
+									Log::add(
+										"Unable to acquire image dimensions of file \"$productImageThumbUrl\". " . $joomlaImageClassInstanceCreationException->getMessage(),
+										Log::DEBUG,
+										'templates-airis-html-com_virtuemart-sublayouts-airis_products',
+									);
+								}
+							}
+
 						}
 						else
 						{
