@@ -13,7 +13,14 @@
  */
 
 // Check to ensure this file is included in Joomla!
-defined ('_JEXEC') or die('Restricted access');
+defined ('_JEXEC') or exit;
+
+// Joomla! imports
+use Joomla\CMS\Factory;
+
+// Acquire template options
+$airisTemplateOptions = Factory::getApplication()->getTemplate(true)->params;
+
 ?>
 <fieldset class="vm-fieldset-pricelist">
 <div class="airis-table-resposnive">
@@ -95,8 +102,18 @@ foreach ($this->cart->products as $pkey => $prow) {
 				<input type="button" class="quantity-controls quantity-plus"/>
 				<input type="button" class="quantity-controls quantity-minus"/>
         </span-->
-		<button type="submit" class="vmicon vm2-add_quantity_cart" name="updatecart.<?php echo $pkey ?>" title="<?php echo  vmText::_ ('COM_VIRTUEMART_CART_UPDATE') ?>" data-dynamic-update="1" ></button>
-		<button type="submit" class="vmicon vm2-remove_from_cart" name="delete.<?php echo $pkey ?>" title="<?php echo vmText::_ ('COM_VIRTUEMART_CART_DELETE') ?>" ></button>
+		<?php if ($airisTemplateOptions->get('useFontAwesome', 0)) : ?>
+			<button type="submit" class="vm2-add_quantity_cart" name="updatecart.<?php echo $pkey; ?>" title="<?php echo vmText::_('COM_VIRTUEMART_CART_UPDATE'); ?>" aria-label="<?php echo vmText::_('COM_VIRTUEMART_CART_UPDATE'); ?>" data-dynamic-update="1">
+				<span class="fas fa-sync" aria-hidden="true"></span>
+			</button>
+
+			<button type="submit" class="vm2-remove_from_cart" name="delete.<?php echo $pkey; ?>" title="<?php echo vmText::_ ('COM_VIRTUEMART_CART_DELETE') ?>" aria-label="<?php echo vmText::_('COM_VIRTUEMART_CART_DELETE'); ?>">
+				<span class="fas fa-times" aria-hidden="true"></span>
+			</button>
+		<?php else : ?>
+			<button type="submit" class="vm2-add_quantity_cart" name="updatecart.<?php echo $pkey; ?>" title="<?php echo  vmText::_ ('COM_VIRTUEMART_CART_UPDATE') ?>" aria-label="<?php echo vmText::_('COM_VIRTUEMART_CART_UPDATE'); ?>" data-dynamic-update="1" >&orarr;</button>
+			<button type="submit" class="vm2-remove_from_cart" name="delete.<?php echo $pkey; ?>" title="<?php echo vmText::_ ('COM_VIRTUEMART_CART_DELETE') ?>" aria-label="<?php echo vmText::_('COM_VIRTUEMART_CART_DELETE'); ?>">&times;</button>
+		<?php endif; ?>
 	</td>
 	<?php if (VmConfig::get ('show_tax')) { ?>
 	<td class="vm-cart-item-tax" ><?php echo "<span class='priceColor2'>" . $this->currencyDisplay->createPriceDiv ('taxAmount', '', $prow->prices, FALSE, FALSE, $prow->quantity, false, true) . "</span>" ?></td>
