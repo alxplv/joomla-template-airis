@@ -128,22 +128,32 @@ td {
 }
 
 /* Margins */
+.airis-margin-0,
+.airis-margin-none,
 .airis-margin-no {
     margin: 0 !important;
 }
 
+.airis-margin-top-0,
+.airis-margin-top-none,
 .airis-margin-top-no {
     margin-top: 0 !important;
 }
 
+.airis-margin-bottom-0,
+.airis-margin-bottom-none,
 .airis-margin-bottom-no {
     margin-bottom: 0 !important;
 }
 
+.airis-margin-left-0,
+.airis-margin-left-none,
 .airis-margin-left-no {
     margin-left: 0 !important;
 }
 
+.airis-margin-right-0,
+.airis-margin-right-none,
 .airis-margin-right-no {
     margin-right: 0 !important;
 }
@@ -156,6 +166,11 @@ td {
     margin-right: auto !important;
 }
 
+.airis-margin-horizontal-auto {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
 .airis-margin-top-half {
     margin-top: .5rem !important;
 }
@@ -164,11 +179,35 @@ td {
     margin-bottom: .5rem !important;
 }
 
+.airis-margin-vertical-half {
+    margin-top: .5rem !important;
+    margin-bottom: .5rem !important;
+}
+
+
+.airis-margin-left-half {
+    margin-left: .5rem !important;
+}
+
+.airis-margin-right-half {
+    margin-right: .5rem !important;
+}
+
+.airis-margin-horizontal-half {
+    margin-left: .5rem !important;
+    margin-right: .5rem !important;
+}
+
 .airis-margin-top-1 {
     margin-top: 1rem !important;
 }
 
 .airis-margin-bottom-1 {
+    margin-bottom: 1rem !important;
+}
+
+.airis-margin-vertical-1 {
+    margin-top: 1rem !important;
     margin-bottom: 1rem !important;
 }
 
@@ -180,11 +219,21 @@ td {
     margin-bottom: 2rem !important;
 }
 
+.airis-margin-vertical-2 {
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+}
+
 .airis-margin-top-3 {
     margin-top: 3rem !important;
 }
 
 .airis-margin-bottom-3 {
+    margin-bottom: 3rem !important;
+}
+
+.airis-margin-vertical-3 {
+    margin-top: 3rem !important;
     margin-bottom: 3rem !important;
 }
 
@@ -196,23 +245,38 @@ td {
     margin-bottom: 4rem !important;
 }
 
+.airis-margin-vertical-4 {
+    margin-top: 4rem !important;
+    margin-bottom: 4rem !important;
+}
+
 /* Paddings */
+.airis-padding-0,
+.airis-padding-none,
 .airis-padding-no {
     padding: 0 !important;
 }
 
+.airis-padding-top-0,
+.airis-padding-top-none,
 .airis-padding-top-no {
     padding-top: 0 !important;
 }
 
+.airis-padding-bottom-0,
+.airis-padding-bottom-none,
 .airis-padding-bottom-no {
     padding-bottom: 0 !important;
 }
 
+.airis-padding-left-0,
+.airis-padding-left-none,
 .airis-padding-left-no {
     padding-left: 0 !important;
 }
 
+.airis-padding-right-0,
+.airis-padding-right-none,
 .airis-padding-right-no {
     padding-right: 0 !important;
 }
@@ -295,6 +359,16 @@ td {
 
 .airis-padding-right-4 {
     padding-right: 4rem !important;
+}
+
+.airis-padding-vertical-none {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.airis-padding-horizontal-none {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 /* Flexes */
