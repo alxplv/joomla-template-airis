@@ -8,6 +8,8 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
+// TODO: Output any errors before redirecting so this layout actually lives up to its name
+
 // Simply use the default Joomla! error.php file because we don't want to remove our own
 // require join(DIRECTORY_SEPARATOR, [JPATH_THEMES, 'system', 'error.php']);
 // return;
