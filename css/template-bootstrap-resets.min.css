@@ -1,21 +1,27 @@
 @charset "utf-8";
 
 /* Joomla! Bootstrap resets */
+:root {
+    --bs-body-font-family: sans-serif;
+    --bs-body-font-size: medium;
+    --bs-body-line-height: normal;
+}
 
-/* Generic */
+/* Generic elements */
 address {
-    margin: 0;
-    line-height: normal;
+    margin-bottom: 0;
 }
 
-body {
-    font-family: sans-serif;
-    font-size: medium;
-    line-height: normal;
+dl {
+    margin-bottom: 0;
 }
 
-form {
-    margin: 0;
+dd {
+    margin-bottom: 0;
+}
+
+dt {
+    font-weight: 400;
 }
 
 h1,
@@ -27,82 +33,24 @@ h6 {
     line-height: normal;
 }
 
-button,
-label,
-input[type="button"],
-input[type="submit"],
-input[type="reset"] {
-    display: inline-block;
-    box-sizing: border-box;
-    font-size: 1rem;
-    line-height: normal;
-    width: auto;
-    height: auto;
-    max-width: 100%;
-}
-
-textarea,
-select,
-input[type="text"],
-input[type="password"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="date"],
-input[type="month"],
-input[type="time"],
-input[type="week"],
-input[type="number"],
-input[type="email"],
-input[type="url"],
-input[type="search"],
-input[type="tel"],
-input[type="color"],
-.uneditable-input {
-    display: block;
-    box-sizing: border-box;
-    margin: 0;
-    font-size: 1rem;
-    line-height: normal;
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    min-width: 0;
-}
-
 .list-unstyled {
     margin: 0;
 }
 
-dl {
-    margin: 0;
-}
-
-dt,
-dd {
-    line-height: normal;
-}
-
-dt {
-    font-weight: 400;
-}
-
-li {
-    line-height: normal;
-}
-
 p {
-    margin: 0 0 .75rem;
+    margin-bottom: .75rem;
 }
 
-.page-header {
-    border-bottom: none;
+ol,
+ul {
+    margin-bottom: 0;
 }
 
 /* Breadcrumbs */
 .breadcrumb {
-    margin: 0;
+    --bs-breadcrumb-margin-bottom: 0;
 }
 
-.breadcrumb > .active:first-child {
+/* .breadcrumb-item.active:first-child {
     display: none;
-}
+} */
