@@ -465,9 +465,9 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
     </head>
 
     <?php if ($currentMenuItem) : ?>
-        <body class="airis-page-template-index airis-page-type-menu-item airis-page-type-<?php echo $currentMenuItem->menutype, '-item-', $currentMenuItem->id; ?>">
+        <body class="airis-page airis-page_template_index airis-page_type_menu-item airis-page_menu-type_<?php echo $currentMenuItem->menutype; ?> airis-page_menu-item-id_<?php echo $currentMenuItem->id; ?>">
     <?php else : ?>
-        <body class="airis-page-template-index">
+        <body class="airis-page airis-page_template_index">
     <?php endif; ?>
 
         <?php if ($modulePositionGroups['header']['hasModules']) : ?>

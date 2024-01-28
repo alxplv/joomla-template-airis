@@ -231,7 +231,7 @@ if ($this->params->get('loadUserJsFile')) {
             <?php echo $userHeadJs; ?>
         <?php endif; ?>
     </head>
-    <body class="airis-page-template-component airis-asides-none">
+    <body class="airis-page airis-page_template_component airis-asides-none">
         <div class="airis-area-message">
             <div class="airis-area-container airis-container container">
                 <jdoc:include type="message" />
