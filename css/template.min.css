@@ -1,6 +1,14 @@
 @charset "utf-8";
 
 /* Generic elements */
+button,
+input,
+label,
+select,
+textarea {
+    max-width: 100%;
+}
+
 figure {
     margin: 0;
     text-align: center;
@@ -28,7 +36,7 @@ td {
     vertical-align: middle;
 }
 
-.airis-image {
+.airis-image { /* Same to .img-fluid of Bootstrap */
     height: auto;
     max-width: 100%;
 }
