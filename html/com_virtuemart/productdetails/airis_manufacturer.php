@@ -7,12 +7,18 @@ defined('_JEXEC') or exit;
 use Joomla\CMS\HTML\HTMLHelper;
 
 foreach ($this->product->manufacturers as $manufacturer) : ?>
-	<div class="productdetails-manufacturer">
+	<div class="productdetails__manufacturer">
 		<?php
 			$manufacturerName = htmlspecialchars(trim($manufacturer->mf_name), ENT_QUOTES, 'UTF-8');
-			$manufacturerHref = 'index.php?option=com_virtuemart&view=manufacturer&virtuemart_manufacturer_id=' . $product_manufacturer->virtuemart_manufacturer_id;
+			$manufacturerHref = "index.php?option=com_virtuemart&view=manufacturer&virtuemart_manufacturer_id=$product_manufacturer->virtuemart_manufacturer_id";
 
-			echo HTMLHelper::link($manufacturerHref, $manufacturerName, array('class' => 'productdetails-manufacturer-link'));
+			echo HTMLHelper::link(
+				$manufacturerHref,
+				$manufacturerName,
+				[
+					'class' => 'productdetails__manufacturer-link',
+				],
+			);
 		?>
 	</div>
 <?php endforeach;
