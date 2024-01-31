@@ -224,6 +224,7 @@ if ($this->params->get('useInputmask')) {
         case 'jquery':
             if ($this->params->get('useJquery')) {
                 $webAssets->useScript('template.airis.inputmask.jquery');
+
                 if ($this->params->get('useInputmaskBinding')) {
                     $webAssets->useScript('template.airis.inputmask.binding');
                 }
@@ -311,7 +312,8 @@ if ($this->params->get('useUserCssFile')) {
     if (file_exists($userCssFilePath)) {
         // Respect chosen versioning mode
         if ($this->params->get('userCssFileVersioningMode', 'default') === 'datetime') {
-            $userCssFileWebAssetItemVersion = md5(filemtime($userCssFilePath));
+            // Joomla's own generateMediaVersion() of Joomla\CMS\Version class only takes the first six characters of generated checksum so keeping it uniform here
+            $userCssFileWebAssetItemVersion = substr(md5(filemtime($userCssFilePath)), 0, 6);
         } else {
             $userCssFileWebAssetItemVersion = 'auto';
         }
@@ -333,7 +335,7 @@ if ($this->params->get('useUserCssFile')) {
         /* if ($this->params->get('userCssFileVersioningMode', 'default') === 'datetime') {
             $userCssFileWebAssetItem->setOption(
                 'version',
-                md5(filemtime($userCssFileUri)),
+                substr(md5(filemtime($userCssFileUri)), 0, 6),
             );
         } */
 
@@ -360,7 +362,7 @@ if ($this->params->get('useUserJsFile')) {
 
     if (file_exists($userJsFilePath)) {
         if ($this->params->get('userJsFileVersioningMode', 'default') === 'datetime') {
-            $userJsFileWebAssetItemVersion = md5(filemtime($userJsFilePath));
+            $userJsFileWebAssetItemVersion = substr(md5(filemtime($userJsFilePath)), 0, 6);
         } else {
             $userJsFileWebAssetItemVersion = 'auto';
         }
