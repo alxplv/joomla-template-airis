@@ -251,6 +251,19 @@
 					filter="raw"
 				/>
 				<field
+					name="moveScriptsToBodyEnd"
+					type="radio"
+					label="TPL_AIRIS_CONFIG_MOVE_SCRIPTS_TO_BODY_END"
+					description="TPL_AIRIS_CONFIG_MOVE_SCRIPTS_TO_BODY_END_DESCRIPTION"
+					class="btn-group btn-group-yesno"
+					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field
 					name="disableComponentOnDefaultPage"
 					type="radio"
 					label="TPL_AIRIS_CONFIG_DISABLE_COMPONENT_ON_DEFAULT_PAGE"

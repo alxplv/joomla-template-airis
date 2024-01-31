@@ -64,7 +64,7 @@ that bundles all of them is already enabled. */
 /* For some reason, currently all individual Bootstrap JS component web assets list 'bootstrap.es5' as their
 dependency which is wrong since both the whole bundle and the individual .js file will be
 included at the same time. So pointless for us to implement individual template options for each BS JS complonent
-until Joomla! gets its media/vendor/joomla.asset.json file fixed. Another way is to override the 'bootstrap.es5' Web Asset with 
+until Joomla! gets its media/vendor/joomla.asset.json file fixed. Another way is to override the 'bootstrap.es5' Web Asset with
 something like this $webAssets->registerScript('bootstrap.es5', '', [], [], []); so an empty item is used as a dependency. Make the override a template param
 which in turn allows (via the showon templateDetails.xml attribute) to enable the individual BS component script Web Assets when the whole bundle is disabled. */
 
@@ -448,8 +448,13 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
 <!DOCTYPE html>
 <html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
     <head>
-        <jdoc:include type="metas" />
-        <jdoc:include type="styles" />
+
+        <?php if ($this->params->get('moveScriptsToBodyEnd')) : ?>
+            <jdoc:include type="metas" />
+            <jdoc:include type="styles" />
+        <?php else : ?>
+            <jdoc:include type="head" />
+        <?php endif; ?>
 
         <?php if (isset($svgFavicon) && $svgFavicon !== '') : ?>
             <?php echo $svgFavicon; ?>
@@ -546,7 +551,9 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
             <?php echo $userBodyEndHtml; ?>
         <?php endif; ?>
 
-        <jdoc:include type="scripts" />
+        <?php if ($this->params->get('moveScriptsToBodyEnd')) : ?>
+            <jdoc:include type="scripts" />
+        <?php endif; ?>
 
     </body>
 </html>
