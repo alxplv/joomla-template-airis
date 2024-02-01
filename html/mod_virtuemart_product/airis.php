@@ -4,6 +4,7 @@
 defined('_JEXEC') or exit;
 
 // Joomla! imports
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Image\Image;
 use Joomla\CMS\Language\Text;
@@ -42,6 +43,7 @@ $airisModuleClassSuffixParams = [
 ];
 
 // Process custom module options
+// TODO: It is better to replace strpos() and some regex-based functions with explode(' ',$moduleClassSuffix) and working with concrete string values
 if ($moduleClassSuffix && strpos($moduleClassSuffix, $airisModuleClassSuffixParamPrefix) !== false) {
     // Try to acquire new values for any found custom options
     foreach ($airisModuleClassSuffixParams as $airisModuleClassSuffixParamKey => $airisModuleClassSuffixParamValue) {
@@ -370,3 +372,20 @@ else {
     <?php endif; ?>
 
 </div>
+
+<?php
+/*
+Disable the stock VM lightbox scripts and their CSS enqueued in \administrator\components\com_virtuemart\helpers\vmjsapi.php
+TODO: Find a better way to reliabliy disable assets with version numbers in filenames because the current way is very fragile
+towards VM updates that is until VM switches over to Web Assets
+TODO: This approach is incompatible with module cache for this VM module because upon subsequent calls to this layout only the
+resulting HTML sturcture is output and not these API calls. Find a better way to disable these scripts regardless of module cache option
+status. Probably should transform these into an template param and move them to index.php.
+*/
+vmJsApi::removeJScript('facebox');
+vmJsApi::removeJScript('fancybox/jquery.fancybox-1.3.4.2.pack');
+vmJsApi::removeJScript('popups');
+vmJsApi::removeJScript('imagepopup');
+
+unset(Factory::getApplication()->getDocument()->_styleSheets['/components/com_virtuemart/assets/css/facebox.css?vmver=' . VM_JS_VER]);
+unset(Factory::getApplication()->getDocument()->_styleSheets['/components/com_virtuemart/assets/css/jquery.fancybox-1.3.4.css?vmver=' . VM_JS_VER]);
