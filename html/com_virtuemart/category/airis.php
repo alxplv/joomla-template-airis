@@ -9,6 +9,9 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
 
+// Basic handles
+$joomlaDocument = Factory::getDocument();
+
 // Acquire template options
 $airisTemplateOptions = Factory::getApplication()->getTemplate(true)->params;
 
@@ -351,3 +354,12 @@ if (VmConfig::get('ajax_category', 0))
 
 	vmJsApi::jDynUpdate();
 }
+
+// Disable the stock VM lightbox scripts and their CSS enqueued in \administrator\components\com_virtuemart\helpers\vmjsapi.php
+// TODO: Find a better way to reliabliy disable assets with version numbers in filenames because the current way is very fragile towards VM updates that is until VM switches over to Web Assets
+vmJsApi::removeJScript('facebox');
+vmJsApi::removeJScript('fancybox/jquery.fancybox-1.3.4.2.pack');
+vmJsApi::removeJScript('popups');
+
+unset($joomlaDocument->_styleSheets['/components/com_virtuemart/assets/css/facebox.css?vmver=' . VM_JS_VER]);
+unset($joomlaDocument->_styleSheets['/components/com_virtuemart/assets/css/jquery.fancybox-1.3.4.css?vmver=' . VM_JS_VER]);
