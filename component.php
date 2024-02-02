@@ -156,6 +156,14 @@ if ($this->params->get('loadVirtuemartCssAndJsFiles')) {
     if ($this->params->get('loadVirtuemartCartJsFile')) {
         $webAssets->useScript('template.airis.virtuemart.cart');
 
+        // Route to cart view used by this script file
+        $this->addScriptOptions(
+            'tpl_airis',
+            [
+                'vmCartUri' => Route::_('index.php?option=com_virtuemart&view=cart'),
+            ],
+        );
+
         // Additional language strings used by this script file
         Text::script('TPL_AIRIS_COM_VIRTUEMART_ALERT_PRODUCT_ADD_ERROR');
         Text::script('TPL_AIRIS_COM_VIRTUEMART_CONFIRM_SHOW_CART');

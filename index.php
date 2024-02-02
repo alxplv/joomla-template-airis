@@ -8,6 +8,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Document\Document;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\WebAsset\WebAssetItem;
 
@@ -285,6 +286,14 @@ if ($this->params->get('useVirtuemartCssAndJsFiles')) {
 
     if ($this->params->get('useVirtuemartCartJsFile')) {
         $webAssets->useScript('template.airis.virtuemart.cart');
+
+        // Route to cart view used by this script file
+        $this->addScriptOptions(
+            'tpl_airis',
+            [
+                'vmCartUri' => Route::_('index.php?option=com_virtuemart&view=cart'),
+            ],
+        );
 
         // Additional language strings used by this script file
         Text::script('TPL_AIRIS_COM_VIRTUEMART_ALERT_PRODUCT_ADD_ERROR');
