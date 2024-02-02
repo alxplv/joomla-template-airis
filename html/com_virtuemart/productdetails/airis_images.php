@@ -62,6 +62,7 @@ if ($thumbnailWidthConfigurationValue || $thumbnailHeightConfigurationValue) {
 	/* Explicitly set thumbnail width and height here since this is what we do in displayMediaThumb() below
 	and otherwise getFileUrlThumb() returns a thumbnail generated at media creation time sized in accordance
 	with a different set of VM settings */
+	// TODO: Needs a try-catch
 	$productImageJoomlaImageClassInstance = new Image(
 		$productImage->getFileUrlThumb(
 			$thumbnailWidthConfigurationValue,
@@ -84,6 +85,7 @@ if ($thumbnailWidthConfigurationValue || $thumbnailHeightConfigurationValue) {
 		$thumbnailHeightConfigurationValue,
 	);
 } else {
+	// TODO: Needs a try-catch
 	$productImageJoomlaImageClassInstance = new Image($productImage->getUrl());
 
 	echo $productImage->displayMediaFull(
