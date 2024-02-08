@@ -440,7 +440,7 @@ foreach ($modulePositionGroups as &$modulePositionGroup) {
     }
 }
 
-function renderModulePositionGroup(array $groupSettings, Document $currentDocument)
+function renderModulePositionGroup(array $groupSettings, Document $currentDocument): string
 {
     // Contains HTML for every non-empty module position of its group
     $groupHtml = '';
