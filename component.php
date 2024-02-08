@@ -32,18 +32,19 @@ $this->setMetaData('viewport', 'width=device-width, initial-scale=1.0');
 // Joomla! jQuery
 if ($this->params->get('useJquery') && $webAssets->assetExists('script', 'jquery')) {
     $webAssets->useScript('jquery');
-}
 
-// Joomla! jQuery Migrate
-/* Although dependent template options are hidden upon the dependee going to a disabled state
-(the "showon" attribute in templateDetails.xml) the dependent param retains its last value unless
-toggled explicitly, so we should always check the parent param value first, because we don't want to
-trigger the inclusion of it through Web Assets dependency mechanism. */
-if ($this->params->get('useJquery') && $this->params->get('useJqueryMigrate') && $webAssets->assetExists('script', 'jquery-migrate')) {
-    $webAssets->useScript('jquery-migrate');
+    // Joomla! jQuery Migrate
+    /* Although dependent template options are hidden upon the dependee going to a disabled state
+    (the "showon" attribute in templateDetails.xml) the dependent param retains its last value unless
+    toggled explicitly, so we should always check the parent param value first, because we don't want to
+    trigger the inclusion of it through Web Assets dependency mechanism. */
+    if ($this->params->get('useJqueryMigrate') && $webAssets->assetExists('script', 'jquery-migrate')) {
+        $webAssets->useScript('jquery-migrate');
+    }
 }
 
 // Joomla! jQuery.noConflict()
+/* Had to move this block out of the main jQuery if block to avoid duplicating script override calls */
 if ((!$this->params->get('useJquery') || !$this->params->get('useJqueryNoconflict')) && $webAssets->assetExists('script', 'jquery-noconflict')) {
     // The disableScript() call doesn't prevent it from inclusion for some reason. Create an empty override instead.
     // $webAssets->disableScript('jquery-noconflict');
@@ -53,26 +54,30 @@ if ((!$this->params->get('useJquery') || !$this->params->get('useJqueryNoconflic
 // Joomla! Bootstrap
 if ($this->params->get('useBootstrap') && $webAssets->assetExists('style', 'bootstrap.css')) {
     $webAssets->useStyle('bootstrap.css');
+
+    // Joomla! Bootstrap JavaScript for BS Components
+    if ($this->params->get('useBootstrapJs') && $webAssets->assetExists('script', 'bootstrap.es5')) {
+        $webAssets->useScript('bootstrap.es5');
+
+        // Bootstrap Component Toasts
+        if ($this->params->get('useBootstrapJsComponentToasts') && $webAssets->assetExists('script', 'bootstrap.toast')) {
+            $webAssets->useScript('bootstrap.toast');
+            $this->addScriptOptions('tpl_airis', ['useBootstrapJsComponentToasts' => true]);
+            $bootstrapToastsEnabled = true;
+        }
+
+        /* TODO: Add options to use load BS the rest of component JS web asset individually and don't forget
+        to hide options for individual component JS libraries in templateDetails.xml if 'useBootstrapJs' option
+        that bundles all of them is already enabled. */
+
+        /* For some reason, currently all individual Bootstrap JS component web assets list 'bootstrap.es5' as their
+        dependency which is wrong since both the whole bundle and the individual .js file will be
+        included at the same time. So pointless for us to implement individual template options for each BS JS complonent
+        until Joomla! gets its media/vendor/joomla.asset.json file fixed. Another way is to override the 'bootstrap.es5' Web Asset with
+        something like this $webAssets->registerScript('bootstrap.es5', '', [], [], []); so an empty item is used as a dependency. Make the override a template param
+        which in turn allows (via the showon templateDetails.xml attribute) to enable the individual BS component script Web Assets when the whole bundle is disabled. */
+    }
 }
-
-// Joomla! Bootstrap JavaScript for BS Components
-if ($this->params->get('useBootstrap') && $this->params->get('useBootstrapJs') && $webAssets->assetExists('script', 'bootstrap.es5')) {
-    $webAssets->useScript('bootstrap.es5');
-}
-
-/* TODO: Add options to use load BS component JS web asset individually and don't forget
-to hide options for individual component JS libraries in templateDetails.xml if 'useBootstrapJs' option
-that bundles all of them is already enabled. */
-/* For some reason, currently all individual Bootstrap JS component web assets list 'bootstrap.es5' as their
-dependency which is wrong since both the whole bundle and the individual .js file will be
-included at the same time. So pointless for us to implement individual template options for each BS JS complonent
-until Joomla! gets its media/vendor/joomla.asset.json file fixed. Another way is to override the 'bootstrap.es5' Web Asset with
-something like this $webAssets->registerScript('bootstrap.es5', '', [], [], []); so an empty item is used as a dependency. Make the override a template param
-which in turn allows (via the showon templateDetails.xml attribute) to enable the individual BS component script Web Assets when the whole bundle is disabled. */
-
-/* if ($this->params->get('useBootstrap') && !$this->params->get('useBootstrapJs') && $this->params->get('useBootstrapJsAlert') && $webAssets->assetExists('script', 'bootstrap.button')) {
-    $webAssets->useScript('bootstrap.button');
-} */
 
 /* TODO: Add template options for these parameters. setLineEnd() and setTab() seem to affect <head> contents only.
 Ask the Joomla! Community what's up with that. Do not active the last two options if Joomla! debug option is enabled. */
@@ -368,7 +373,7 @@ foreach ($modulePositionGroups as &$modulePositionGroup) {
     }
 }
 
-function renderModulePositionGroup(array $groupSettings, Document $currentDocument)
+function renderModulePositionGroup(array $groupSettings, Document $currentDocument): string
 {
     // Contains HTML for every non-empty module position of its group
     $groupHtml = '';
@@ -411,15 +416,23 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
             <?php echo $userHeadJs; ?>
         <?php endif; ?>
     </head>
+
     <body class="airis-page airis-page_template_component airis-asides-none">
+
         <div class="airis-area-message" data-nosnippet>
             <div class="airis-area-container airis-container container">
                 <jdoc:include type="message" />
             </div>
         </div>
+
         <main class="airis-main">
             <jdoc:include type="component" />
         </main>
+
+        <?php if (isset($bootstrapToastsEnabled)) : ?>
+            <div class="airis-area-toasts toast-container fixed-bottom" aria-live="assertive"></div>
+        <?php endif; ?>
+
         <?php if ($this->countModules('debug')) : ?>
             <div class="airis-module-position-debug">
                 <div class="airis-module-container airis-container container airis-asides-none">

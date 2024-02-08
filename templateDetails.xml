@@ -155,6 +155,20 @@
 					<option value="1">JYES</option>
 				</field>
 				<field
+					name="useBootstrapJsComponentToasts"
+					type="radio"
+					label="TPL_AIRIS_CONFIG_USE_BOOTSTRAP_JS_COMPONENT_TOASTS"
+					description="TPL_AIRIS_CONFIG_USE_BOOTSTRAP_JS_COMPONENT_TOASTS_DESCRIPTION"
+					class="btn-group btn-group-yesno"
+					default="0"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
+					showon="useBootstrapJs:1"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field
 					name="useBootstrapCssResetsFile"
 					type="radio"
 					label="TPL_AIRIS_CONFIG_USE_BOOTSTRAP_CSS_RESETS_FILE"
