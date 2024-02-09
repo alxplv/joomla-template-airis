@@ -383,9 +383,16 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
         $modulePositionNameWithNumber = "$modulePositionName-$i";
 
         if ($currentDocument->countModules($modulePositionNameWithNumber)) {
-            // TODO: Replace with NOWDOC declaration once we've moved to PHP 7.3+ or Joomla! 4 for good.
             // The 'airis-asides-none' class is used by all module positions outside of <main></main> since there can be no asides and many template.css styles rely on these classes
-            $groupHtml .= "<div class=\"airis-module-position-$modulePositionNameWithNumber airis-module-position-$modulePositionName airis-module-position\"><div class=\"airis-module-container airis-container container airis-asides-none\"><jdoc:include type=\"modules\" name=\"$modulePositionNameWithNumber\" style=\"airis\" /></div></div>";
+            $groupHtml .= join(
+                [
+                    "<div class=\"airis-module-position-$modulePositionNameWithNumber airis-module-position-$modulePositionName airis-module-position\">",
+                    "<div class=\"airis-module-container airis-container container airis-asides-none\">",
+                    "<jdoc:include type=\"modules\" name=\"$modulePositionNameWithNumber\" style=\"airis\" />",
+                    "</div>",
+                    "</div>",
+                ],
+            );
         }
     }
 
