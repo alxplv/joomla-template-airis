@@ -227,7 +227,7 @@ if ($this->params->get('useGlightbox')) {
 
 // Add Inputmask
 if ($this->params->get('useInputmask')) {
-    switch ($this->params->get('useInputmaskFlavor')) {
+    switch ($this->params->get('useInputmaskFlavor', 'native')) {
         case 'native':
             $webAssets->useScript('template.airis.inputmask');
             break;
