@@ -2,7 +2,7 @@
 
 // Airis Template
 // Copyright (C) 2016 alxplv <https://github.com/alxplv>
-// Licensed under The GNU General Public License Version 3; see LICENSE
+// Licensed under the GNU General Public License Version 3; see LICENSE
 
 // No direct access to this file outside of Joomla!
 defined('_JEXEC') or exit;
