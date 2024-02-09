@@ -430,7 +430,7 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
         </main>
 
         <?php if (isset($bootstrapToastsEnabled)) : ?>
-            <div class="airis-area-toasts toast-container fixed-bottom" aria-live="assertive"></div>
+            <div class="airis-area-toasts toast-container fixed-bottom ms-auto" aria-live="assertive"></div>
         <?php endif; ?>
 
         <?php if ($this->countModules('debug')) : ?>
