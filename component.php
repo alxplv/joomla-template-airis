@@ -330,8 +330,8 @@ if ($this->params->get('useUserJsFile')) {
     }
 }
 
-// TODO: Remove since it along with the corresponding template.js code since it won't be used in our new mod_menu airis layout
-// Language strings for template.js
+// TODO: Should probably remove it along with the corresponding template.js code and language constant since it won't be used in our new mod_menu airis layout
+// Language strings for template's JS files.
 Text::script('TPL_AIRIS_MAIN_MENU_CHILD_MENU_TOGGLE_BTN_TITLE');
 
 // Module position rendering settings used for rendering occupied module positions with a single function call
