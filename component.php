@@ -232,9 +232,28 @@ if ($this->params->get('useVirtuemartCssAndJsFiles')) {
             ],
         );
 
-        // Additional language strings used by this script file
+        // Language constants used by this script file
         Text::script('TPL_AIRIS_COM_VIRTUEMART_ALERT_PRODUCT_ADD_ERROR');
         Text::script('TPL_AIRIS_COM_VIRTUEMART_CONFIRM_SHOW_CART');
+
+        // Use Bootstrap Toasts components as cart notifications
+        if (
+            $webAssets->isAssetActive('script', 'bootstrap.es5')
+            && $webAssets->isAssetActive('script', 'bootstrap.toast')
+            && $this->params->get('useBootstrapToastsAsVirtuemartCartNotifications')
+        ) {
+            $this->addScriptOptions(
+                'tpl_airis',
+                [
+                    'useBootstrapToastsAsVirtuemartCartNotifications' => true,
+                ],
+            );
+
+            // Additional language constants
+            Text::script('TPL_AIRIS_RELOAD_PAGE');
+            Text::script('TPL_AIRIS_COM_VIRTUEMART_CART_PRODUCT_ADDED_SHORT');
+            Text::script('TPL_AIRIS_COM_VIRTUEMART_CART_PRODUCT_ADDED_CART_LINK_TITLE');
+        }
     }
 }
 
@@ -387,10 +406,10 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
             $groupHtml .= join(
                 [
                     "<div class=\"airis-module-position-$modulePositionNameWithNumber airis-module-position-$modulePositionName airis-module-position\">",
-                    "<div class=\"airis-module-container airis-container container airis-asides-none\">",
+                    '<div class="airis-module-container airis-container container airis-asides-none">',
                     "<jdoc:include type=\"modules\" name=\"$modulePositionNameWithNumber\" style=\"airis\" />",
-                    "</div>",
-                    "</div>",
+                    '</div>',
+                    '</div>',
                 ],
             );
         }

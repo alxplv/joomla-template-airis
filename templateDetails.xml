@@ -353,6 +353,20 @@
 					<option value="1">JYES</option>
 				</field>
 				<field
+					name="useBootstrapToastsAsVirtuemartCartNotifications"
+					type="radio"
+					label="TPL_AIRIS_CONFIG_USE_BOOTSTRAP_TOASTS_AS_VIRTUEMART_CART_NOTIFICATIONS"
+					description="TPL_AIRIS_CONFIG_USE_BOOTSTRAP_TOASTS_AS_VIRTUEMART_CART_NOTIFICATIONS_DESCRIPTION"
+					class="btn-group btn-group-yesno"
+					default="1"
+					filter="boolean"
+					layout="joomla.form.field.radio.switcher"
+					showon="useBootstrapJs:1[AND]useBootstrapJsComponentToasts:1[AND]useVirtuemartCssAndJsFiles:1[AND]useVirtuemartCartJsFile:1"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field
 					name="showVirtuemartProductLinkContactUs"
 					type="radio"
 					label="TPL_AIRIS_CONFIG_VIRTUEMART_SHOW_PRODUCT_LINK_CONTACT_US"
