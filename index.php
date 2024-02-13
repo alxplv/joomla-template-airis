@@ -495,6 +495,22 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
 <html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
     <head>
 
+        <?php // Native implementation of jQuery(function () { }); ?>
+        <script>
+            function onDOMContentLoaded(handler) {
+                if (typeof handler !== "function") {
+                    console.log("The provided handler is not a function.");
+                    return;
+                }
+
+                if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", handler);
+                } else {
+                    handler();
+                }
+            }
+        </script>
+
         <?php if ($this->params->get('moveScriptsToBodyEnd')) : ?>
             <jdoc:include type="metas" />
             <jdoc:include type="styles" />
