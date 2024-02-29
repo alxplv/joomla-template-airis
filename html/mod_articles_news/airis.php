@@ -15,9 +15,8 @@ defined('TPL_AIRIS_ITEMS_PER_ROW_DEFAULT') or define('TPL_AIRIS_ITEMS_PER_ROW_DE
 
 $itemsTotal = 0;
 
-// TODO: Replace "is_array() && $products instanceof Countable" by a simply is_countable() for PHP 7.3+ (Joomla! 5+)
 // Check if this module has any items suitable for display
-if (isset($list) && is_array($list)) {
+if (isset($list) && is_countable($list)) {
     $itemsTotal = count($list);
 }
 
@@ -60,7 +59,7 @@ if ($itemsTotal) {
 
 ?>
 
-<div class="airis-module-articles-news<?php echo htmlspecialchars(rtrim($moduleclass_sfx), ENT_QUOTES, 'UTF-8'); ?>">
+<div class="airis-module-articles-news">
 
     <?php if ($itemsTotal) : ?>
 
