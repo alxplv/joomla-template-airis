@@ -492,7 +492,7 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
+<html lang="<?= $this->language; ?>" dir="<?= $this->direction; ?>">
     <head>
 
         <?php // Native implementation of jQuery(function () { }); ?>
@@ -519,27 +519,27 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
         <?php endif; ?>
 
         <?php if (isset($svgFavicon) && $svgFavicon !== '') : ?>
-            <?php echo $svgFavicon; ?>
+            <?= $svgFavicon; ?>
         <?php endif; ?>
 
         <?php if (isset($userHeadHtml) && $userHeadHtml !== '') : ?>
-            <?php echo $userHeadHtml; ?>
+            <?= $userHeadHtml; ?>
         <?php endif; ?>
 
         <?php if (isset($userHeadJs) && $userHeadJs !== '') : ?>
-            <?php echo $userHeadJs; ?>
+            <?= $userHeadJs; ?>
         <?php endif; ?>
     </head>
 
     <?php if ($currentMenuItem) : ?>
-        <body class="airis-page airis-page_template_index airis-page_type_menu-item airis-page_menu-type_<?php echo $currentMenuItem->menutype; ?> airis-page_menu-item-id_<?php echo $currentMenuItem->id; ?>">
+        <body class="airis-page airis-page_template_index airis-page_type_menu-item airis-page_menu-type_<?= $currentMenuItem->menutype; ?> airis-page_menu-item-id_<?= $currentMenuItem->id; ?>">
     <?php else : ?>
         <body class="airis-page airis-page_template_index">
     <?php endif; ?>
 
         <?php if ($modulePositionGroups['header']['hasModules']) : ?>
             <header>
-                <?php echo renderModulePositionGroup($modulePositionGroups['header'], $currentDocument); ?>
+                <?= renderModulePositionGroup($modulePositionGroups['header'], $currentDocument); ?>
             </header>
         <?php endif; ?>
 
@@ -549,11 +549,11 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
             </div>
         </div>
 
-        <?php echo renderModulePositionGroup($modulePositionGroups['before'], $currentDocument); ?>
+        <?= renderModulePositionGroup($modulePositionGroups['before'], $currentDocument); ?>
 
         <?php if ($componentEnabled) : ?>
             <div class="airis-area-component">
-                <div class="airis-container container <?php echo $componentAreaAdditionalClasses; ?>">
+                <div class="airis-container container <?= $componentAreaAdditionalClasses; ?>">
 
                     <?php if ($asideLeftHasModules) : ?>
                         <aside class="airis-module-position-aside-left airis-module-position-aside airis-module-position airis-aside-left airis-aside">
@@ -589,11 +589,11 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
             </div>
         <?php endif; ?>
 
-        <?php echo renderModulePositionGroup($modulePositionGroups['after'], $currentDocument); ?>
+        <?= renderModulePositionGroup($modulePositionGroups['after'], $currentDocument); ?>
 
         <?php if ($modulePositionGroups['footer']['hasModules']) : ?>
             <footer>
-                <?php echo renderModulePositionGroup($modulePositionGroups['footer'], $currentDocument); ?>
+                <?= renderModulePositionGroup($modulePositionGroups['footer'], $currentDocument); ?>
             </footer>
         <?php endif; ?>
 
@@ -602,7 +602,7 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
         <?php endif; ?>
 
         <?php if ($modulePositionGroups['off-screen']['hasModules']) : ?>
-            <?php echo renderModulePositionGroup($modulePositionGroups['off-screen']), $currentDocument; ?>
+            <?= renderModulePositionGroup($modulePositionGroups['off-screen']), $currentDocument; ?>
         <?php endif; ?>
 
         <?php if ($this->countModules('debug')) : ?>
@@ -614,7 +614,7 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
         <?php endif; ?>
 
         <?php if (isset($userBodyEndHtml) && $userBodyEndHtml !== '') : ?>
-            <?php echo $userBodyEndHtml; ?>
+            <?= $userBodyEndHtml; ?>
         <?php endif; ?>
 
         <?php if ($this->params->get('moveScriptsToBodyEnd')) : ?>

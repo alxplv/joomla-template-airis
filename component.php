@@ -420,7 +420,7 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
+<html lang="<?= $this->language; ?>" dir="<?= $this->direction; ?>">
     <head>
 
         <?php // Native implementation of jQuery(function () { }); ?>
@@ -447,15 +447,15 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
         <?php endif; ?>
 
         <?php if (isset($svgFavicon) && $svgFavicon !== '') : ?>
-            <?php echo $svgFavicon; ?>
+            <?= $svgFavicon; ?>
         <?php endif; ?>
 
         <?php if (isset($userHeadHtml) && $userHeadHtml !== '') : ?>
-            <?php echo $userHeadHtml; ?>
+            <?= $userHeadHtml; ?>
         <?php endif; ?>
 
         <?php if (isset($userHeadJs) && $userHeadJs !== '') : ?>
-            <?php echo $userHeadJs; ?>
+            <?= $userHeadJs; ?>
         <?php endif; ?>
     </head>
 
@@ -484,7 +484,7 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
         <?php endif; ?>
 
         <?php if (isset($userBodyEndHtml) && $userBodyEndHtml !== '') : ?>
-            <?php echo $userBodyEndHtml; ?>
+            <?= $userBodyEndHtml; ?>
         <?php endif; ?>
 
         <?php if ($this->params->get('moveScriptsToBodyEnd')) : ?>
