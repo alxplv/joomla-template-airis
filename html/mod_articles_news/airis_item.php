@@ -17,44 +17,22 @@ $itemImageContainerContent = '';
 if ($params->get('img_intro_full') !== 'none' && isset($item->imageSrc) && $item->imageSrc !== '') {
     $itemImageAttributes = [
         'class' => 'airis-module-articles-news-article__image',
-        'loading' => 'lazy',
     ];
-
-    // TODO: Manual width and height acquisition is unnecessary if LayoutHelper::render('joomla.html.image', []) is used
-    // Load the item image file into an Image object in order to access its properties
-    $itemImage = new Image($item->imageSrc);
-
-    // In case if $item->imageSrc points to a non-existing file
-    if ($itemImage->isLoaded()) {
-        $itemImageAttributes['width'] = $itemImage->getWidth();
-        $itemImageAttributes['height'] = $itemImage->getHeight();
-    }
 
     // Use item title as item image alt if there was no alt value set for it
     if (isset($item->imageAlt) && $item->imageAlt !== '') {
         $item->imageAlt = htmlspecialchars(trim($item->imageAlt), ENT_QUOTES, 'UTF-8');
-
-        // TODO: To be used in Joomla 4+
-        // $itemImageAttributes['alt'] = !empty($item->imageAlt) ? $item->imageAlt : $item->title;
-
-        if ($item->imageAlt === '') {
-            $item->imageAlt = $item->title;
-        }
+    } else {
+        $item->imageAlt = $item->title;
     }
 
     if (isset($item->imageCaption) && $item->imageCaption !== '') {
         $item->imageCaption = htmlspecialchars(trim($item->imageCaption), ENT_QUOTES, 'UTF-8');
     }
 
-    // TODO: To be used in Joomla! 4+
-/* 	$itemImageContainerContent = LayoutHelper::render(
-        'joomla.html.image',
-        $itemImageAttributes,
-    ); */
-
     $itemImageContainerContent = HTMLHelper::image(
         $item->imageSrc,
-        $itemImageAlt,
+        $item->imageAlt,
         $itemImageAttributes,
     );
 
@@ -68,7 +46,7 @@ if ($params->get('img_intro_full') !== 'none' && isset($item->imageSrc) && $item
 
 ?>
 
-<li class="airis-module-articles-news__item <?php echo $itemDisplayModeClass; ?>">
+<li class="airis-module-articles-news__item <?= $itemDisplayModeClass; ?>">
     <article class="airis-module-articles__article">
 
         <?php if ($itemImageContainerContent) : ?>
@@ -76,12 +54,12 @@ if ($params->get('img_intro_full') !== 'none' && isset($item->imageSrc) && $item
             <div class="airis-module-articles-news__image-container">
                 <figure class="airis-module-articles-news__figure">
 
-                    <?php echo $itemImageContainerContent; ?>
+                    <?= $itemImageContainerContent; ?>
 
                     <?php if (isset($item->imageCaption) && $item->imageCaption !== '') : ?>
 
                         <figcaption class="airis-module-articles-news__figure-caption">
-                            <?php echo $item->imageCaption; ?>
+                            <?= $item->imageCaption; ?>
                         </figcaption>
 
                     <?php endif; ?>
@@ -108,7 +86,7 @@ if ($params->get('img_intro_full') !== 'none' && isset($item->imageSrc) && $item
                         echo $item->title;
                     }
 
-                    echo "</$itemHeadingTag>"
+                    echo "</$itemHeadingTag>";
                 ?>
             </div>
         <?php endif; ?>
@@ -116,7 +94,7 @@ if ($params->get('img_intro_full') !== 'none' && isset($item->imageSrc) && $item
         <?php if (!$params->get('intro_only') && isset($item->afterDisplayTitle) && $item->afterDisplayTitle !== '') : ?>
 
             <div class="airis-module-articles-news__title-after airis-item-content">
-                <?php echo $item->afterDisplayTitle; ?>
+                <?= $item->afterDisplayTitle; ?>
             </div>
 
         <?php endif; ?>
@@ -124,7 +102,7 @@ if ($params->get('img_intro_full') !== 'none' && isset($item->imageSrc) && $item
         <?php if (isset($item->beforeDisplayContent) && $item->beforeDisplayContent !== '') : ?>
 
             <div class="airis-module-articles-news__content-before airis-item-content">
-                <?php echo $item->beforeDisplayContent; ?>
+                <?= $item->beforeDisplayContent; ?>
             </div>
 
         <?php endif; ?>
@@ -132,7 +110,7 @@ if ($params->get('img_intro_full') !== 'none' && isset($item->imageSrc) && $item
         <?php if ($params->get('show_introtext') && isset($item->introtext) && $item->introtext !== '') : ?>
 
             <div class="airis-module-articles-news__content airis-item-content">
-                <?php echo $item->introtext; ?>
+                <?= $item->introtext; ?>
             </div>
 
         <?php endif; ?>
@@ -140,7 +118,7 @@ if ($params->get('img_intro_full') !== 'none' && isset($item->imageSrc) && $item
         <?php if (isset($item->afterDisplayContent) && $item->afterDisplayContent !== '') : ?>
 
             <div class="airis-module-articles-news__content-after airis-item-content">
-                <?php echo $item->afterDisplayContent; ?>
+                <?= $item->afterDisplayContent; ?>
             </div>
 
         <?php endif; ?>
