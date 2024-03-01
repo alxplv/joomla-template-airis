@@ -63,7 +63,7 @@ if ($itemsTotal) {
 
     <?php if ($itemsTotal) : ?>
 
-        <ul class="airis-module-articles-news__list <?php echo $itemsContainerDisplayModeClass; ?> list-unstyled">
+        <ul class="airis-module-articles-news__list <?= $itemsContainerDisplayModeClass; ?> list-unstyled">
             <?php
                 foreach ($list as $item) {
                     require $moduleSublayoutFileName;
@@ -75,7 +75,7 @@ if ($itemsTotal) {
 
         <div class="airis-module-empty airis-module-articles-news-empty" data-nosnippet>
             <p class="airis-module-empty__message airis-module-articles-news-empty__message">
-                <?php echo Text::_('TPL_AIRIS_MOD_ARTICLES_NEWS_NO_ITEMS'); ?>
+                <?= Text::_('TPL_AIRIS_MOD_ARTICLES_NEWS_NO_ITEMS'); ?>
             </p>
         </div>
 
