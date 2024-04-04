@@ -49,11 +49,10 @@ $sublayoutPrefix = pathinfo(__FILE__, PATHINFO_FILENAME) . '_';
 $joomlaApplication = Factory::getApplication();
 $joomlaSefEnabled = (bool) $joomlaApplication->getCfg('sef');
 
-// Respect the sitename in <title> setting of Joomla!. Also apply custom separator.
-$joomlaDocument = Factory::getDocument();
-$joomlaSitenamePagetitlesMode = (int) $joomlaApplication->getCfg('sitename_pagetitles');
+// Respect the "Site Name in Page Titles" setting of Joomla!. Also apply custom separator.
+$joomlaSitenamePagetitlesMode = (int) $joomlaApplication->getCfg('sitename_pagetitles', 0);
 
-if ($joomlaSitenamePagetitlesMode) {
+if ($joomlaSitenamePagetitlesMode !== 0) {
     $joomlaSitename = $joomlaApplication->getCfg('sitename');
     $virtuemartCategoryPagetitle = $this->category->virtuemart_category_id ? vmText::_($this->category->category_name) : $joomlaDocument->title;
     $virtuemartPagetitleFormat = Text::_('TPL_AIRIS_COM_VIRTUEMART_JPAGETITLE');
@@ -183,11 +182,19 @@ if (vRequest::getInt('dynamic', 0) && vRequest::getInt('virtuemart_product_id', 
                 <div class="virtuemart-search-form-elements category-view-search-form-elements">
 
                     <div class="virtuemart-search-form-element virtuemart-search-form-element-container-keyword category-view-search-form-element category-view-search-form-element-container-keyword">
-                        <input type="text" name="keyword" value="<?php echo $this->keyword; ?>" placeholder="<?php echo vmText::_('COM_VIRTUEMART_SEARCH'); ?>" class="virtuemart-search-form-elements-input-text category-view-search-form-elements-input-text">
+                        <?php
+                            // Mark the main form input required if there are no searchable custom fields alongside of it
+                            $keywordInputExtraAttributes = '';
+
+                            if (isset($this->searchCustomList) === false) {
+                                $keywordInputExtraAttributes .= ' required';
+                            }
+                        ?>
+                        <input type="text" name="keyword" value="<?php echo $this->keyword; ?>" placeholder="<?php echo vmText::_('COM_VIRTUEMART_SEARCH'); ?>" class="virtuemart-search-form-elements-input-text category-view-search-form-elements-input-text"<?= $keywordInputExtraAttributes; ?>>
                     </div>
 
                     <div class="virtuemart-search-form-element virtuemart-search-form-element-container-submit category-view-search-form-element category-view-search-form-element-container-submit">
-                        <button class="virtuemart-search-form-elements-submit-button category-view-search-form-elements-submit-button btn" title="<?php echo vmText::_('COM_VIRTUEMART_SEARCH'); ?>">
+                        <button type="submit" class="virtuemart-search-form-elements-submit-button category-view-search-form-elements-submit-button btn" title="<?php echo vmText::_('COM_VIRTUEMART_SEARCH'); ?>">
                             <?php echo vmText::_('COM_VIRTUEMART_SEARCH'); ?>
                         </button>
                     </div>
