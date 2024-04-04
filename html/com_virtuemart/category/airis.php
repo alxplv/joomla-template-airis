@@ -186,7 +186,11 @@ if (vRequest::getInt('dynamic', 0) && vRequest::getInt('virtuemart_product_id', 
                             // Mark the main form input required if there are no searchable custom fields alongside of it
                             $keywordInputExtraAttributes = '';
 
-                            if (isset($this->searchCustomList) === false) {
+                            if (
+                                isset($this->searchCustomList) === false
+                                || is_countable($this->searchCustomList) === false
+                                || count($this->searchCustomList) === 0
+                            ) {
                                 $keywordInputExtraAttributes .= ' required';
                             }
                         ?>
