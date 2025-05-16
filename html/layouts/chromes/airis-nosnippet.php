@@ -8,7 +8,7 @@ defined('_JEXEC') or exit;
 // use Joomla\CMS\Layout\LayoutHelper;
 
 // Simple guard statement
-if (!isset($displayData['params'])) {
+if (isset($displayData['params']) === false) {
     return;
 }
 
@@ -22,7 +22,7 @@ $noSnippetAllowedTags = [
     /* 'span', // Not used by Joomla! as a module container tag option */
 ];
 
-if (in_array($moduleContainerElement, $noSnippetAllowedTags)) {
+if (in_array($moduleContainerElement, $noSnippetAllowedTags, true) === true) {
     $displayData['params']->set('airisChromeUseNoSnippetAttribute', true);
 }
 
