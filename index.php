@@ -426,6 +426,11 @@ if ($this->params->get('useUserJsFile')) {
 Text::script('TPL_AIRIS_MAIN_MENU_CHILD_MENU_TOGGLE_BTN_TITLE');
 
 final class AirisTemplate {
+    // Module template constants
+    public const ITEMS_PER_ROW_DEFAULT = 3;
+    public const ITEMS_PER_ROW_MIN = 1;
+    public const ITEMS_PER_ROW_MAX = 6;
+
     // The total amount of module positions per group is always based on a number of declared positions in templateDetails.xml
     private static array $modulePositionPerGroupCounts = [
         // TODO: Hopefully, PHP introduces static constructors or something similar so we can use these lines with having to create unnecessary field initialization methods and similar workarounds
