@@ -425,69 +425,99 @@ if ($this->params->get('useUserJsFile')) {
 // Language strings for template's JS files.
 Text::script('TPL_AIRIS_MAIN_MENU_CHILD_MENU_TOGGLE_BTN_TITLE');
 
-// Module position rendering settings used for rendering occupied module positions with a single function call
-$modulePositionGroups = [
-    'header' => [
-        'hasModules' => false,
-        'positionNamePrefix' => 'header',
-        'positionsTotal' => 6, // totalPositions is always based on a number of declared positions in templateDetails.xml
-    ],
-    'footer' => [
-        'hasModules' => false,
-        'positionNamePrefix' => 'footer',
-        'positionsTotal' => 6,
-    ],
-    'before' => [
-        'hasModules' => false,
-        'positionNamePrefix' => 'before',
-        'positionsTotal' => 10,
-    ],
-    'after' => [
-        'hasModules' => false,
-        'positionNamePrefix' => 'after',
-        'positionsTotal' => 10,
-    ],
-    'off-screen' => [
-        'hasModules' => false,
-        'positionNamePrefix' => 'off-screen',
-        'positionsTotal' => 3,
-    ],
-];
+final class AirisTemplate {
+    // The total amount of module positions per group is always based on a number of declared positions in templateDetails.xml
+    private static array $modulePositionPerGroupCounts = [
+        // TODO: Hopefully, PHP introduces static constructors or something similar so we can use these lines with having to create unnecessary field initialization methods and similar workarounds
+        // AirisTemplateModulePositionGroups::Header->value => 6,
+        // AirisTemplateModulePositionGroups::Footer->value => 6,
+        // AirisTemplateModulePositionGroups::Before->value => 10,
+        // AirisTemplateModulePositionGroups::After->value => 10,
+        // AirisTemplateModulePositionGroups::OffScreen => 3,
+        'header' => 6,
+        'footer' => 6,
+        'before' => 10,
+        'after' => 10,
+        'off-screen' => 3,
+    ];
 
-// Mark non-empty module positon groups for rendering
-foreach ($modulePositionGroups as &$modulePositionGroup) {
-    for ($i = 1; $i <= $modulePositionGroup['positionsTotal']; $i++) {
-        if ($this->countModules("{$modulePositionGroup['positionNamePrefix']}-$i")) {
-            $modulePositionGroup['hasModules'] = true;
-            break;
+    // Alternative to moduleGroupHasModules()
+    public static function countModulesInGroup(
+        AirisTemplateModulePositionGroups $modulePositionGroup,
+        Document $documentInstance,
+    ): int {
+        $activeModulesInGroupCount = 0;
+
+        for (
+            $currentInGroupPosition = 1;
+            $currentInGroupPosition <= self::$modulePositionInGroupCounts[$modulePositionGroup->value];
+            $currentInGroupPosition++
+        ) {
+            if ($documentInstance->countModules("{$modulePositionGroup->value}-$currentInGroupPosition")) {
+                $activeModulesInGroupCount++;
+            }
         }
+
+        return $activeModulesInGroupCount;
+    }
+
+    public static function moduleGroupHasModules(
+        AirisTemplateModulePositionGroups $modulePositionGroup,
+        Document $documentInstance,
+    ): bool {
+        $activeModulesPerGroupCount = false;
+
+        for (
+            $currentInGroupPosition = 1;
+            $currentInGroupPosition <= self::$modulePositionPerGroupCounts[$modulePositionGroup->value];
+            $currentInGroupPosition++
+        ) {
+            if ($documentInstance->countModules("{$modulePositionGroup->value}-$currentInGroupPosition")) {
+                $activeModulesPerGroupCount = true;
+                break;
+            }
+        }
+
+        return $activeModulesPerGroupCount;
+    }
+
+    public static function getModulePositionGroupHtml(
+        AirisTemplateModulePositionGroups $modulePositionGroup,
+        Document $documentInstance,
+        ): string {
+        $moduleGroupHtml = '';
+
+        for (
+            $currentInGroupPosition = 1;
+            $currentInGroupPosition <= self::$modulePositionPerGroupCounts[$modulePositionGroup->value];
+            $currentInGroupPosition++
+        ) {
+            $modulePositionNameFull = "{$modulePositionGroup->value}-$currentInGroupPosition";
+
+            if ($documentInstance->countModules($modulePositionNameFull)) {
+                // The 'airis-asides-none' class is used by all module positions outside of <main></main> since there can be no asides and many template.css styles rely on these classes
+                $moduleGroupHtml .= join(
+                    [
+                        "<div class=\"airis-module-position-$modulePositionNameFull airis-module-position-{$modulePositionGroup->value} airis-module-position\">",
+                        '<div class="airis-module-container airis-container container airis-asides-none">',
+                        "<jdoc:include type=\"modules\" name=\"$modulePositionNameFull\" style=\"airis\" />",
+                        '</div>',
+                        '</div>',
+                    ],
+                );
+            }
+        }
+
+        return $moduleGroupHtml;
     }
 }
 
-function renderModulePositionGroup(array $groupSettings, Document $currentDocument): string
-{
-    // Contains HTML for every non-empty module position of its group
-    $groupHtml = '';
-
-    for ($i = 1; $i <= $groupSettings['positionsTotal']; $i++) {
-        $modulePositionName = $groupSettings['positionNamePrefix'];
-        $modulePositionNameWithNumber = "$modulePositionName-$i";
-
-        if ($currentDocument->countModules($modulePositionNameWithNumber)) {
-            // The 'airis-asides-none' class is used by all module positions outside of <main></main> since there can be no asides and many template.css styles rely on these classes
-            $groupHtml .= join(
-                [
-                    "<div class=\"airis-module-position-$modulePositionNameWithNumber airis-module-position-$modulePositionName airis-module-position\">",
-                    '<div class="airis-module-container airis-container container airis-asides-none">',
-                    "<jdoc:include type=\"modules\" name=\"$modulePositionNameWithNumber\" style=\"airis\" />",
-                    '</div>',
-                    '</div>',
-                ],
-            );
-        }
-    }
-
-    return $groupHtml;
+enum AirisTemplateModulePositionGroups: string {
+    case Header = 'header';
+    case Footer = 'footer';
+    case Before = 'before';
+    case After = 'after';
+    case OffScreen = 'off-screen';
 }
 
 ?>
@@ -537,9 +567,9 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
         <body class="airis-page airis-page_template_index">
     <?php endif; ?>
 
-        <?php if ($modulePositionGroups['header']['hasModules']) : ?>
+        <?php if (AirisTemplate::moduleGroupHasModules(AirisTemplateModulePositionGroups::Header, $currentDocument)) : ?>
             <header>
-                <?= renderModulePositionGroup($modulePositionGroups['header'], $currentDocument); ?>
+                <?= AirisTemplate::getModulePositionGroupHtml(AirisTemplateModulePositionGroups::Header, $currentDocument); ?>
             </header>
         <?php endif; ?>
 
@@ -549,7 +579,7 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
             </div>
         </div>
 
-        <?= renderModulePositionGroup($modulePositionGroups['before'], $currentDocument); ?>
+        <?= AirisTemplate::getModulePositionGroupHtml(AirisTemplateModulePositionGroups::Before, $currentDocument); ?>
 
         <?php if ($componentEnabled) : ?>
             <div class="airis-area-component">
@@ -589,20 +619,20 @@ function renderModulePositionGroup(array $groupSettings, Document $currentDocume
             </div>
         <?php endif; ?>
 
-        <?= renderModulePositionGroup($modulePositionGroups['after'], $currentDocument); ?>
+        <?= AirisTemplate::getModulePositionGroupHtml(AirisTemplateModulePositionGroups::After, $currentDocument); ?>
 
-        <?php if ($modulePositionGroups['footer']['hasModules']) : ?>
+        <?php if (AirisTemplate::moduleGroupHasModules(AirisTemplateModulePositionGroups::Footer, $currentDocument)) : ?>
             <footer>
-                <?= renderModulePositionGroup($modulePositionGroups['footer'], $currentDocument); ?>
+                <?= AirisTemplate::getModulePositionGroupHtml(AirisTemplateModulePositionGroups::Footer, $currentDocument); ?>
             </footer>
         <?php endif; ?>
 
-        <?php if (isset($bootstrapToastsEnabled)) : ?>
+        <?php if (isset($bootstrapToastsEnabled) && $bootstrapToastsEnabled === true) : ?>
             <div class="airis-area-toasts toast-container fixed-bottom ms-auto" aria-live="assertive"></div>
         <?php endif; ?>
 
-        <?php if ($modulePositionGroups['off-screen']['hasModules']) : ?>
-            <?= renderModulePositionGroup($modulePositionGroups['off-screen']), $currentDocument; ?>
+        <?php if (AirisTemplate::moduleGroupHasModules(AirisTemplateModulePositionGroups::OffScreen, $currentDocument)) : ?>
+            <?= AirisTemplate::getModulePositionGroupHtml(AirisTemplateModulePositionGroups::OffScreen, $currentDocument); ?>
         <?php endif; ?>
 
         <?php if ($this->countModules('debug')) : ?>
