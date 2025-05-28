@@ -7,25 +7,19 @@ defined('_JEXEC') or exit;
 use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\CMS\Language\Text;
 
-// TODO: Check if these can be defined by template globally
-// Container items per row settings
-defined('TPL_AIRIS_ITEMS_PER_ROW_MIN') or define('TPL_AIRIS_ITEMS_PER_ROW_MIN', 1);
-defined('TPL_AIRIS_ITEMS_PER_ROW_MAX') or define('TPL_AIRIS_ITEMS_PER_ROW_MAX', 6);
-defined('TPL_AIRIS_ITEMS_PER_ROW_DEFAULT') or define('TPL_AIRIS_ITEMS_PER_ROW_DEFAULT', 3);
-
 $itemsTotal = 0;
 
 // Check if this module has any items suitable for display
-if (isset($list) && is_countable($list)) {
+if (isset($list) === true && is_countable($list) === true) {
     $itemsTotal = count($list);
 }
 
-if ($itemsTotal) {
+if ($itemsTotal !== 0) {
     // Module sublayout file for each Joomla! item
     $moduleSublayoutFileName = ModuleHelper::getLayoutPath('mod_articles_news', pathinfo(__FILE__, PATHINFO_FILENAME) . '_item');
 
     // Apply required CSS class to each list item for a proper single-row flex display
-    $itemsPerRow = $params->get('count', TPL_AIRIS_ITEMS_PER_ROW_DEFAULT);
+    $itemsPerRow = $params->get('count', AirisTemplate::ITEMS_PER_ROW_DEFAULT);
 
     $itemsContainerDisplayModeClass = 'airis-block-items';
     $itemDisplayModeClass = 'airis-block-item';
@@ -36,11 +30,11 @@ if ($itemsTotal) {
     $itemsPerRowAllowedNumerals = [2 => 'two', 'three', 'four', 'five', 'six'];
 
     // Ignore unacceptable integers
-/*     if (!in_array($itemsPerRow, $itemsPerRowAllowedDigits)) {
-        $itemsPerRow = TPL_AIRIS_ITEMS_PER_ROW_DEFAULT;
+/*     if (in_array($itemsPerRow, $itemsPerRowAllowedDigits, true) === false) {
+        $itemsPerRow = AirisTemplate::ITEMS_PER_ROW_DEFAULT;
     } */
-    if ($itemsPerRow < TPL_AIRIS_ITEMS_PER_ROW_MIN || $itemsPerRow > TPL_AIRIS_ITEMS_PER_ROW_MAX) {
-        $itemsPerRow = TPL_AIRIS_ITEMS_PER_ROW_DEFAULT;
+    if ($itemsPerRow < AirisTemplate::ITEMS_PER_ROW_MIN || $itemsPerRow > AirisTemplate::ITEMS_PER_ROW_MAX) {
+        $itemsPerRow = AirisTemplate::ITEMS_PER_ROW_DEFAULT;
     }
 
     // Reduce the number of items per row to avoid having empty slots
@@ -49,7 +43,7 @@ if ($itemsTotal) {
     }
 
     // Finally select classes for container and its items
-    if ($itemsPerRow !== TPL_AIRIS_ITEMS_PER_ROW_MIN) {
+    if ($itemsPerRow !== AirisTemplate::ITEMS_PER_ROW_MIN) {
         $itemsContainerDisplayModeClass = 'airis-flex-item-rows';
         $itemDisplayModeClass = "airis-flex-item-per-row-$itemsPerRowAllowedNumerals[$itemsPerRow]";
     }
@@ -61,7 +55,7 @@ if ($itemsTotal) {
 
 <div class="airis-module-articles-news">
 
-    <?php if ($itemsTotal) : ?>
+    <?php if ($itemsTotal !== 0) : ?>
 
         <ul class="airis-module-articles-news__list <?= $itemsContainerDisplayModeClass; ?> list-unstyled">
             <?php
