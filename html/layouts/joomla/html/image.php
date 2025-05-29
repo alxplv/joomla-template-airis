@@ -92,9 +92,9 @@ if (isset($displayData['loading']) === false) {
 
 /* $supportedPictureElementSourceTypeExtensions = [
 	'avif',
-	'heic',
+	'heic', // Heif & Heic are unsupported by the Image class as of Joomla! 5.3
 	'heif',
-	'webp', // As of Joomla! 5.0, only this format is supported by the Image class
+	'webp',
 ]; */
 
 // Should probably just try to pass each file variant path to Image class contrutor or find a Joomla!'s proper equivalent of file_exists();
