@@ -12,10 +12,10 @@ $moduleSublayoutFileName = ModuleHelper::getLayoutPath('mod_articles_news', path
 
 ?>
 
-<div class="airis-module-partners<?php echo htmlspecialchars(rtrim($moduleclass_sfx), ENT_QUOTES, 'UTF-8'); ?>">
+<div class="airis-module-partners">
 
     <?php // TODO: Replace is_array() && instanceof Countable by is_countable() once we're on Joomla! 5+ ?>
-    <?php if (isset($list) && is_array($list) && $list instanceof Countable && count($list)) : ?>
+    <?php if (isset($list) && is_countable($list) && count($list) !== 0) : ?>
 
         <ul class="airis-module-partners__list list-unstyled">
             <?php
@@ -29,7 +29,7 @@ $moduleSublayoutFileName = ModuleHelper::getLayoutPath('mod_articles_news', path
 
         <div class="airis-module-empty airis-module-articles-news-empty airis-module-articles-news-partners-empty" data-nosnippet>
             <p class="airis-module-empty-message airis-module-articles-news-empty-message airis-module-articles-news-partners-empty-message">
-                <?php echo Text::_('TPL_AIRIS_MOD_ARTICLES_NEWS_PARTNERS_NO_ITEMS'); ?>
+                <?= Text::_('TPL_AIRIS_MOD_ARTICLES_NEWS_PARTNERS_NO_ITEMS'); ?>
             </p>
         </div>
 
