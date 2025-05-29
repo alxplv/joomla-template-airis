@@ -22,6 +22,10 @@ if ($params->get('img_intro_full') !== 'none' && isset($item->imageSrc) && $item
     // Use item title as item image alt if there was no alt value set for it
     if (isset($item->imageAlt) && $item->imageAlt !== '') {
         $item->imageAlt = htmlspecialchars(trim($item->imageAlt), ENT_QUOTES, 'UTF-8');
+
+        if ($item->imageAlt === '') {
+            $item->imageAlt = $item->title;
+        }
     } else {
         $item->imageAlt = $item->title;
     }
