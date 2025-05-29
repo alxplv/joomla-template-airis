@@ -107,7 +107,7 @@ if (isset($displayData['loading']) === false) {
 ?>
 
 <picture>
-	<?php if (count($pictureHtmlElementSources)) : ?>
+	<?php if (count($pictureHtmlElementSources) !== 0) : ?>
 
 	<?php endif; ?>
 
