@@ -55,9 +55,8 @@ if ((!$this->params->get('useJquery') || !$this->params->get('useJqueryNoconflic
 if ($this->params->get('useBootstrap') && $webAssets->assetExists('style', 'bootstrap.css')) {
     $webAssets->useStyle('bootstrap.css');
 
-    // Joomla! Bootstrap JavaScript for BS Components
-    if ($this->params->get('useBootstrapJs') && $webAssets->assetExists('script', 'bootstrap.es5')) {
-        $webAssets->useScript('bootstrap.es5');
+    // Joomla! Bootstrap JS Components
+    if ($this->params->get('useBootstrapJs')) {
 
         // Bootstrap Component Toasts
         if ($this->params->get('useBootstrapJsComponentToasts') && $webAssets->assetExists('script', 'bootstrap.toast')) {
@@ -70,7 +69,7 @@ if ($this->params->get('useBootstrap') && $webAssets->assetExists('style', 'boot
         to hide options for individual component JS libraries in templateDetails.xml if 'useBootstrapJs' option
         that bundles all of them is already enabled. */
 
-        /* For some reason, currently all individual Bootstrap JS component web assets list 'bootstrap.es5' as their
+        /* [This seems to have been fixed in Joomla! 6] For some reason, currently all individual Bootstrap JS component web assets list 'bootstrap.es5' as their
         dependency which is wrong since both the whole bundle and the individual .js file will be
         included at the same time. So pointless for us to implement individual template options for each BS JS complonent
         until Joomla! gets its media/vendor/joomla.asset.json file fixed. Another way is to override the 'bootstrap.es5' Web Asset with
@@ -238,8 +237,7 @@ if ($this->params->get('useVirtuemartCssAndJsFiles')) {
 
         // Use Bootstrap Toasts components as cart notifications
         if (
-            $webAssets->isAssetActive('script', 'bootstrap.es5')
-            && $webAssets->isAssetActive('script', 'bootstrap.toast')
+            $webAssets->isAssetActive('script', 'bootstrap.toast')
             && $this->params->get('useBootstrapToastsAsVirtuemartCartNotifications')
         ) {
             $this->addScriptOptions(
