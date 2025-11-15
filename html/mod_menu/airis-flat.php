@@ -38,7 +38,7 @@ $usableLinkAttributes = [
             // Remove menu items types not suitable for a flat link list output
             if ($menuItemsTotal) {
                 for ($i = 0; $i < $menuItemsTotal; $i++) {
-                    if (!in_array($list[$i]->type, $allowedItemTypes)) {
+                    if (in_array($list[$i]->type, $allowedItemTypes, true) === false) {
                         unset($list[$i]);
                     }
                 }
