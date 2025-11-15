@@ -69,6 +69,7 @@ $collapseId = "{$moduleClassPrefix}__collapse_id_" . md5($module->id . hrtime(tr
 $allowedMenuItemTypes = [
     'alias',
     'component',
+    'heading',
     'url',
 ];
 
@@ -108,7 +109,7 @@ $allowedMenuItemTypes = [
 
                     <?php
                         // TODO: Add support of all the rest menu item types
-                        if (!in_array($menuItem->type, $allowedMenuItemTypes)) {
+                        if (in_array($menuItem->type, $allowedMenuItemTypes, true) === false) {
                             continue;
                         }
 
@@ -132,7 +133,7 @@ $allowedMenuItemTypes = [
                         }
 
                         // Icon takes priorty over image as hinted in the Joomla!'s com_menus item edit layout
-                        if ($menuItemIconClass) {
+                        if ($menuItemIconClass !== '') {
                             $menuItemIconClasses = "{$moduleClassPrefix}__icon {$moduleClassPrefix}__icon_level_$menuItemLevelValue {$moduleClassPrefix}__icon$BemModificatorMenuType";
 
                             if ($menuItem->level > $menuLevelStart) {
@@ -144,7 +145,7 @@ $allowedMenuItemTypes = [
                             }
 
                             $menuItemText = "<span class=\"$menuItemIconClasses $menuItemIconClass\" aria-hidden=\"true\"></span>$menuItemText";
-                        } elseif ($menuItemImageSrc) {
+                        } elseif ($menuItemImageSrc !== '') {
                             $menuItemImageAttributes = [
                                 'class' => "{$moduleClassPrefix}__image {$moduleClassPrefix}__image_level_$menuItemLevelValue {$moduleClassPrefix}__image$BemModificatorMenuType",
                             ];
@@ -176,11 +177,10 @@ $allowedMenuItemTypes = [
                             $menuListItemClasses .= " {$moduleClassPrefix}__item_dropdown";
                         }
 
-                        // TODO: Replace is_array() && instanceof Countable with is_countable() once we're on PHP 7.3+ for good
-                        if (isset($path) && is_array($path) && $path instanceof Countable) {
+                        if (isset($path) && is_countable($path) === true) {
                             $menuItemParentItemsCount = count($path);
 
-                            if ($menuItemParentItemsCount !== 0 && in_array($menuItem->id, $path)) {
+                            if ($menuItemParentItemsCount !== 0 && in_array($menuItem->id, $path, true) === true) {
                                 $menuItemAttributes['class'] .= " {$moduleClassPrefix}__link_active";
                                 $menuListItemClasses .= " {$moduleClassPrefix}__item_active";
                             } elseif ($menuItem->type === 'alias') {
@@ -190,13 +190,16 @@ $allowedMenuItemTypes = [
                                 if ($menuItemParentItemsCount !== 0 && $aliasMenuItemTargetId === $path[$menuItemParentItemsCount - 1]) {
                                     $menuItemAttributes['class'] .= " {$moduleClassPrefix}__link_active";
                                     $menuListItemClasses .= " {$moduleClassPrefix}__item_active";
-                                } elseif (in_array($aliasMenuItemTargetId, $path)) {
+                                } elseif (in_array($aliasMenuItemTargetId, $path, true) === true) {
                                     $menuListItemClasses .= " {$moduleClassPrefix}__item_type_{$menuItem->type}_has-active-parent";
                                 }
                             }
                         }
 
-                        if ($menuItem->id === $active_id || ($menuItem->type === 'alias' && $menuItemParams->get('aliasoptions') === $active_id)) {
+                        if (
+                            $menuItem->id === $active_id
+                            || ($menuItem->type === 'alias' && $menuItemParams->get('aliasoptions') === $active_id)
+                        ) {
                             $menuItemAttributes['aria-current'] = 'page';
                             $menuItemAttributes['class'] .= " {$moduleClassPrefix}__link_current";
                             $menuListItemClasses .= " {$moduleClassPrefix}__item_current";
@@ -228,13 +231,34 @@ $allowedMenuItemTypes = [
                                 // $menuItemHtml = "<hr class=\"dropdown-divider\">";
                                 // break;
                             case 'heading':
-                                $menuItemHtml = "<h6 class=\"{$moduleClassPrefix}__$menuItem->type dropdown-header\">$menuItemText</h6>";
+                                // All links below the start menu level should have an extra HTML class for proper BS Dropdown styling
+                                if ($menuItem->level > $menuLevelStart) {
+                                    $menuItemAttributes['class'] .= ' nav-link dropdown-item';
+                                } else {
+                                    $menuItemAttributes['class'] .= ' nav-link';
+                                }
+
+                                $menuItemAttributeClassCustom = htmlspecialchars(trim($menuItem->anchor_css), ENT_QUOTES, 'UTF-8');
+                                $menuItemAttributeTitle = htmlspecialchars(trim($menuItem->anchor_title), ENT_QUOTES, 'UTF-8');
+
+                                if ($menuItemAttributeClassCustom !== '') {
+                                    $menuItemAttributes['class'] .= " $menuItemAttributeClassCustom";
+                                }
+
+                                if ($menuItemAttributeTitle !== '') {
+                                    $menuItemAttributes['title'] = $menuItemAttributeTitle;
+                                }
+
+                                $menuItemHtml = HTMLHelper::link(
+                                    '#',
+                                    $menuItemText,
+                                    $menuItemAttributes,
+                                );
                                 break;
                             case 'url':
                                 // all the rest item types are a link
                                 // no break
                             default:
-                                // All links below the start menu level should have an extra HTML class for proper BS Dropdown styling
                                 if ($menuItem->level > $menuLevelStart) {
                                     $menuItemAttributes['class'] .= ' nav-link dropdown-item';
                                 } else {
@@ -308,19 +332,15 @@ $allowedMenuItemTypes = [
                         }
                     ?>
 
-                    <li class="<?php echo $menuListItemClasses; ?>">
+                    <li class="<?= $menuListItemClasses; ?>">
 
-                        <?php echo $menuItemHtml; ?>
+                        <?= $menuItemHtml; ?>
 
                         <?php if ($menuItem->deeper) : ?>
-                            <ul class="dropdown-menu <?php echo "{$moduleClassPrefix}__list {$moduleClassPrefix}__list_dropdown {$moduleClassPrefix}__list_level_$menuItemLevelValue"; ?>">
+                            <ul class="dropdown-menu <?= "{$moduleClassPrefix}__list {$moduleClassPrefix}__list_dropdown {$moduleClassPrefix}__list_level_$menuItemLevelValue"; ?>">
                         <?php elseif ($menuItem->shallower) : ?>
                             </li>
-                            <?php // echo str_repeat('</ul></li>', $menuItem->level_diff); ?>
-                            <?php for ($i = 1; $i < $menuItem->level_diff; $i++) : ?>
-                                    </ul>
-                                </li>
-                            <?php endfor; ?>
+                            <?= str_repeat('</ul></li>', $menuItem->level_diff); ?>
                         <?php else : ?>
                             </li>
                         <?php endif; ?>
