@@ -55,8 +55,24 @@ if ((!$this->params->get('useJquery') || !$this->params->get('useJqueryNoconflic
 }
 
 // Joomla! Bootstrap
+$bootstrapContainerWidthClass = '';
+
 if ($this->params->get('useBootstrap') && $webAssets->assetExists('style', 'bootstrap.css')) {
     $webAssets->useStyle('bootstrap.css');
+
+    switch ($this->params->get('defaultBootstrapContainerSize', 'default')) {
+        case 'xxl':
+            $bootstrapContainerWidthClass = 'container-xxl';
+            break;
+        case 'fluid':
+            $bootstrapContainerWidthClass = 'container-fluid';
+            break;
+        case 'default':
+            // a fall-through case
+        default:
+            $bootstrapContainerWidthClass = 'container';
+        break;
+    }
 
     // Joomla! Bootstrap JS Components
     if ($this->params->get('useBootstrapJs')) {
@@ -487,6 +503,7 @@ final class AirisTemplate {
     public static function getModulePositionGroupHtml(
         AirisTemplateModulePositionGroups $modulePositionGroup,
         Document $documentInstance,
+        string $bootstrapContainerClass,
         ): string {
         $moduleGroupHtml = '';
 
@@ -496,13 +513,15 @@ final class AirisTemplate {
             $currentInGroupPosition++
         ) {
             $modulePositionNameFull = "{$modulePositionGroup->value}-$currentInGroupPosition";
+            // TODO: Add support for overriding the default Bootstrap Container class to Fluid for select positions via template options (a list of comma-separated values for instance)
+            $modulePositionBootstrapContainerWidthClass = $bootstrapContainerClass;
 
             if ($documentInstance->countModules($modulePositionNameFull)) {
                 // The 'airis-asides-none' class is used by all module positions outside of <main></main> since there can be no asides and many template.css styles rely on these classes
                 $moduleGroupHtml .= join(
                     [
                         "<div class=\"airis-module-position-$modulePositionNameFull airis-module-position-{$modulePositionGroup->value} airis-module-position\">",
-                        '<div class="airis-module-container airis-container container airis-asides-none">',
+                        "<div class=\"airis-module-container airis-container $modulePositionBootstrapContainerWidthClass airis-asides-none\">",
                         "<jdoc:include type=\"modules\" name=\"$modulePositionNameFull\" style=\"airis\" />",
                         '</div>',
                         '</div>',
@@ -532,7 +551,7 @@ enum AirisTemplateModulePositionGroups: string {
         <script>
             function onDOMContentLoaded(handler) {
                 if (typeof handler !== "function") {
-                    console.log("The provided handler is not a function.");
+                    console.error("The provided handler is not a function.");
                     return;
                 }
 
@@ -572,21 +591,21 @@ enum AirisTemplateModulePositionGroups: string {
 
         <?php if (AirisTemplate::moduleGroupHasModules(AirisTemplateModulePositionGroups::Header, $currentDocument)) : ?>
             <header>
-                <?= AirisTemplate::getModulePositionGroupHtml(AirisTemplateModulePositionGroups::Header, $currentDocument); ?>
+                <?= AirisTemplate::getModulePositionGroupHtml(AirisTemplateModulePositionGroups::Header, $currentDocument, $bootstrapContainerWidthClass); ?>
             </header>
         <?php endif; ?>
 
         <div class="airis-area-message" data-nosnippet>
-            <div class="airis-area-container airis-container container">
+            <div class="airis-area-container airis-container <?= $bootstrapContainerWidthClass; ?>">
                 <jdoc:include type="message" />
             </div>
         </div>
 
-        <?= AirisTemplate::getModulePositionGroupHtml(AirisTemplateModulePositionGroups::Before, $currentDocument); ?>
+        <?= AirisTemplate::getModulePositionGroupHtml(AirisTemplateModulePositionGroups::Before, $currentDocument, $bootstrapContainerWidthClass); ?>
 
         <?php if ($componentEnabled) : ?>
             <div class="airis-area-component">
-                <div class="airis-container container <?= $componentAreaAdditionalClasses; ?>">
+                <div class="airis-container <?= $bootstrapContainerWidthClass, ' ', $componentAreaAdditionalClasses; ?>">
 
                     <?php if ($asideLeftHasModules) : ?>
                         <aside class="airis-module-position-aside-left airis-module-position-aside airis-module-position airis-aside-left airis-aside">
@@ -622,11 +641,11 @@ enum AirisTemplateModulePositionGroups: string {
             </div>
         <?php endif; ?>
 
-        <?= AirisTemplate::getModulePositionGroupHtml(AirisTemplateModulePositionGroups::After, $currentDocument); ?>
+        <?= AirisTemplate::getModulePositionGroupHtml(AirisTemplateModulePositionGroups::After, $currentDocument, $bootstrapContainerWidthClass); ?>
 
         <?php if (AirisTemplate::moduleGroupHasModules(AirisTemplateModulePositionGroups::Footer, $currentDocument)) : ?>
             <footer>
-                <?= AirisTemplate::getModulePositionGroupHtml(AirisTemplateModulePositionGroups::Footer, $currentDocument); ?>
+                <?= AirisTemplate::getModulePositionGroupHtml(AirisTemplateModulePositionGroups::Footer, $currentDocument, $bootstrapContainerWidthClass); ?>
             </footer>
         <?php endif; ?>
 
@@ -635,12 +654,12 @@ enum AirisTemplateModulePositionGroups: string {
         <?php endif; ?>
 
         <?php if (AirisTemplate::moduleGroupHasModules(AirisTemplateModulePositionGroups::OffScreen, $currentDocument)) : ?>
-            <?= AirisTemplate::getModulePositionGroupHtml(AirisTemplateModulePositionGroups::OffScreen, $currentDocument); ?>
+            <?= AirisTemplate::getModulePositionGroupHtml(AirisTemplateModulePositionGroups::OffScreen, $currentDocument, $bootstrapContainerWidthClass); ?>
         <?php endif; ?>
 
         <?php if ($this->countModules('debug')) : ?>
             <div class="airis-module-position-debug">
-                <div class="airis-module-container airis-container container airis-asides-none">
+                <div class="airis-module-container airis-container <?= $bootstrapContainerWidthClass; ?> airis-asides-none">
                     <jdoc:include type="modules" name="debug" />
                 </div>
             </div>

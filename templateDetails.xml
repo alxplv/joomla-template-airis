@@ -141,6 +141,19 @@
 					<option value="1">JYES</option>
 				</field>
 				<field
+					name="defaultBootstrapContainerSize"
+					type="radio"
+					label="TPL_AIRIS_CONFIG_DEFAULT_BOOTSTRAP_CONTAINER_WIDTH"
+					description="TPL_AIRIS_CONFIG_DEFAULT_BOOTSTRAP_CONTAINER_WIDTH_DESCRIPTION"
+					class="btn-group btn-group-yesno"
+					default="default"
+					showon="useBootstrap:1"
+				>
+					<option value="default">JDEFAULT</option>
+					<option value="xxl">TPL_AIRIS_CONFIG_DEFAULT_BOOTSTRAP_CONTAINER_WIDTH_OPTION_XXL</option>
+					<option value="fluid">TPL_AIRIS_CONFIG_DEFAULT_BOOTSTRAP_CONTAINER_WIDTH_OPTION_FLUID</option>
+				</field>
+				<field
 					name="useBootstrapJs"
 					type="radio"
 					label="TPL_AIRIS_CONFIG_USE_BOOTSTRAP_JS"

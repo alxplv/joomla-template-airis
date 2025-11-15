@@ -52,8 +52,24 @@ if ((!$this->params->get('useJquery') || !$this->params->get('useJqueryNoconflic
 }
 
 // Joomla! Bootstrap
+$bootstrapContainerWidthClass = '';
+
 if ($this->params->get('useBootstrap') && $webAssets->assetExists('style', 'bootstrap.css')) {
     $webAssets->useStyle('bootstrap.css');
+
+    switch ($this->params->get('defaultBootstrapContainerSize', 'default')) {
+        case 'xxl':
+            $bootstrapContainerWidthClass = 'container-xxl';
+            break;
+        case 'fluid':
+            $bootstrapContainerWidthClass = 'container-fluid';
+            break;
+        case 'default':
+            // a fall-through case
+        default:
+            $bootstrapContainerWidthClass = 'container';
+        break;
+    }
 
     // Joomla! Bootstrap JS Components
     if ($this->params->get('useBootstrapJs')) {
@@ -360,7 +376,7 @@ Text::script('TPL_AIRIS_MAIN_MENU_CHILD_MENU_TOGGLE_BTN_TITLE');
         <script>
             function onDOMContentLoaded(handler) {
                 if (typeof handler !== "function") {
-                    console.log("The provided handler is not a function.");
+                    console.error("The provided handler is not a function.");
                     return;
                 }
 
@@ -395,7 +411,7 @@ Text::script('TPL_AIRIS_MAIN_MENU_CHILD_MENU_TOGGLE_BTN_TITLE');
     <body class="airis-page airis-page_template_component airis-asides-none">
 
         <div class="airis-area-message" data-nosnippet>
-            <div class="airis-area-container airis-container container">
+            <div class="airis-area-container airis-container <?= $bootstrapContainerWidthClass; ?>">
                 <jdoc:include type="message" />
             </div>
         </div>
@@ -410,7 +426,7 @@ Text::script('TPL_AIRIS_MAIN_MENU_CHILD_MENU_TOGGLE_BTN_TITLE');
 
         <?php if ($this->countModules('debug')) : ?>
             <div class="airis-module-position-debug">
-                <div class="airis-module-container airis-container container airis-asides-none">
+                <div class="airis-module-container airis-container <?= $bootstrapContainerWidthClass; ?> airis-asides-none">
                     <jdoc:include type="modules" name="debug" />
                 </div>
             </div>
