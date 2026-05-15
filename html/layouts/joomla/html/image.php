@@ -20,7 +20,7 @@ $pictureHtmlElementSources = [];
 // TODO: Include additonal sources from found modern image format files of the same name as the passed one
 // TODO: Test compatibility of used JS carousel libraries with <picture> tag
 
-// Remove extra substring Joomla's media manager which can be harmful to SEO
+// Remove extra substring from Joomla's media manager which can be harmful to SEO
 $displayData['src'] = $this->escape(
 	HTMLHelper::cleanImageURL($displayData['src'])->url,
 );
