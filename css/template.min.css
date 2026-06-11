@@ -1409,3 +1409,7 @@ td {
     max-width: 48rem;
     padding: 2rem 1rem 1rem 1rem;
 }
+
+.airis-lightbox-iframe .fancybox-content {
+    max-height: 100%; /* Keep modal within the screen boundaries. */
+}
